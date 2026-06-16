@@ -32,7 +32,7 @@
 
 <h2 id="pt-a11y-heading" style="text-align: center; margin: 0 0 8px; font-size: 1.5rem; font-family: Segoe UI, Arial, sans-serif">Accessible Periodic Table of the Elements</h2>
 
-<p id="pt-a11y-intro" style="text-align: center; margin: 0 auto 20px; max-width: 760px; font-size: 0.95rem; color: #444">Each tile is a button. Use Tab to move between elements. Screen reader users can browse the full element list in the reference table below.</p>
+<p id="pt-a11y-intro" style="text-align: center; margin: 0 auto 20px; max-width: 760px; font-size: 0.95rem; color: #444">Each tile is a button. Use Tab to move between elements. Group numbers 1 through 18 are shown above the table. Screen reader users can browse the full element list in the reference table below.</p>
 
 <h3 style="font-size: 1rem; margin: 0 0 8px; font-family: Segoe UI, Arial, sans-serif">Element category legend</h3>
 <ul aria-label="Element categories by color" style="margin: 0 0 16px; padding: 0; list-style: none; text-align: center; font-size: 0.85rem">
@@ -50,714 +50,715 @@
 
 <h3 style="font-size: 1rem; margin: 0 0 8px; font-family: Segoe UI, Arial, sans-serif">Periodic table layout</h3>
 <div role="group" aria-describedby="pt-a11y-intro" style="display: grid; grid-template-columns: repeat(18, minmax(44px, 1fr)); gap: 4px; padding: 16px 8px; margin-bottom: 28px; max-width: 100%; overflow-x: auto">
-<button type="button" aria-label="Hydrogen, symbol H, atomic number 1, atomic mass 1.008, group 1, Nonmetal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #c8f7d8; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2; grid-column: 1">
+<div aria-hidden="true" style="text-align: center; font-weight: 700; font-size: 0.78rem; color: #444; padding: 4px 0 2px; pointer-events: none">1</div><div aria-hidden="true" style="text-align: center; font-weight: 700; font-size: 0.78rem; color: #444; padding: 4px 0 2px; pointer-events: none">2</div><div aria-hidden="true" style="text-align: center; font-weight: 700; font-size: 0.78rem; color: #444; padding: 4px 0 2px; pointer-events: none">3</div><div aria-hidden="true" style="text-align: center; font-weight: 700; font-size: 0.78rem; color: #444; padding: 4px 0 2px; pointer-events: none">4</div><div aria-hidden="true" style="text-align: center; font-weight: 700; font-size: 0.78rem; color: #444; padding: 4px 0 2px; pointer-events: none">5</div><div aria-hidden="true" style="text-align: center; font-weight: 700; font-size: 0.78rem; color: #444; padding: 4px 0 2px; pointer-events: none">6</div><div aria-hidden="true" style="text-align: center; font-weight: 700; font-size: 0.78rem; color: #444; padding: 4px 0 2px; pointer-events: none">7</div><div aria-hidden="true" style="text-align: center; font-weight: 700; font-size: 0.78rem; color: #444; padding: 4px 0 2px; pointer-events: none">8</div><div aria-hidden="true" style="text-align: center; font-weight: 700; font-size: 0.78rem; color: #444; padding: 4px 0 2px; pointer-events: none">9</div><div aria-hidden="true" style="text-align: center; font-weight: 700; font-size: 0.78rem; color: #444; padding: 4px 0 2px; pointer-events: none">10</div><div aria-hidden="true" style="text-align: center; font-weight: 700; font-size: 0.78rem; color: #444; padding: 4px 0 2px; pointer-events: none">11</div><div aria-hidden="true" style="text-align: center; font-weight: 700; font-size: 0.78rem; color: #444; padding: 4px 0 2px; pointer-events: none">12</div><div aria-hidden="true" style="text-align: center; font-weight: 700; font-size: 0.78rem; color: #444; padding: 4px 0 2px; pointer-events: none">13</div><div aria-hidden="true" style="text-align: center; font-weight: 700; font-size: 0.78rem; color: #444; padding: 4px 0 2px; pointer-events: none">14</div><div aria-hidden="true" style="text-align: center; font-weight: 700; font-size: 0.78rem; color: #444; padding: 4px 0 2px; pointer-events: none">15</div><div aria-hidden="true" style="text-align: center; font-weight: 700; font-size: 0.78rem; color: #444; padding: 4px 0 2px; pointer-events: none">16</div><div aria-hidden="true" style="text-align: center; font-weight: 700; font-size: 0.78rem; color: #444; padding: 4px 0 2px; pointer-events: none">17</div><div aria-hidden="true" style="text-align: center; font-weight: 700; font-size: 0.78rem; color: #444; padding: 4px 0 2px; pointer-events: none">18</div>
+<button type="button" aria-label="Hydrogen, symbol H, atomic number 1, atomic mass 1.008, group 1, Nonmetal" data-group="1" data-category="Nonmetal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #c8f7d8; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2; grid-column: 1">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">1</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">H</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Hydrogen</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">1.008</span>
 </button>
 <div aria-hidden="true" style="border: none; background: transparent; pointer-events: none; min-height: 52px; grid-column: 2 / span 16"></div>
-<button type="button" aria-label="Helium, symbol He, atomic number 2, atomic mass 4.0026, group 18, Noble gas" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #d6f3ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Helium, symbol He, atomic number 2, atomic mass 4.0026, group 18, Noble gas" data-group="18" data-category="Noble gas" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #d6f3ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">2</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">He</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Helium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">4.0026</span>
 </button>
-<button type="button" aria-label="Lithium, symbol Li, atomic number 3, atomic mass 6.94, group 1, Alkali metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #fdd9a6; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2; grid-column: 1">
+<button type="button" aria-label="Lithium, symbol Li, atomic number 3, atomic mass 6.94, group 1, Alkali metal" data-group="1" data-category="Alkali metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #fdd9a6; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2; grid-column: 1">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">3</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Li</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Lithium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">6.94</span>
 </button>
-<button type="button" aria-label="Beryllium, symbol Be, atomic number 4, atomic mass 9.0122, group 2, Alkaline earth metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #fdecc2; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Beryllium, symbol Be, atomic number 4, atomic mass 9.0122, group 2, Alkaline earth metal" data-group="2" data-category="Alkaline earth metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #fdecc2; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">4</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Be</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Beryllium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">9.0122</span>
 </button>
 <div aria-hidden="true" style="border: none; background: transparent; pointer-events: none; min-height: 52px; grid-column: 3 / span 10"></div>
-<button type="button" aria-label="Boron, symbol B, atomic number 5, atomic mass 10.81, group 13, Metalloid" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #e6d5f5; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Boron, symbol B, atomic number 5, atomic mass 10.81, group 13, Metalloid" data-group="13" data-category="Metalloid" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #e6d5f5; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">5</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">B</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Boron</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">10.81</span>
 </button>
-<button type="button" aria-label="Carbon, symbol C, atomic number 6, atomic mass 12.011, group 14, Nonmetal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #c8f7d8; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Carbon, symbol C, atomic number 6, atomic mass 12.011, group 14, Nonmetal" data-group="14" data-category="Nonmetal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #c8f7d8; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">6</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">C</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Carbon</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">12.011</span>
 </button>
-<button type="button" aria-label="Nitrogen, symbol N, atomic number 7, atomic mass 14.007, group 15, Nonmetal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #c8f7d8; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Nitrogen, symbol N, atomic number 7, atomic mass 14.007, group 15, Nonmetal" data-group="15" data-category="Nonmetal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #c8f7d8; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">7</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">N</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Nitrogen</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">14.007</span>
 </button>
-<button type="button" aria-label="Oxygen, symbol O, atomic number 8, atomic mass 15.999, group 16, Nonmetal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #c8f7d8; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Oxygen, symbol O, atomic number 8, atomic mass 15.999, group 16, Nonmetal" data-group="16" data-category="Nonmetal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #c8f7d8; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">8</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">O</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Oxygen</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">15.999</span>
 </button>
-<button type="button" aria-label="Fluorine, symbol F, atomic number 9, atomic mass 18.998, group 17, Halogen" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffd8f2; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Fluorine, symbol F, atomic number 9, atomic mass 18.998, group 17, Halogen" data-group="17" data-category="Halogen" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffd8f2; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">9</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">F</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Fluorine</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">18.998</span>
 </button>
-<button type="button" aria-label="Neon, symbol Ne, atomic number 10, atomic mass 20.180, group 18, Noble gas" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #d6f3ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Neon, symbol Ne, atomic number 10, atomic mass 20.180, group 18, Noble gas" data-group="18" data-category="Noble gas" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #d6f3ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">10</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Ne</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Neon</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">20.180</span>
 </button>
-<button type="button" aria-label="Sodium, symbol Na, atomic number 11, atomic mass 22.990, group 1, Alkali metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #fdd9a6; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2; grid-column: 1">
+<button type="button" aria-label="Sodium, symbol Na, atomic number 11, atomic mass 22.990, group 1, Alkali metal" data-group="1" data-category="Alkali metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #fdd9a6; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2; grid-column: 1">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">11</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Na</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Sodium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">22.990</span>
 </button>
-<button type="button" aria-label="Magnesium, symbol Mg, atomic number 12, atomic mass 24.305, group 2, Alkaline earth metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #fdecc2; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Magnesium, symbol Mg, atomic number 12, atomic mass 24.305, group 2, Alkaline earth metal" data-group="2" data-category="Alkaline earth metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #fdecc2; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">12</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Mg</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Magnesium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">24.305</span>
 </button>
 <div aria-hidden="true" style="border: none; background: transparent; pointer-events: none; min-height: 52px; grid-column: 3 / span 10"></div>
-<button type="button" aria-label="Aluminum, symbol Al, atomic number 13, atomic mass 26.982, group 13, Post-transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #dcecff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Aluminum, symbol Al, atomic number 13, atomic mass 26.982, group 13, Post-transition metal" data-group="13" data-category="Post-transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #dcecff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">13</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Al</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Aluminum</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">26.982</span>
 </button>
-<button type="button" aria-label="Silicon, symbol Si, atomic number 14, atomic mass 28.085, group 14, Metalloid" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #e6d5f5; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Silicon, symbol Si, atomic number 14, atomic mass 28.085, group 14, Metalloid" data-group="14" data-category="Metalloid" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #e6d5f5; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">14</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Si</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Silicon</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">28.085</span>
 </button>
-<button type="button" aria-label="Phosphorus, symbol P, atomic number 15, atomic mass 30.974, group 15, Nonmetal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #c8f7d8; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Phosphorus, symbol P, atomic number 15, atomic mass 30.974, group 15, Nonmetal" data-group="15" data-category="Nonmetal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #c8f7d8; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">15</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">P</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Phosphorus</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">30.974</span>
 </button>
-<button type="button" aria-label="Sulfur, symbol S, atomic number 16, atomic mass 32.06, group 16, Nonmetal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #c8f7d8; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Sulfur, symbol S, atomic number 16, atomic mass 32.06, group 16, Nonmetal" data-group="16" data-category="Nonmetal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #c8f7d8; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">16</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">S</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Sulfur</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">32.06</span>
 </button>
-<button type="button" aria-label="Chlorine, symbol Cl, atomic number 17, atomic mass 35.45, group 17, Halogen" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffd8f2; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Chlorine, symbol Cl, atomic number 17, atomic mass 35.45, group 17, Halogen" data-group="17" data-category="Halogen" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffd8f2; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">17</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Cl</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Chlorine</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">35.45</span>
 </button>
-<button type="button" aria-label="Argon, symbol Ar, atomic number 18, atomic mass 39.948, group 18, Noble gas" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #d6f3ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Argon, symbol Ar, atomic number 18, atomic mass 39.948, group 18, Noble gas" data-group="18" data-category="Noble gas" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #d6f3ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">18</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Ar</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Argon</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">39.948</span>
 </button>
-<button type="button" aria-label="Potassium, symbol K, atomic number 19, atomic mass 39.098, group 1, Alkali metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #fdd9a6; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2; grid-column: 1">
+<button type="button" aria-label="Potassium, symbol K, atomic number 19, atomic mass 39.098, group 1, Alkali metal" data-group="1" data-category="Alkali metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #fdd9a6; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2; grid-column: 1">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">19</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">K</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Potassium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">39.098</span>
 </button>
-<button type="button" aria-label="Calcium, symbol Ca, atomic number 20, atomic mass 40.078, group 2, Alkaline earth metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #fdecc2; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Calcium, symbol Ca, atomic number 20, atomic mass 40.078, group 2, Alkaline earth metal" data-group="2" data-category="Alkaline earth metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #fdecc2; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">20</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Ca</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Calcium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">40.078</span>
 </button>
-<button type="button" aria-label="Scandium, symbol Sc, atomic number 21, atomic mass 44.956, group 3, Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Scandium, symbol Sc, atomic number 21, atomic mass 44.956, group 3, Transition metal" data-group="3" data-category="Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">21</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Sc</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Scandium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">44.956</span>
 </button>
-<button type="button" aria-label="Titanium, symbol Ti, atomic number 22, atomic mass 47.867, group 4, Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Titanium, symbol Ti, atomic number 22, atomic mass 47.867, group 4, Transition metal" data-group="4" data-category="Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">22</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Ti</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Titanium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">47.867</span>
 </button>
-<button type="button" aria-label="Vanadium, symbol V, atomic number 23, atomic mass 50.942, group 5, Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Vanadium, symbol V, atomic number 23, atomic mass 50.942, group 5, Transition metal" data-group="5" data-category="Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">23</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">V</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Vanadium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">50.942</span>
 </button>
-<button type="button" aria-label="Chromium, symbol Cr, atomic number 24, atomic mass 51.996, group 6, Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Chromium, symbol Cr, atomic number 24, atomic mass 51.996, group 6, Transition metal" data-group="6" data-category="Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">24</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Cr</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Chromium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">51.996</span>
 </button>
-<button type="button" aria-label="Manganese, symbol Mn, atomic number 25, atomic mass 54.938, group 7, Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Manganese, symbol Mn, atomic number 25, atomic mass 54.938, group 7, Transition metal" data-group="7" data-category="Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">25</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Mn</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Manganese</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">54.938</span>
 </button>
-<button type="button" aria-label="Iron, symbol Fe, atomic number 26, atomic mass 55.845, group 8, Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Iron, symbol Fe, atomic number 26, atomic mass 55.845, group 8, Transition metal" data-group="8" data-category="Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">26</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Fe</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Iron</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">55.845</span>
 </button>
-<button type="button" aria-label="Cobalt, symbol Co, atomic number 27, atomic mass 58.933, group 9, Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Cobalt, symbol Co, atomic number 27, atomic mass 58.933, group 9, Transition metal" data-group="9" data-category="Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">27</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Co</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Cobalt</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">58.933</span>
 </button>
-<button type="button" aria-label="Nickel, symbol Ni, atomic number 28, atomic mass 58.693, group 10, Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Nickel, symbol Ni, atomic number 28, atomic mass 58.693, group 10, Transition metal" data-group="10" data-category="Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">28</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Ni</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Nickel</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">58.693</span>
 </button>
-<button type="button" aria-label="Copper, symbol Cu, atomic number 29, atomic mass 63.546, group 11, Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Copper, symbol Cu, atomic number 29, atomic mass 63.546, group 11, Transition metal" data-group="11" data-category="Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">29</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Cu</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Copper</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">63.546</span>
 </button>
-<button type="button" aria-label="Zinc, symbol Zn, atomic number 30, atomic mass 65.38, group 12, Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Zinc, symbol Zn, atomic number 30, atomic mass 65.38, group 12, Transition metal" data-group="12" data-category="Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">30</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Zn</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Zinc</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">65.38</span>
 </button>
-<button type="button" aria-label="Gallium, symbol Ga, atomic number 31, atomic mass 69.723, group 13, Post-transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #dcecff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Gallium, symbol Ga, atomic number 31, atomic mass 69.723, group 13, Post-transition metal" data-group="13" data-category="Post-transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #dcecff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">31</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Ga</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Gallium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">69.723</span>
 </button>
-<button type="button" aria-label="Germanium, symbol Ge, atomic number 32, atomic mass 72.630, group 14, Metalloid" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #e6d5f5; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Germanium, symbol Ge, atomic number 32, atomic mass 72.630, group 14, Metalloid" data-group="14" data-category="Metalloid" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #e6d5f5; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">32</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Ge</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Germanium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">72.630</span>
 </button>
-<button type="button" aria-label="Arsenic, symbol As, atomic number 33, atomic mass 74.922, group 15, Metalloid" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #e6d5f5; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Arsenic, symbol As, atomic number 33, atomic mass 74.922, group 15, Metalloid" data-group="15" data-category="Metalloid" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #e6d5f5; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">33</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">As</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Arsenic</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">74.922</span>
 </button>
-<button type="button" aria-label="Selenium, symbol Se, atomic number 34, atomic mass 78.971, group 16, Nonmetal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #c8f7d8; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Selenium, symbol Se, atomic number 34, atomic mass 78.971, group 16, Nonmetal" data-group="16" data-category="Nonmetal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #c8f7d8; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">34</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Se</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Selenium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">78.971</span>
 </button>
-<button type="button" aria-label="Bromine, symbol Br, atomic number 35, atomic mass 79.904, group 17, Halogen" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffd8f2; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Bromine, symbol Br, atomic number 35, atomic mass 79.904, group 17, Halogen" data-group="17" data-category="Halogen" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffd8f2; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">35</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Br</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Bromine</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">79.904</span>
 </button>
-<button type="button" aria-label="Krypton, symbol Kr, atomic number 36, atomic mass 83.798, group 18, Noble gas" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #d6f3ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Krypton, symbol Kr, atomic number 36, atomic mass 83.798, group 18, Noble gas" data-group="18" data-category="Noble gas" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #d6f3ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">36</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Kr</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Krypton</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">83.798</span>
 </button>
-<button type="button" aria-label="Rubidium, symbol Rb, atomic number 37, atomic mass 85.468, group 1, Alkali metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #fdd9a6; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2; grid-column: 1">
+<button type="button" aria-label="Rubidium, symbol Rb, atomic number 37, atomic mass 85.468, group 1, Alkali metal" data-group="1" data-category="Alkali metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #fdd9a6; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2; grid-column: 1">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">37</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Rb</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Rubidium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">85.468</span>
 </button>
-<button type="button" aria-label="Strontium, symbol Sr, atomic number 38, atomic mass 87.62, group 2, Alkaline earth metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #fdecc2; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Strontium, symbol Sr, atomic number 38, atomic mass 87.62, group 2, Alkaline earth metal" data-group="2" data-category="Alkaline earth metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #fdecc2; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">38</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Sr</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Strontium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">87.62</span>
 </button>
-<button type="button" aria-label="Yttrium, symbol Y, atomic number 39, atomic mass 88.906, group 3, Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Yttrium, symbol Y, atomic number 39, atomic mass 88.906, group 3, Transition metal" data-group="3" data-category="Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">39</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Y</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Yttrium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">88.906</span>
 </button>
-<button type="button" aria-label="Zirconium, symbol Zr, atomic number 40, atomic mass 91.224, group 4, Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Zirconium, symbol Zr, atomic number 40, atomic mass 91.224, group 4, Transition metal" data-group="4" data-category="Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">40</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Zr</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Zirconium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">91.224</span>
 </button>
-<button type="button" aria-label="Niobium, symbol Nb, atomic number 41, atomic mass 92.906, group 5, Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Niobium, symbol Nb, atomic number 41, atomic mass 92.906, group 5, Transition metal" data-group="5" data-category="Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">41</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Nb</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Niobium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">92.906</span>
 </button>
-<button type="button" aria-label="Molybdenum, symbol Mo, atomic number 42, atomic mass 95.95, group 6, Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Molybdenum, symbol Mo, atomic number 42, atomic mass 95.95, group 6, Transition metal" data-group="6" data-category="Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">42</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Mo</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Molybdenum</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">95.95</span>
 </button>
-<button type="button" aria-label="Technetium, symbol Tc, atomic number 43, atomic mass 98, group 7, Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Technetium, symbol Tc, atomic number 43, atomic mass 98, group 7, Transition metal" data-group="7" data-category="Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">43</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Tc</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Technetium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">98</span>
 </button>
-<button type="button" aria-label="Ruthenium, symbol Ru, atomic number 44, atomic mass 101.07, group 8, Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Ruthenium, symbol Ru, atomic number 44, atomic mass 101.07, group 8, Transition metal" data-group="8" data-category="Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">44</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Ru</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Ruthenium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">101.07</span>
 </button>
-<button type="button" aria-label="Rhodium, symbol Rh, atomic number 45, atomic mass 102.91, group 9, Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Rhodium, symbol Rh, atomic number 45, atomic mass 102.91, group 9, Transition metal" data-group="9" data-category="Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">45</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Rh</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Rhodium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">102.91</span>
 </button>
-<button type="button" aria-label="Palladium, symbol Pd, atomic number 46, atomic mass 106.42, group 10, Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Palladium, symbol Pd, atomic number 46, atomic mass 106.42, group 10, Transition metal" data-group="10" data-category="Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">46</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Pd</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Palladium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">106.42</span>
 </button>
-<button type="button" aria-label="Silver, symbol Ag, atomic number 47, atomic mass 107.87, group 11, Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Silver, symbol Ag, atomic number 47, atomic mass 107.87, group 11, Transition metal" data-group="11" data-category="Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">47</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Ag</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Silver</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">107.87</span>
 </button>
-<button type="button" aria-label="Cadmium, symbol Cd, atomic number 48, atomic mass 112.41, group 12, Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Cadmium, symbol Cd, atomic number 48, atomic mass 112.41, group 12, Transition metal" data-group="12" data-category="Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">48</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Cd</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Cadmium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">112.41</span>
 </button>
-<button type="button" aria-label="Indium, symbol In, atomic number 49, atomic mass 114.82, group 13, Post-transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #dcecff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Indium, symbol In, atomic number 49, atomic mass 114.82, group 13, Post-transition metal" data-group="13" data-category="Post-transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #dcecff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">49</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">In</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Indium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">114.82</span>
 </button>
-<button type="button" aria-label="Tin, symbol Sn, atomic number 50, atomic mass 118.71, group 14, Post-transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #dcecff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Tin, symbol Sn, atomic number 50, atomic mass 118.71, group 14, Post-transition metal" data-group="14" data-category="Post-transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #dcecff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">50</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Sn</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Tin</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">118.71</span>
 </button>
-<button type="button" aria-label="Antimony, symbol Sb, atomic number 51, atomic mass 121.76, group 15, Metalloid" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #e6d5f5; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Antimony, symbol Sb, atomic number 51, atomic mass 121.76, group 15, Metalloid" data-group="15" data-category="Metalloid" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #e6d5f5; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">51</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Sb</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Antimony</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">121.76</span>
 </button>
-<button type="button" aria-label="Tellurium, symbol Te, atomic number 52, atomic mass 127.60, group 16, Metalloid" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #e6d5f5; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Tellurium, symbol Te, atomic number 52, atomic mass 127.60, group 16, Metalloid" data-group="16" data-category="Metalloid" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #e6d5f5; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">52</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Te</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Tellurium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">127.60</span>
 </button>
-<button type="button" aria-label="Iodine, symbol I, atomic number 53, atomic mass 126.90, group 17, Halogen" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffd8f2; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Iodine, symbol I, atomic number 53, atomic mass 126.90, group 17, Halogen" data-group="17" data-category="Halogen" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffd8f2; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">53</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">I</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Iodine</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">126.90</span>
 </button>
-<button type="button" aria-label="Xenon, symbol Xe, atomic number 54, atomic mass 131.29, group 18, Noble gas" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #d6f3ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Xenon, symbol Xe, atomic number 54, atomic mass 131.29, group 18, Noble gas" data-group="18" data-category="Noble gas" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #d6f3ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">54</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Xe</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Xenon</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">131.29</span>
 </button>
-<button type="button" aria-label="Cesium, symbol Cs, atomic number 55, atomic mass 132.91, group 1, Alkali metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #fdd9a6; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2; grid-column: 1">
+<button type="button" aria-label="Cesium, symbol Cs, atomic number 55, atomic mass 132.91, group 1, Alkali metal" data-group="1" data-category="Alkali metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #fdd9a6; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2; grid-column: 1">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">55</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Cs</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Cesium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">132.91</span>
 </button>
-<button type="button" aria-label="Barium, symbol Ba, atomic number 56, atomic mass 137.33, group 2, Alkaline earth metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #fdecc2; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Barium, symbol Ba, atomic number 56, atomic mass 137.33, group 2, Alkaline earth metal" data-group="2" data-category="Alkaline earth metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #fdecc2; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">56</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Ba</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Barium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">137.33</span>
 </button>
-<button type="button" aria-label="Lanthanum, symbol La, atomic number 57, atomic mass 138.91, group 3, Lanthanide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffeac7; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Lanthanum, symbol La, atomic number 57, atomic mass 138.91, group 3, Lanthanide" data-group="3" data-category="Lanthanide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffeac7; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">57</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">La</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Lanthanum</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">138.91</span>
 </button>
-<button type="button" aria-label="Hafnium, symbol Hf, atomic number 72, atomic mass 178.49, group 4, Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Hafnium, symbol Hf, atomic number 72, atomic mass 178.49, group 4, Transition metal" data-group="4" data-category="Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">72</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Hf</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Hafnium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">178.49</span>
 </button>
-<button type="button" aria-label="Tantalum, symbol Ta, atomic number 73, atomic mass 180.95, group 5, Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Tantalum, symbol Ta, atomic number 73, atomic mass 180.95, group 5, Transition metal" data-group="5" data-category="Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">73</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Ta</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Tantalum</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">180.95</span>
 </button>
-<button type="button" aria-label="Tungsten, symbol W, atomic number 74, atomic mass 183.84, group 6, Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Tungsten, symbol W, atomic number 74, atomic mass 183.84, group 6, Transition metal" data-group="6" data-category="Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">74</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">W</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Tungsten</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">183.84</span>
 </button>
-<button type="button" aria-label="Rhenium, symbol Re, atomic number 75, atomic mass 186.21, group 7, Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Rhenium, symbol Re, atomic number 75, atomic mass 186.21, group 7, Transition metal" data-group="7" data-category="Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">75</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Re</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Rhenium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">186.21</span>
 </button>
-<button type="button" aria-label="Osmium, symbol Os, atomic number 76, atomic mass 190.23, group 8, Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Osmium, symbol Os, atomic number 76, atomic mass 190.23, group 8, Transition metal" data-group="8" data-category="Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">76</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Os</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Osmium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">190.23</span>
 </button>
-<button type="button" aria-label="Iridium, symbol Ir, atomic number 77, atomic mass 192.22, group 9, Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Iridium, symbol Ir, atomic number 77, atomic mass 192.22, group 9, Transition metal" data-group="9" data-category="Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">77</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Ir</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Iridium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">192.22</span>
 </button>
-<button type="button" aria-label="Platinum, symbol Pt, atomic number 78, atomic mass 195.08, group 10, Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Platinum, symbol Pt, atomic number 78, atomic mass 195.08, group 10, Transition metal" data-group="10" data-category="Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">78</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Pt</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Platinum</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">195.08</span>
 </button>
-<button type="button" aria-label="Gold, symbol Au, atomic number 79, atomic mass 196.97, group 11, Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Gold, symbol Au, atomic number 79, atomic mass 196.97, group 11, Transition metal" data-group="11" data-category="Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">79</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Au</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Gold</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">196.97</span>
 </button>
-<button type="button" aria-label="Mercury, symbol Hg, atomic number 80, atomic mass 200.59, group 12, Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Mercury, symbol Hg, atomic number 80, atomic mass 200.59, group 12, Transition metal" data-group="12" data-category="Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">80</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Hg</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Mercury</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">200.59</span>
 </button>
-<button type="button" aria-label="Thallium, symbol Tl, atomic number 81, atomic mass 204.38, group 13, Post-transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #dcecff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Thallium, symbol Tl, atomic number 81, atomic mass 204.38, group 13, Post-transition metal" data-group="13" data-category="Post-transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #dcecff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">81</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Tl</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Thallium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">204.38</span>
 </button>
-<button type="button" aria-label="Lead, symbol Pb, atomic number 82, atomic mass 207.2, group 14, Post-transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #dcecff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Lead, symbol Pb, atomic number 82, atomic mass 207.2, group 14, Post-transition metal" data-group="14" data-category="Post-transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #dcecff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">82</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Pb</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Lead</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">207.2</span>
 </button>
-<button type="button" aria-label="Bismuth, symbol Bi, atomic number 83, atomic mass 208.98, group 15, Post-transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #dcecff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Bismuth, symbol Bi, atomic number 83, atomic mass 208.98, group 15, Post-transition metal" data-group="15" data-category="Post-transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #dcecff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">83</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Bi</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Bismuth</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">208.98</span>
 </button>
-<button type="button" aria-label="Polonium, symbol Po, atomic number 84, atomic mass 209, group 16, Metalloid" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #e6d5f5; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Polonium, symbol Po, atomic number 84, atomic mass 209, group 16, Metalloid" data-group="16" data-category="Metalloid" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #e6d5f5; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">84</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Po</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Polonium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">209</span>
 </button>
-<button type="button" aria-label="Astatine, symbol At, atomic number 85, atomic mass 210, group 17, Halogen" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffd8f2; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Astatine, symbol At, atomic number 85, atomic mass 210, group 17, Halogen" data-group="17" data-category="Halogen" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffd8f2; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">85</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">At</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Astatine</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">210</span>
 </button>
-<button type="button" aria-label="Radon, symbol Rn, atomic number 86, atomic mass 222, group 18, Noble gas" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #d6f3ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Radon, symbol Rn, atomic number 86, atomic mass 222, group 18, Noble gas" data-group="18" data-category="Noble gas" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #d6f3ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">86</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Rn</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Radon</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">222</span>
 </button>
-<button type="button" aria-label="Francium, symbol Fr, atomic number 87, atomic mass 223, group 1, Alkali metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #fdd9a6; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2; grid-column: 1">
+<button type="button" aria-label="Francium, symbol Fr, atomic number 87, atomic mass 223, group 1, Alkali metal" data-group="1" data-category="Alkali metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #fdd9a6; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2; grid-column: 1">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">87</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Fr</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Francium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">223</span>
 </button>
-<button type="button" aria-label="Radium, symbol Ra, atomic number 88, atomic mass 226, group 2, Alkaline earth metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #fdecc2; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Radium, symbol Ra, atomic number 88, atomic mass 226, group 2, Alkaline earth metal" data-group="2" data-category="Alkaline earth metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #fdecc2; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">88</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Ra</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Radium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">226</span>
 </button>
-<button type="button" aria-label="Actinium, symbol Ac, atomic number 89, atomic mass 227, group 3, Actinide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffe0d4; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Actinium, symbol Ac, atomic number 89, atomic mass 227, group 3, Actinide" data-group="3" data-category="Actinide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffe0d4; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">89</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Ac</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Actinium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">227</span>
 </button>
-<button type="button" aria-label="Rutherfordium, symbol Rf, atomic number 104, atomic mass 267, group 4, Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Rutherfordium, symbol Rf, atomic number 104, atomic mass 267, group 4, Transition metal" data-group="4" data-category="Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">104</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Rf</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Rutherfordium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">267</span>
 </button>
-<button type="button" aria-label="Dubnium, symbol Db, atomic number 105, atomic mass 268, group 5, Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Dubnium, symbol Db, atomic number 105, atomic mass 268, group 5, Transition metal" data-group="5" data-category="Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">105</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Db</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Dubnium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">268</span>
 </button>
-<button type="button" aria-label="Seaborgium, symbol Sg, atomic number 106, atomic mass 271, group 6, Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Seaborgium, symbol Sg, atomic number 106, atomic mass 271, group 6, Transition metal" data-group="6" data-category="Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">106</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Sg</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Seaborgium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">271</span>
 </button>
-<button type="button" aria-label="Bohrium, symbol Bh, atomic number 107, atomic mass 270, group 7, Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Bohrium, symbol Bh, atomic number 107, atomic mass 270, group 7, Transition metal" data-group="7" data-category="Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">107</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Bh</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Bohrium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">270</span>
 </button>
-<button type="button" aria-label="Hassium, symbol Hs, atomic number 108, atomic mass 277, group 8, Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Hassium, symbol Hs, atomic number 108, atomic mass 277, group 8, Transition metal" data-group="8" data-category="Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">108</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Hs</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Hassium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">277</span>
 </button>
-<button type="button" aria-label="Meitnerium, symbol Mt, atomic number 109, atomic mass 278, group 9, Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Meitnerium, symbol Mt, atomic number 109, atomic mass 278, group 9, Transition metal" data-group="9" data-category="Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">109</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Mt</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Meitnerium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">278</span>
 </button>
-<button type="button" aria-label="Darmstadtium, symbol Ds, atomic number 110, atomic mass 281, group 10, Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Darmstadtium, symbol Ds, atomic number 110, atomic mass 281, group 10, Transition metal" data-group="10" data-category="Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">110</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Ds</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Darmstadtium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">281</span>
 </button>
-<button type="button" aria-label="Roentgenium, symbol Rg, atomic number 111, atomic mass 282, group 11, Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Roentgenium, symbol Rg, atomic number 111, atomic mass 282, group 11, Transition metal" data-group="11" data-category="Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">111</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Rg</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Roentgenium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">282</span>
 </button>
-<button type="button" aria-label="Copernicium, symbol Cn, atomic number 112, atomic mass 285, group 12, Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Copernicium, symbol Cn, atomic number 112, atomic mass 285, group 12, Transition metal" data-group="12" data-category="Transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #cbe5ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">112</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Cn</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Copernicium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">285</span>
 </button>
-<button type="button" aria-label="Nihonium, symbol Nh, atomic number 113, atomic mass 286, group 13, Post-transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #dcecff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Nihonium, symbol Nh, atomic number 113, atomic mass 286, group 13, Post-transition metal" data-group="13" data-category="Post-transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #dcecff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">113</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Nh</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Nihonium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">286</span>
 </button>
-<button type="button" aria-label="Flerovium, symbol Fl, atomic number 114, atomic mass 289, group 14, Post-transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #dcecff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Flerovium, symbol Fl, atomic number 114, atomic mass 289, group 14, Post-transition metal" data-group="14" data-category="Post-transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #dcecff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">114</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Fl</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Flerovium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">289</span>
 </button>
-<button type="button" aria-label="Moscovium, symbol Mc, atomic number 115, atomic mass 290, group 15, Post-transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #dcecff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Moscovium, symbol Mc, atomic number 115, atomic mass 290, group 15, Post-transition metal" data-group="15" data-category="Post-transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #dcecff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">115</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Mc</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Moscovium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">290</span>
 </button>
-<button type="button" aria-label="Livermorium, symbol Lv, atomic number 116, atomic mass 293, group 16, Post-transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #dcecff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Livermorium, symbol Lv, atomic number 116, atomic mass 293, group 16, Post-transition metal" data-group="16" data-category="Post-transition metal" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #dcecff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">116</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Lv</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Livermorium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">293</span>
 </button>
-<button type="button" aria-label="Tennessine, symbol Ts, atomic number 117, atomic mass 294, group 17, Halogen" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffd8f2; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Tennessine, symbol Ts, atomic number 117, atomic mass 294, group 17, Halogen" data-group="17" data-category="Halogen" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffd8f2; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">117</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Ts</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Tennessine</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">294</span>
 </button>
-<button type="button" aria-label="Oganesson, symbol Og, atomic number 118, atomic mass 294, group 18, Noble gas" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #d6f3ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Oganesson, symbol Og, atomic number 118, atomic mass 294, group 18, Noble gas" data-group="18" data-category="Noble gas" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #d6f3ff; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">118</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Og</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Oganesson</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">294</span>
 </button>
 <div aria-hidden="true" style="border: none; background: transparent; pointer-events: none; min-height: 52px; grid-column: 1 / span 3"></div>
-<button type="button" aria-label="Cerium, symbol Ce, atomic number 58, atomic mass 140.12, group 3, Lanthanide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffeac7; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Cerium, symbol Ce, atomic number 58, atomic mass 140.12, group 3, Lanthanide" data-group="3" data-category="Lanthanide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffeac7; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">58</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Ce</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Cerium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">140.12</span>
 </button>
-<button type="button" aria-label="Praseodymium, symbol Pr, atomic number 59, atomic mass 140.91, group 3, Lanthanide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffeac7; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Praseodymium, symbol Pr, atomic number 59, atomic mass 140.91, group 3, Lanthanide" data-group="3" data-category="Lanthanide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffeac7; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">59</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Pr</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Praseodymium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">140.91</span>
 </button>
-<button type="button" aria-label="Neodymium, symbol Nd, atomic number 60, atomic mass 144.24, group 3, Lanthanide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffeac7; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Neodymium, symbol Nd, atomic number 60, atomic mass 144.24, group 3, Lanthanide" data-group="3" data-category="Lanthanide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffeac7; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">60</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Nd</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Neodymium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">144.24</span>
 </button>
-<button type="button" aria-label="Promethium, symbol Pm, atomic number 61, atomic mass 145, group 3, Lanthanide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffeac7; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Promethium, symbol Pm, atomic number 61, atomic mass 145, group 3, Lanthanide" data-group="3" data-category="Lanthanide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffeac7; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">61</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Pm</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Promethium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">145</span>
 </button>
-<button type="button" aria-label="Samarium, symbol Sm, atomic number 62, atomic mass 150.36, group 3, Lanthanide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffeac7; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Samarium, symbol Sm, atomic number 62, atomic mass 150.36, group 3, Lanthanide" data-group="3" data-category="Lanthanide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffeac7; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">62</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Sm</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Samarium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">150.36</span>
 </button>
-<button type="button" aria-label="Europium, symbol Eu, atomic number 63, atomic mass 151.96, group 3, Lanthanide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffeac7; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Europium, symbol Eu, atomic number 63, atomic mass 151.96, group 3, Lanthanide" data-group="3" data-category="Lanthanide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffeac7; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">63</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Eu</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Europium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">151.96</span>
 </button>
-<button type="button" aria-label="Gadolinium, symbol Gd, atomic number 64, atomic mass 157.25, group 3, Lanthanide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffeac7; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Gadolinium, symbol Gd, atomic number 64, atomic mass 157.25, group 3, Lanthanide" data-group="3" data-category="Lanthanide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffeac7; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">64</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Gd</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Gadolinium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">157.25</span>
 </button>
-<button type="button" aria-label="Terbium, symbol Tb, atomic number 65, atomic mass 158.93, group 3, Lanthanide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffeac7; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Terbium, symbol Tb, atomic number 65, atomic mass 158.93, group 3, Lanthanide" data-group="3" data-category="Lanthanide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffeac7; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">65</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Tb</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Terbium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">158.93</span>
 </button>
-<button type="button" aria-label="Dysprosium, symbol Dy, atomic number 66, atomic mass 162.50, group 3, Lanthanide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffeac7; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Dysprosium, symbol Dy, atomic number 66, atomic mass 162.50, group 3, Lanthanide" data-group="3" data-category="Lanthanide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffeac7; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">66</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Dy</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Dysprosium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">162.50</span>
 </button>
-<button type="button" aria-label="Holmium, symbol Ho, atomic number 67, atomic mass 164.93, group 3, Lanthanide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffeac7; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Holmium, symbol Ho, atomic number 67, atomic mass 164.93, group 3, Lanthanide" data-group="3" data-category="Lanthanide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffeac7; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">67</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Ho</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Holmium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">164.93</span>
 </button>
-<button type="button" aria-label="Erbium, symbol Er, atomic number 68, atomic mass 167.26, group 3, Lanthanide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffeac7; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Erbium, symbol Er, atomic number 68, atomic mass 167.26, group 3, Lanthanide" data-group="3" data-category="Lanthanide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffeac7; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">68</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Er</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Erbium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">167.26</span>
 </button>
-<button type="button" aria-label="Thulium, symbol Tm, atomic number 69, atomic mass 168.93, group 3, Lanthanide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffeac7; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Thulium, symbol Tm, atomic number 69, atomic mass 168.93, group 3, Lanthanide" data-group="3" data-category="Lanthanide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffeac7; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">69</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Tm</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Thulium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">168.93</span>
 </button>
-<button type="button" aria-label="Ytterbium, symbol Yb, atomic number 70, atomic mass 173.05, group 3, Lanthanide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffeac7; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Ytterbium, symbol Yb, atomic number 70, atomic mass 173.05, group 3, Lanthanide" data-group="3" data-category="Lanthanide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffeac7; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">70</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Yb</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Ytterbium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">173.05</span>
 </button>
-<button type="button" aria-label="Lutetium, symbol Lu, atomic number 71, atomic mass 174.97, group 3, Lanthanide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffeac7; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Lutetium, symbol Lu, atomic number 71, atomic mass 174.97, group 3, Lanthanide" data-group="3" data-category="Lanthanide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffeac7; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">71</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Lu</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Lutetium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">174.97</span>
 </button>
 <div aria-hidden="true" style="border: none; background: transparent; pointer-events: none; min-height: 52px; grid-column: 1 / span 3"></div>
-<button type="button" aria-label="Thorium, symbol Th, atomic number 90, atomic mass 232.04, group 3, Actinide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffe0d4; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Thorium, symbol Th, atomic number 90, atomic mass 232.04, group 3, Actinide" data-group="3" data-category="Actinide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffe0d4; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">90</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Th</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Thorium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">232.04</span>
 </button>
-<button type="button" aria-label="Protactinium, symbol Pa, atomic number 91, atomic mass 231.04, group 3, Actinide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffe0d4; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Protactinium, symbol Pa, atomic number 91, atomic mass 231.04, group 3, Actinide" data-group="3" data-category="Actinide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffe0d4; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">91</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Pa</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Protactinium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">231.04</span>
 </button>
-<button type="button" aria-label="Uranium, symbol U, atomic number 92, atomic mass 238.03, group 3, Actinide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffe0d4; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Uranium, symbol U, atomic number 92, atomic mass 238.03, group 3, Actinide" data-group="3" data-category="Actinide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffe0d4; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">92</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">U</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Uranium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">238.03</span>
 </button>
-<button type="button" aria-label="Neptunium, symbol Np, atomic number 93, atomic mass 237, group 3, Actinide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffe0d4; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Neptunium, symbol Np, atomic number 93, atomic mass 237, group 3, Actinide" data-group="3" data-category="Actinide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffe0d4; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">93</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Np</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Neptunium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">237</span>
 </button>
-<button type="button" aria-label="Plutonium, symbol Pu, atomic number 94, atomic mass 244, group 3, Actinide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffe0d4; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Plutonium, symbol Pu, atomic number 94, atomic mass 244, group 3, Actinide" data-group="3" data-category="Actinide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffe0d4; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">94</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Pu</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Plutonium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">244</span>
 </button>
-<button type="button" aria-label="Americium, symbol Am, atomic number 95, atomic mass 243, group 3, Actinide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffe0d4; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Americium, symbol Am, atomic number 95, atomic mass 243, group 3, Actinide" data-group="3" data-category="Actinide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffe0d4; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">95</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Am</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Americium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">243</span>
 </button>
-<button type="button" aria-label="Curium, symbol Cm, atomic number 96, atomic mass 247, group 3, Actinide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffe0d4; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Curium, symbol Cm, atomic number 96, atomic mass 247, group 3, Actinide" data-group="3" data-category="Actinide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffe0d4; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">96</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Cm</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Curium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">247</span>
 </button>
-<button type="button" aria-label="Berkelium, symbol Bk, atomic number 97, atomic mass 247, group 3, Actinide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffe0d4; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Berkelium, symbol Bk, atomic number 97, atomic mass 247, group 3, Actinide" data-group="3" data-category="Actinide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffe0d4; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">97</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Bk</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Berkelium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">247</span>
 </button>
-<button type="button" aria-label="Californium, symbol Cf, atomic number 98, atomic mass 251, group 3, Actinide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffe0d4; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Californium, symbol Cf, atomic number 98, atomic mass 251, group 3, Actinide" data-group="3" data-category="Actinide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffe0d4; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">98</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Cf</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Californium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">251</span>
 </button>
-<button type="button" aria-label="Einsteinium, symbol Es, atomic number 99, atomic mass 252, group 3, Actinide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffe0d4; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Einsteinium, symbol Es, atomic number 99, atomic mass 252, group 3, Actinide" data-group="3" data-category="Actinide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffe0d4; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">99</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Es</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Einsteinium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">252</span>
 </button>
-<button type="button" aria-label="Fermium, symbol Fm, atomic number 100, atomic mass 257, group 3, Actinide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffe0d4; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Fermium, symbol Fm, atomic number 100, atomic mass 257, group 3, Actinide" data-group="3" data-category="Actinide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffe0d4; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">100</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Fm</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Fermium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">257</span>
 </button>
-<button type="button" aria-label="Mendelevium, symbol Md, atomic number 101, atomic mass 258, group 3, Actinide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffe0d4; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Mendelevium, symbol Md, atomic number 101, atomic mass 258, group 3, Actinide" data-group="3" data-category="Actinide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffe0d4; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">101</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Md</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Mendelevium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">258</span>
 </button>
-<button type="button" aria-label="Nobelium, symbol No, atomic number 102, atomic mass 259, group 3, Actinide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffe0d4; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Nobelium, symbol No, atomic number 102, atomic mass 259, group 3, Actinide" data-group="3" data-category="Actinide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffe0d4; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">102</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">No</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Nobelium</span>
 <span style="display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700" aria-hidden="true">259</span>
 </button>
-<button type="button" aria-label="Lawrencium, symbol Lr, atomic number 103, atomic mass 266, group 3, Actinide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffe0d4; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
+<button type="button" aria-label="Lawrencium, symbol Lr, atomic number 103, atomic mass 266, group 3, Actinide" data-group="3" data-category="Actinide" style="position: relative; padding: 7px 4px; text-align: center; border: 1px solid #767676; background: #ffe0d4; border-radius: 4px; cursor: pointer; font-family: Arial, sans-serif; color: #1a1a1a; width: 100%; box-sizing: border-box; line-height: 1.2">
 <span style="display: block; font-size: 0.65rem; font-weight: 600" aria-hidden="true">103</span>
 <span style="display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0" aria-hidden="true">Lr</span>
 <span style="display: block; font-size: 0.4rem; line-height: 1.15; text-transform: uppercase; letter-spacing: 0.035em" aria-hidden="true">Lawrencium</span>

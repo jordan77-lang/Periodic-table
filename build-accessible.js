@@ -762,6 +762,20 @@ const iframeSnippet = `<!--
   loading="lazy"
 ></iframe>`;
 
+function renderInlineGroupNumbersRow() {
+  return Array.from({ length: 18 }, (_, index) => {
+    const group = index + 1;
+    return `<div aria-hidden="true" style="${style({
+      textAlign: "center",
+      fontWeight: "700",
+      fontSize: "0.78rem",
+      color: "#444",
+      padding: "4px 0 2px",
+      pointerEvents: "none",
+    })}">${group}</div>`;
+  }).join("");
+}
+
 function renderGridCell(cell) {
   if (cell.blank) {
     return `<div aria-hidden="true" style="${style({
@@ -773,7 +787,7 @@ function renderGridCell(cell) {
     })}"></div>`;
   }
 
-  return `<button type="button" aria-label="${cell.ariaLabel}" style="${elementButtonStyle(cell)}">
+  return `<button type="button" aria-label="${cell.ariaLabel}" data-group="${cell.group}" data-category="${cell.category}" style="${elementButtonStyle(cell)}">
 <span style="${style({ display: "block", fontSize: "0.65rem", fontWeight: "600" })}" aria-hidden="true">${cell.number}</span>
 <span style="${style({ display: "block", fontSize: "1.25rem", fontWeight: "700", margin: "2px 0" })}" aria-hidden="true">${cell.symbol}</span>
 <span style="${style({ display: "block", fontSize: "0.4rem", lineHeight: "1.15", textTransform: "uppercase", letterSpacing: "0.035em" })}" aria-hidden="true">${cell.name}</span>
@@ -850,7 +864,7 @@ const embedContent = `<!--
   maxWidth: "760px",
   fontSize: "0.95rem",
   color: "#444",
-})}">Each tile is a button. Use Tab to move between elements. Screen reader users can browse the full element list in the reference table below.</p>
+})}">Each tile is a button. Use Tab to move between elements. Group numbers 1 through 18 are shown above the table. Screen reader users can browse the full element list in the reference table below.</p>
 
 <h3 style="${style({
   fontSize: "1rem",
@@ -881,6 +895,7 @@ ${renderLegendItems()}
   maxWidth: "100%",
   overflowX: "auto",
 })}">
+${renderInlineGroupNumbersRow()}
 ${gridCells.map(renderGridCell).join("\n")}
 </div>
 
