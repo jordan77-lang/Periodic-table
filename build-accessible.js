@@ -228,12 +228,21 @@ function renderHostedGridCell(cell) {
     return `<div class="pt-a11y-blank" aria-hidden="true"${gridStyleAttr(cell)}></div>`;
   }
 
-  return `<button type="button" class="pt-a11y-element" data-type="${cell.type}" data-group="${cell.group}"${gridStyleAttr(cell)} aria-label="${cell.ariaLabel}">
+  return `<button type="button" class="pt-a11y-element" data-type="${cell.type}" data-category="${cell.category}" data-group="${cell.group}"${gridStyleAttr(cell)} aria-label="${cell.ariaLabel}" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">${cell.number}</span>
 <span class="pt-a11y-symbol" aria-hidden="true">${cell.symbol}</span>
 <span class="pt-a11y-name" aria-hidden="true">${cell.name}</span>
 <span class="pt-a11y-mass" aria-hidden="true">${cell.mass}</span>
 </button>`;
+}
+
+function renderDetailPanel() {
+  return `<aside class="pt-detail-panel" id="pt-detail-panel" aria-live="polite" aria-atomic="true" aria-labelledby="pt-detail-heading">
+<h2 id="pt-detail-heading" class="pt-detail-heading">Element details</h2>
+<div id="pt-detail-content">
+<p class="pt-detail-empty">Tab to or click an element in the table.</p>
+</div>
+</aside>`;
 }
 
 function renderHostedLegendItems() {
@@ -265,35 +274,47 @@ const FULL_VERSION_URL = "https://jordan77-lang.github.io/Periodic-table/hosted.
 const COMPACT_EMBED_URL = `${HOSTED_URL}?embed=1&size=compact`;
 const LARGE_TABLE_URL = `${HOSTED_URL}?size=large`;
 
-const studentDetailScript = `
+const detailPanelScript = `
 (function () {
   var params = new URLSearchParams(location.search);
-  var size = params.get("size");
-  if (!size && params.get("embed") === "1") {
-    size = "compact";
-  }
-  if (!size) {
-    size = "medium";
-  }
-  document.body.classList.add("pt-size-" + size);
-  if (params.get("embed") === "1") {
-    document.body.classList.add("pt-embed");
+  if (document.querySelector(".pt-wrapper")) {
+    var size = params.get("size");
+    if (!size && params.get("embed") === "1") {
+      size = "compact";
+    }
+    if (!size) {
+      size = "medium";
+    }
+    document.body.classList.add("pt-size-" + size);
+    if (params.get("embed") === "1") {
+      document.body.classList.add("pt-embed");
+    }
   }
 
-  var wrapper = document.querySelector(".pt-wrapper");
+  var wrapper = document.querySelector(".pt-wrapper, .pt-a11y-grid");
   var detailContent = document.getElementById("pt-detail-content");
   if (!wrapper || !detailContent) {
     return;
   }
 
-  var tiles = wrapper.querySelectorAll(".pt-element:not(.blank)");
+  var tiles = wrapper.querySelectorAll(".pt-element:not(.blank), .pt-a11y-element");
   var selectedTile = null;
 
+  function readTilePart(tile, selectors) {
+    for (var i = 0; i < selectors.length; i++) {
+      var part = tile.querySelector(selectors[i]);
+      if (part) {
+        return part.textContent;
+      }
+    }
+    return "";
+  }
+
   function updateDetailPanel(tile) {
-    var number = tile.querySelector(".number").textContent;
-    var symbol = tile.querySelector(".symbol").textContent;
-    var name = tile.querySelector(".name").textContent;
-    var mass = tile.querySelector(".mass").textContent;
+    var number = readTilePart(tile, [".number", ".pt-a11y-number"]);
+    var symbol = readTilePart(tile, [".symbol", ".pt-a11y-symbol"]);
+    var name = readTilePart(tile, [".name", ".pt-a11y-name"]);
+    var mass = readTilePart(tile, [".mass", ".pt-a11y-mass"]);
     var category = tile.getAttribute("data-category") || "";
     var group = tile.getAttribute("data-group") || "";
 
@@ -328,44 +349,87 @@ const studentDetailScript = `
   });
 })();`;
 
-const hostedTileScript = `
-(function () {
-  var wrapper = document.querySelector(".pt-a11y-grid");
-  if (!wrapper) {
-    return;
+const layoutDetailStyles = `
+  .pt-layout {
+    display: flex;
+    gap: 10px;
+    max-width: 980px;
+    margin: 0 auto;
+    align-items: flex-start;
   }
-
-  var tiles = wrapper.querySelectorAll(".pt-a11y-element");
-  var activeTile = null;
-
-  function setActiveTile(tile) {
-    activeTile = tile || null;
-    tiles.forEach(function (item) {
-      item.style.pointerEvents = !tile || item === tile ? "auto" : "none";
-    });
+  .pt-a11y-layout {
+    max-width: 1100px;
+    margin-bottom: 24px;
   }
-
-  tiles.forEach(function (tile) {
-    tile.addEventListener("mouseenter", function () { setActiveTile(tile); });
-    tile.addEventListener("focus", function () { setActiveTile(tile); });
-  });
-
-  wrapper.addEventListener("mouseleave", function () { setActiveTile(null); });
-  wrapper.addEventListener("focusout", function (event) {
-    if (!wrapper.contains(event.relatedTarget)) {
-      setActiveTile(null);
-    }
-  });
-})();`;
-
-const tilePointerStyles = `
-  .pt-wrapper:has(.pt-element.is-expanded) .pt-element:not(.blank):not(.is-expanded),
-  .pt-wrapper:has(.pt-element:not(.blank):hover) .pt-element:not(.blank):not(:hover),
-  .pt-wrapper:has(.pt-element:not(.blank):focus-visible) .pt-element:not(.blank):not(:focus-visible),
-  .pt-a11y-grid:has(.pt-a11y-element.is-expanded) .pt-a11y-element:not(.is-expanded),
-  .pt-a11y-grid:has(.pt-a11y-element:hover) .pt-a11y-element:not(:hover),
-  .pt-a11y-grid:has(.pt-a11y-element:focus-visible) .pt-a11y-element:not(:focus-visible) {
+  .pt-detail-panel {
+    flex: 0 0 150px;
+    border: 1px solid #767676;
+    border-radius: 4px;
+    padding: 10px;
+    background: #f8f9fa;
+    color: #1a1a1a;
+  }
+  .pt-detail-heading {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 0 0 8px;
+    color: #444;
+  }
+  .pt-detail-symbol {
+    font-size: 2.1rem;
+    font-weight: 700;
+    line-height: 1;
+    margin: 0 0 4px;
+  }
+  .pt-detail-name {
+    font-size: 0.92rem;
+    font-weight: 700;
+    margin: 0 0 10px;
+    line-height: 1.2;
+  }
+  .pt-detail-list {
+    margin: 0;
+    font-size: 0.76rem;
+    line-height: 1.4;
+  }
+  .pt-detail-list dt {
+    font-weight: 700;
+    margin-top: 6px;
+  }
+  .pt-detail-list dd {
+    margin: 0;
+  }
+  .pt-detail-empty {
+    font-size: 0.78rem;
+    color: #555;
+    margin: 0;
+    line-height: 1.35;
+  }
+  .pt-group-row {
+    display: contents;
+  }
+  .pt-group-num {
+    text-align: center;
+    font-weight: 700;
+    font-size: 0.78rem;
+    color: #444;
+    padding: 4px 0 2px;
     pointer-events: none;
+  }
+  button.pt-element.is-selected,
+  button.pt-element:focus-visible,
+  button.pt-a11y-element.is-selected,
+  button.pt-a11y-element:focus-visible {
+    outline: 3px solid #003366;
+    outline-offset: 1px;
+    z-index: 2;
+  }
+  button.pt-element:hover,
+  button.pt-a11y-element:hover {
+    outline: 2px solid #003366;
+    outline-offset: 1px;
   }`;
 
 const hostedStyles = `
@@ -434,15 +498,16 @@ const hostedStyles = `
   }
   .pt-a11y-grid {
     display: grid;
-    grid-template-columns: repeat(18, minmax(44px, 1fr));
-    gap: 4px;
-    padding: 8px 0 24px;
-    margin-bottom: 24px;
+    grid-template-columns: repeat(18, minmax(40px, 1fr));
+    gap: 3px;
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: 2px 0 4px;
     overflow-x: auto;
   }
   .pt-a11y-element {
     position: relative;
-    padding: 7px 4px;
+    padding: 6px 3px;
     text-align: center;
     border: 1px solid #767676;
     background: #f4f4f4;
@@ -451,32 +516,20 @@ const hostedStyles = `
     font: inherit;
     color: inherit;
     width: 100%;
-    transition: transform 0.18s ease, box-shadow 0.18s ease;
+    display: block;
+    min-height: 36px;
   }
-  .pt-a11y-element:hover,
-  .pt-a11y-element:focus-visible {
-    transform: scale(2.8);
-    z-index: 100;
-    box-shadow: 0 10px 14px rgba(0, 0, 0, 0.25);
-    outline: 3px solid #003366;
-    outline-offset: 2px;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .pt-a11y-element { transition: none; }
-    .pt-a11y-element:hover,
-    .pt-a11y-element:focus-visible { transform: none; }
-  }
-  .pt-a11y-number { display: block; font-size: 0.65rem; font-weight: 600; }
-  .pt-a11y-symbol { display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0; }
+  .pt-a11y-number { display: block; font-size: 0.55rem; font-weight: 600; }
+  .pt-a11y-symbol { display: block; font-size: 0.95rem; font-weight: 700; margin: 2px 0; }
   .pt-a11y-name {
     display: block;
-    font-size: 0.4rem;
+    font-size: 0.34rem;
     line-height: 1.15;
     text-transform: uppercase;
     letter-spacing: 0.035em;
   }
-  .pt-a11y-mass { display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700; }
-  .pt-a11y-blank { border: none; background: transparent; pointer-events: none; min-height: 52px; }
+  .pt-a11y-mass { display: block; font-size: 0.38rem; color: #333; margin-top: 2px; font-weight: 700; }
+  .pt-a11y-blank { border: none; background: transparent; pointer-events: none; min-height: 36px; }
   .pt-a11y-element[data-type="alkali"], .pt-a11y-legend-swatch[data-type="alkali"] { background: #fdd9a6; }
   .pt-a11y-element[data-type="alkaline"], .pt-a11y-legend-swatch[data-type="alkaline"] { background: #fdecc2; }
   .pt-a11y-element[data-type="transition"], .pt-a11y-legend-swatch[data-type="transition"] { background: #cbe5ff; }
@@ -493,20 +546,24 @@ const hostedStyles = `
   .pt-a11y-table th, .pt-a11y-table td { border: 1px solid #767676; padding: 8px 10px; text-align: left; }
   .pt-a11y-table thead th { background: #eef3f8; }
   .pt-a11y-table tbody tr:nth-child(even) { background: #fafafa; }
-  ${tilePointerStyles}
+  ${layoutDetailStyles}
 `;
 
 const hostedBody = `<section class="pt-a11y-root" aria-labelledby="pt-a11y-heading">
 <a class="pt-a11y-skip" href="#pt-a11y-table">Skip to element reference table</a>
 <h2 id="pt-a11y-heading">Accessible Periodic Table of the Elements</h2>
-<p class="pt-a11y-intro" id="pt-a11y-intro">Each tile is a button. Use Tab to move between elements; focused tiles enlarge with a visible outline. Each element announces its group number. Screen reader users can browse the full element list in the reference table below.</p>
+<p class="pt-a11y-intro" id="pt-a11y-intro">Each tile is a button. Tab or click an element to view its details in the panel to the left, including group number. Screen reader users can also browse the full element list in the reference table below.</p>
 <h3>Element category legend</h3>
 <ul class="pt-a11y-legend" aria-label="Element categories by color">
 ${renderHostedLegendItems()}
 </ul>
 <h3>Periodic table layout</h3>
+<div class="pt-layout pt-a11y-layout">
+${renderDetailPanel()}
 <div class="pt-a11y-grid" role="group" aria-describedby="pt-a11y-intro">
+${renderGroupNumbersRow()}
 ${gridCells.map(renderHostedGridCell).join("\n")}
+</div>
 </div>
 <div class="pt-a11y-table-wrap" id="pt-a11y-table">
 <h3 id="pt-a11y-table-heading">Element reference table</h3>
@@ -540,7 +597,7 @@ const hostedPage = `<!DOCTYPE html>
 </head>
 <body>
 ${hostedBody}
-<script>${hostedTileScript}</script>
+<script>${detailPanelScript}</script>
 </body>
 </html>`;
 
@@ -569,58 +626,7 @@ const studentStyles = `
     display: none;
   }
   .pt-layout {
-    display: flex;
-    gap: 10px;
-    max-width: 980px;
-    margin: 0 auto;
-    align-items: flex-start;
     font-family: Arial, sans-serif;
-  }
-  .pt-detail-panel {
-    flex: 0 0 150px;
-    border: 1px solid #767676;
-    border-radius: 4px;
-    padding: 10px;
-    background: #f8f9fa;
-    color: #1a1a1a;
-  }
-  .pt-detail-heading {
-    font-size: 0.72rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    margin: 0 0 8px;
-    color: #444;
-  }
-  .pt-detail-symbol {
-    font-size: 2.1rem;
-    font-weight: 700;
-    line-height: 1;
-    margin: 0 0 4px;
-  }
-  .pt-detail-name {
-    font-size: 0.92rem;
-    font-weight: 700;
-    margin: 0 0 10px;
-    line-height: 1.2;
-  }
-  .pt-detail-list {
-    margin: 0;
-    font-size: 0.76rem;
-    line-height: 1.4;
-  }
-  .pt-detail-list dt {
-    font-weight: 700;
-    margin-top: 6px;
-  }
-  .pt-detail-list dd {
-    margin: 0;
-  }
-  .pt-detail-empty {
-    font-size: 0.78rem;
-    color: #555;
-    margin: 0;
-    line-height: 1.35;
   }
   .pt-wrapper {
     display: grid;
@@ -629,17 +635,6 @@ const studentStyles = `
     flex: 1 1 auto;
     min-width: 0;
     padding: 2px 0 4px;
-  }
-  .pt-group-row {
-    display: contents;
-  }
-  .pt-group-num {
-    text-align: center;
-    font-weight: 700;
-    font-size: 0.78rem;
-    color: #444;
-    padding: 4px 0 2px;
-    pointer-events: none;
   }
   button.pt-element {
     position: relative;
@@ -654,16 +649,6 @@ const studentStyles = `
     width: 100%;
     display: block;
     min-height: 36px;
-  }
-  button.pt-element.is-selected,
-  button.pt-element:focus-visible {
-    outline: 3px solid #003366;
-    outline-offset: 1px;
-    z-index: 2;
-  }
-  button.pt-element:hover {
-    outline: 2px solid #003366;
-    outline-offset: 1px;
   }
   button.pt-element .number { display: block; font-size: 0.55rem; font-weight: 600; }
   button.pt-element .symbol { display: block; font-size: 0.95rem; font-weight: 700; margin: 2px 0; }
@@ -704,6 +689,7 @@ const studentStyles = `
     gap: 4px;
   }
   body.pt-size-large button.pt-element .symbol { font-size: 1.15rem; }
+  ${layoutDetailStyles}
 `;
 
 const studentPage = `<!DOCTYPE html>
@@ -725,19 +711,14 @@ const studentPage = `<!DOCTYPE html>
 <h1 id="pt-page-title" class="pt-sr-only">Periodic table of the elements</h1>
 <p class="pt-sr-only" id="pt-table-help">Interactive periodic table. Tab between element buttons in the grid. Each button announces the element name, symbol, atomic number, atomic mass, group number, and category. Element details appear in the panel to the left. Group numbers 1 through 18 are shown above the table.</p>
 <div class="pt-layout">
-<aside class="pt-detail-panel" id="pt-detail-panel" aria-live="polite" aria-atomic="true" aria-labelledby="pt-detail-heading">
-<h2 id="pt-detail-heading" class="pt-detail-heading">Element details</h2>
-<div id="pt-detail-content">
-<p class="pt-detail-empty">Tab to or click an element in the table.</p>
-</div>
-</aside>
+${renderDetailPanel()}
 <div class="pt-wrapper" role="group" aria-labelledby="pt-page-title" aria-describedby="pt-table-help">
 ${renderGroupNumbersRow()}
 ${gridCells.map(renderStudentGridCell).join("\n")}
 </div>
 </div>
 </main>
-<script>${studentDetailScript}</script>
+<script>${detailPanelScript}</script>
 </body>
 </html>`;
 

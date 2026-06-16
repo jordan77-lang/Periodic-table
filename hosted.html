@@ -70,15 +70,16 @@
   }
   .pt-a11y-grid {
     display: grid;
-    grid-template-columns: repeat(18, minmax(44px, 1fr));
-    gap: 4px;
-    padding: 8px 0 24px;
-    margin-bottom: 24px;
+    grid-template-columns: repeat(18, minmax(40px, 1fr));
+    gap: 3px;
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: 2px 0 4px;
     overflow-x: auto;
   }
   .pt-a11y-element {
     position: relative;
-    padding: 7px 4px;
+    padding: 6px 3px;
     text-align: center;
     border: 1px solid #767676;
     background: #f4f4f4;
@@ -87,32 +88,20 @@
     font: inherit;
     color: inherit;
     width: 100%;
-    transition: transform 0.18s ease, box-shadow 0.18s ease;
+    display: block;
+    min-height: 36px;
   }
-  .pt-a11y-element:hover,
-  .pt-a11y-element:focus-visible {
-    transform: scale(2.8);
-    z-index: 100;
-    box-shadow: 0 10px 14px rgba(0, 0, 0, 0.25);
-    outline: 3px solid #003366;
-    outline-offset: 2px;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .pt-a11y-element { transition: none; }
-    .pt-a11y-element:hover,
-    .pt-a11y-element:focus-visible { transform: none; }
-  }
-  .pt-a11y-number { display: block; font-size: 0.65rem; font-weight: 600; }
-  .pt-a11y-symbol { display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0; }
+  .pt-a11y-number { display: block; font-size: 0.55rem; font-weight: 600; }
+  .pt-a11y-symbol { display: block; font-size: 0.95rem; font-weight: 700; margin: 2px 0; }
   .pt-a11y-name {
     display: block;
-    font-size: 0.4rem;
+    font-size: 0.34rem;
     line-height: 1.15;
     text-transform: uppercase;
     letter-spacing: 0.035em;
   }
-  .pt-a11y-mass { display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700; }
-  .pt-a11y-blank { border: none; background: transparent; pointer-events: none; min-height: 52px; }
+  .pt-a11y-mass { display: block; font-size: 0.38rem; color: #333; margin-top: 2px; font-weight: 700; }
+  .pt-a11y-blank { border: none; background: transparent; pointer-events: none; min-height: 36px; }
   .pt-a11y-element[data-type="alkali"], .pt-a11y-legend-swatch[data-type="alkali"] { background: #fdd9a6; }
   .pt-a11y-element[data-type="alkaline"], .pt-a11y-legend-swatch[data-type="alkaline"] { background: #fdecc2; }
   .pt-a11y-element[data-type="transition"], .pt-a11y-legend-swatch[data-type="transition"] { background: #cbe5ff; }
@@ -130,13 +119,86 @@
   .pt-a11y-table thead th { background: #eef3f8; }
   .pt-a11y-table tbody tr:nth-child(even) { background: #fafafa; }
   
-  .pt-wrapper:has(.pt-element.is-expanded) .pt-element:not(.blank):not(.is-expanded),
-  .pt-wrapper:has(.pt-element:not(.blank):hover) .pt-element:not(.blank):not(:hover),
-  .pt-wrapper:has(.pt-element:not(.blank):focus-visible) .pt-element:not(.blank):not(:focus-visible),
-  .pt-a11y-grid:has(.pt-a11y-element.is-expanded) .pt-a11y-element:not(.is-expanded),
-  .pt-a11y-grid:has(.pt-a11y-element:hover) .pt-a11y-element:not(:hover),
-  .pt-a11y-grid:has(.pt-a11y-element:focus-visible) .pt-a11y-element:not(:focus-visible) {
+  .pt-layout {
+    display: flex;
+    gap: 10px;
+    max-width: 980px;
+    margin: 0 auto;
+    align-items: flex-start;
+  }
+  .pt-a11y-layout {
+    max-width: 1100px;
+    margin-bottom: 24px;
+  }
+  .pt-detail-panel {
+    flex: 0 0 150px;
+    border: 1px solid #767676;
+    border-radius: 4px;
+    padding: 10px;
+    background: #f8f9fa;
+    color: #1a1a1a;
+  }
+  .pt-detail-heading {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 0 0 8px;
+    color: #444;
+  }
+  .pt-detail-symbol {
+    font-size: 2.1rem;
+    font-weight: 700;
+    line-height: 1;
+    margin: 0 0 4px;
+  }
+  .pt-detail-name {
+    font-size: 0.92rem;
+    font-weight: 700;
+    margin: 0 0 10px;
+    line-height: 1.2;
+  }
+  .pt-detail-list {
+    margin: 0;
+    font-size: 0.76rem;
+    line-height: 1.4;
+  }
+  .pt-detail-list dt {
+    font-weight: 700;
+    margin-top: 6px;
+  }
+  .pt-detail-list dd {
+    margin: 0;
+  }
+  .pt-detail-empty {
+    font-size: 0.78rem;
+    color: #555;
+    margin: 0;
+    line-height: 1.35;
+  }
+  .pt-group-row {
+    display: contents;
+  }
+  .pt-group-num {
+    text-align: center;
+    font-weight: 700;
+    font-size: 0.78rem;
+    color: #444;
+    padding: 4px 0 2px;
     pointer-events: none;
+  }
+  button.pt-element.is-selected,
+  button.pt-element:focus-visible,
+  button.pt-a11y-element.is-selected,
+  button.pt-a11y-element:focus-visible {
+    outline: 3px solid #003366;
+    outline-offset: 1px;
+    z-index: 2;
+  }
+  button.pt-element:hover,
+  button.pt-a11y-element:hover {
+    outline: 2px solid #003366;
+    outline-offset: 1px;
   }
 
   </style>
@@ -145,7 +207,7 @@
 <section class="pt-a11y-root" aria-labelledby="pt-a11y-heading">
 <a class="pt-a11y-skip" href="#pt-a11y-table">Skip to element reference table</a>
 <h2 id="pt-a11y-heading">Accessible Periodic Table of the Elements</h2>
-<p class="pt-a11y-intro" id="pt-a11y-intro">Each tile is a button. Use Tab to move between elements; focused tiles enlarge with a visible outline. Each element announces its group number. Screen reader users can browse the full element list in the reference table below.</p>
+<p class="pt-a11y-intro" id="pt-a11y-intro">Each tile is a button. Tab or click an element to view its details in the panel to the left, including group number. Screen reader users can also browse the full element list in the reference table below.</p>
 <h3>Element category legend</h3>
 <ul class="pt-a11y-legend" aria-label="Element categories by color">
 <li><span class="pt-a11y-legend-swatch" data-type="alkali" aria-hidden="true"></span><span>Alkali metal</span></li>
@@ -160,720 +222,729 @@
 <li><span class="pt-a11y-legend-swatch" data-type="actinide" aria-hidden="true"></span><span>Actinide</span></li>
 </ul>
 <h3>Periodic table layout</h3>
+<div class="pt-layout pt-a11y-layout">
+<aside class="pt-detail-panel" id="pt-detail-panel" aria-live="polite" aria-atomic="true" aria-labelledby="pt-detail-heading">
+<h2 id="pt-detail-heading" class="pt-detail-heading">Element details</h2>
+<div id="pt-detail-content">
+<p class="pt-detail-empty">Tab to or click an element in the table.</p>
+</div>
+</aside>
 <div class="pt-a11y-grid" role="group" aria-describedby="pt-a11y-intro">
-<button type="button" class="pt-a11y-element" data-type="nonmetal" data-group="1" style="grid-column: 1;" aria-label="Hydrogen, symbol H, atomic number 1, atomic mass 1.008, group 1, Nonmetal">
+<div class="pt-group-row" aria-hidden="true"><div class="pt-group-num">1</div><div class="pt-group-num">2</div><div class="pt-group-num">3</div><div class="pt-group-num">4</div><div class="pt-group-num">5</div><div class="pt-group-num">6</div><div class="pt-group-num">7</div><div class="pt-group-num">8</div><div class="pt-group-num">9</div><div class="pt-group-num">10</div><div class="pt-group-num">11</div><div class="pt-group-num">12</div><div class="pt-group-num">13</div><div class="pt-group-num">14</div><div class="pt-group-num">15</div><div class="pt-group-num">16</div><div class="pt-group-num">17</div><div class="pt-group-num">18</div></div>
+<button type="button" class="pt-a11y-element" data-type="nonmetal" data-category="Nonmetal" data-group="1" style="grid-column: 1;" aria-label="Hydrogen, symbol H, atomic number 1, atomic mass 1.008, group 1, Nonmetal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">1</span>
 <span class="pt-a11y-symbol" aria-hidden="true">H</span>
 <span class="pt-a11y-name" aria-hidden="true">Hydrogen</span>
 <span class="pt-a11y-mass" aria-hidden="true">1.008</span>
 </button>
 <div class="pt-a11y-blank" aria-hidden="true" style="grid-column: 2 / span 16;"></div>
-<button type="button" class="pt-a11y-element" data-type="noble" data-group="18" aria-label="Helium, symbol He, atomic number 2, atomic mass 4.0026, group 18, Noble gas">
+<button type="button" class="pt-a11y-element" data-type="noble" data-category="Noble gas" data-group="18" aria-label="Helium, symbol He, atomic number 2, atomic mass 4.0026, group 18, Noble gas" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">2</span>
 <span class="pt-a11y-symbol" aria-hidden="true">He</span>
 <span class="pt-a11y-name" aria-hidden="true">Helium</span>
 <span class="pt-a11y-mass" aria-hidden="true">4.0026</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="alkali" data-group="1" style="grid-column: 1;" aria-label="Lithium, symbol Li, atomic number 3, atomic mass 6.94, group 1, Alkali metal">
+<button type="button" class="pt-a11y-element" data-type="alkali" data-category="Alkali metal" data-group="1" style="grid-column: 1;" aria-label="Lithium, symbol Li, atomic number 3, atomic mass 6.94, group 1, Alkali metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">3</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Li</span>
 <span class="pt-a11y-name" aria-hidden="true">Lithium</span>
 <span class="pt-a11y-mass" aria-hidden="true">6.94</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="alkaline" data-group="2" aria-label="Beryllium, symbol Be, atomic number 4, atomic mass 9.0122, group 2, Alkaline earth metal">
+<button type="button" class="pt-a11y-element" data-type="alkaline" data-category="Alkaline earth metal" data-group="2" aria-label="Beryllium, symbol Be, atomic number 4, atomic mass 9.0122, group 2, Alkaline earth metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">4</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Be</span>
 <span class="pt-a11y-name" aria-hidden="true">Beryllium</span>
 <span class="pt-a11y-mass" aria-hidden="true">9.0122</span>
 </button>
 <div class="pt-a11y-blank" aria-hidden="true" style="grid-column: 3 / span 10;"></div>
-<button type="button" class="pt-a11y-element" data-type="metalloid" data-group="13" aria-label="Boron, symbol B, atomic number 5, atomic mass 10.81, group 13, Metalloid">
+<button type="button" class="pt-a11y-element" data-type="metalloid" data-category="Metalloid" data-group="13" aria-label="Boron, symbol B, atomic number 5, atomic mass 10.81, group 13, Metalloid" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">5</span>
 <span class="pt-a11y-symbol" aria-hidden="true">B</span>
 <span class="pt-a11y-name" aria-hidden="true">Boron</span>
 <span class="pt-a11y-mass" aria-hidden="true">10.81</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="nonmetal" data-group="14" aria-label="Carbon, symbol C, atomic number 6, atomic mass 12.011, group 14, Nonmetal">
+<button type="button" class="pt-a11y-element" data-type="nonmetal" data-category="Nonmetal" data-group="14" aria-label="Carbon, symbol C, atomic number 6, atomic mass 12.011, group 14, Nonmetal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">6</span>
 <span class="pt-a11y-symbol" aria-hidden="true">C</span>
 <span class="pt-a11y-name" aria-hidden="true">Carbon</span>
 <span class="pt-a11y-mass" aria-hidden="true">12.011</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="nonmetal" data-group="15" aria-label="Nitrogen, symbol N, atomic number 7, atomic mass 14.007, group 15, Nonmetal">
+<button type="button" class="pt-a11y-element" data-type="nonmetal" data-category="Nonmetal" data-group="15" aria-label="Nitrogen, symbol N, atomic number 7, atomic mass 14.007, group 15, Nonmetal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">7</span>
 <span class="pt-a11y-symbol" aria-hidden="true">N</span>
 <span class="pt-a11y-name" aria-hidden="true">Nitrogen</span>
 <span class="pt-a11y-mass" aria-hidden="true">14.007</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="nonmetal" data-group="16" aria-label="Oxygen, symbol O, atomic number 8, atomic mass 15.999, group 16, Nonmetal">
+<button type="button" class="pt-a11y-element" data-type="nonmetal" data-category="Nonmetal" data-group="16" aria-label="Oxygen, symbol O, atomic number 8, atomic mass 15.999, group 16, Nonmetal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">8</span>
 <span class="pt-a11y-symbol" aria-hidden="true">O</span>
 <span class="pt-a11y-name" aria-hidden="true">Oxygen</span>
 <span class="pt-a11y-mass" aria-hidden="true">15.999</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="halogen" data-group="17" aria-label="Fluorine, symbol F, atomic number 9, atomic mass 18.998, group 17, Halogen">
+<button type="button" class="pt-a11y-element" data-type="halogen" data-category="Halogen" data-group="17" aria-label="Fluorine, symbol F, atomic number 9, atomic mass 18.998, group 17, Halogen" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">9</span>
 <span class="pt-a11y-symbol" aria-hidden="true">F</span>
 <span class="pt-a11y-name" aria-hidden="true">Fluorine</span>
 <span class="pt-a11y-mass" aria-hidden="true">18.998</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="noble" data-group="18" aria-label="Neon, symbol Ne, atomic number 10, atomic mass 20.180, group 18, Noble gas">
+<button type="button" class="pt-a11y-element" data-type="noble" data-category="Noble gas" data-group="18" aria-label="Neon, symbol Ne, atomic number 10, atomic mass 20.180, group 18, Noble gas" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">10</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Ne</span>
 <span class="pt-a11y-name" aria-hidden="true">Neon</span>
 <span class="pt-a11y-mass" aria-hidden="true">20.180</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="alkali" data-group="1" style="grid-column: 1;" aria-label="Sodium, symbol Na, atomic number 11, atomic mass 22.990, group 1, Alkali metal">
+<button type="button" class="pt-a11y-element" data-type="alkali" data-category="Alkali metal" data-group="1" style="grid-column: 1;" aria-label="Sodium, symbol Na, atomic number 11, atomic mass 22.990, group 1, Alkali metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">11</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Na</span>
 <span class="pt-a11y-name" aria-hidden="true">Sodium</span>
 <span class="pt-a11y-mass" aria-hidden="true">22.990</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="alkaline" data-group="2" aria-label="Magnesium, symbol Mg, atomic number 12, atomic mass 24.305, group 2, Alkaline earth metal">
+<button type="button" class="pt-a11y-element" data-type="alkaline" data-category="Alkaline earth metal" data-group="2" aria-label="Magnesium, symbol Mg, atomic number 12, atomic mass 24.305, group 2, Alkaline earth metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">12</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Mg</span>
 <span class="pt-a11y-name" aria-hidden="true">Magnesium</span>
 <span class="pt-a11y-mass" aria-hidden="true">24.305</span>
 </button>
 <div class="pt-a11y-blank" aria-hidden="true" style="grid-column: 3 / span 10;"></div>
-<button type="button" class="pt-a11y-element" data-type="post" data-group="13" aria-label="Aluminum, symbol Al, atomic number 13, atomic mass 26.982, group 13, Post-transition metal">
+<button type="button" class="pt-a11y-element" data-type="post" data-category="Post-transition metal" data-group="13" aria-label="Aluminum, symbol Al, atomic number 13, atomic mass 26.982, group 13, Post-transition metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">13</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Al</span>
 <span class="pt-a11y-name" aria-hidden="true">Aluminum</span>
 <span class="pt-a11y-mass" aria-hidden="true">26.982</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="metalloid" data-group="14" aria-label="Silicon, symbol Si, atomic number 14, atomic mass 28.085, group 14, Metalloid">
+<button type="button" class="pt-a11y-element" data-type="metalloid" data-category="Metalloid" data-group="14" aria-label="Silicon, symbol Si, atomic number 14, atomic mass 28.085, group 14, Metalloid" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">14</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Si</span>
 <span class="pt-a11y-name" aria-hidden="true">Silicon</span>
 <span class="pt-a11y-mass" aria-hidden="true">28.085</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="nonmetal" data-group="15" aria-label="Phosphorus, symbol P, atomic number 15, atomic mass 30.974, group 15, Nonmetal">
+<button type="button" class="pt-a11y-element" data-type="nonmetal" data-category="Nonmetal" data-group="15" aria-label="Phosphorus, symbol P, atomic number 15, atomic mass 30.974, group 15, Nonmetal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">15</span>
 <span class="pt-a11y-symbol" aria-hidden="true">P</span>
 <span class="pt-a11y-name" aria-hidden="true">Phosphorus</span>
 <span class="pt-a11y-mass" aria-hidden="true">30.974</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="nonmetal" data-group="16" aria-label="Sulfur, symbol S, atomic number 16, atomic mass 32.06, group 16, Nonmetal">
+<button type="button" class="pt-a11y-element" data-type="nonmetal" data-category="Nonmetal" data-group="16" aria-label="Sulfur, symbol S, atomic number 16, atomic mass 32.06, group 16, Nonmetal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">16</span>
 <span class="pt-a11y-symbol" aria-hidden="true">S</span>
 <span class="pt-a11y-name" aria-hidden="true">Sulfur</span>
 <span class="pt-a11y-mass" aria-hidden="true">32.06</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="halogen" data-group="17" aria-label="Chlorine, symbol Cl, atomic number 17, atomic mass 35.45, group 17, Halogen">
+<button type="button" class="pt-a11y-element" data-type="halogen" data-category="Halogen" data-group="17" aria-label="Chlorine, symbol Cl, atomic number 17, atomic mass 35.45, group 17, Halogen" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">17</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Cl</span>
 <span class="pt-a11y-name" aria-hidden="true">Chlorine</span>
 <span class="pt-a11y-mass" aria-hidden="true">35.45</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="noble" data-group="18" aria-label="Argon, symbol Ar, atomic number 18, atomic mass 39.948, group 18, Noble gas">
+<button type="button" class="pt-a11y-element" data-type="noble" data-category="Noble gas" data-group="18" aria-label="Argon, symbol Ar, atomic number 18, atomic mass 39.948, group 18, Noble gas" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">18</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Ar</span>
 <span class="pt-a11y-name" aria-hidden="true">Argon</span>
 <span class="pt-a11y-mass" aria-hidden="true">39.948</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="alkali" data-group="1" style="grid-column: 1;" aria-label="Potassium, symbol K, atomic number 19, atomic mass 39.098, group 1, Alkali metal">
+<button type="button" class="pt-a11y-element" data-type="alkali" data-category="Alkali metal" data-group="1" style="grid-column: 1;" aria-label="Potassium, symbol K, atomic number 19, atomic mass 39.098, group 1, Alkali metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">19</span>
 <span class="pt-a11y-symbol" aria-hidden="true">K</span>
 <span class="pt-a11y-name" aria-hidden="true">Potassium</span>
 <span class="pt-a11y-mass" aria-hidden="true">39.098</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="alkaline" data-group="2" aria-label="Calcium, symbol Ca, atomic number 20, atomic mass 40.078, group 2, Alkaline earth metal">
+<button type="button" class="pt-a11y-element" data-type="alkaline" data-category="Alkaline earth metal" data-group="2" aria-label="Calcium, symbol Ca, atomic number 20, atomic mass 40.078, group 2, Alkaline earth metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">20</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Ca</span>
 <span class="pt-a11y-name" aria-hidden="true">Calcium</span>
 <span class="pt-a11y-mass" aria-hidden="true">40.078</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="transition" data-group="3" aria-label="Scandium, symbol Sc, atomic number 21, atomic mass 44.956, group 3, Transition metal">
+<button type="button" class="pt-a11y-element" data-type="transition" data-category="Transition metal" data-group="3" aria-label="Scandium, symbol Sc, atomic number 21, atomic mass 44.956, group 3, Transition metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">21</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Sc</span>
 <span class="pt-a11y-name" aria-hidden="true">Scandium</span>
 <span class="pt-a11y-mass" aria-hidden="true">44.956</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="transition" data-group="4" aria-label="Titanium, symbol Ti, atomic number 22, atomic mass 47.867, group 4, Transition metal">
+<button type="button" class="pt-a11y-element" data-type="transition" data-category="Transition metal" data-group="4" aria-label="Titanium, symbol Ti, atomic number 22, atomic mass 47.867, group 4, Transition metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">22</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Ti</span>
 <span class="pt-a11y-name" aria-hidden="true">Titanium</span>
 <span class="pt-a11y-mass" aria-hidden="true">47.867</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="transition" data-group="5" aria-label="Vanadium, symbol V, atomic number 23, atomic mass 50.942, group 5, Transition metal">
+<button type="button" class="pt-a11y-element" data-type="transition" data-category="Transition metal" data-group="5" aria-label="Vanadium, symbol V, atomic number 23, atomic mass 50.942, group 5, Transition metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">23</span>
 <span class="pt-a11y-symbol" aria-hidden="true">V</span>
 <span class="pt-a11y-name" aria-hidden="true">Vanadium</span>
 <span class="pt-a11y-mass" aria-hidden="true">50.942</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="transition" data-group="6" aria-label="Chromium, symbol Cr, atomic number 24, atomic mass 51.996, group 6, Transition metal">
+<button type="button" class="pt-a11y-element" data-type="transition" data-category="Transition metal" data-group="6" aria-label="Chromium, symbol Cr, atomic number 24, atomic mass 51.996, group 6, Transition metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">24</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Cr</span>
 <span class="pt-a11y-name" aria-hidden="true">Chromium</span>
 <span class="pt-a11y-mass" aria-hidden="true">51.996</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="transition" data-group="7" aria-label="Manganese, symbol Mn, atomic number 25, atomic mass 54.938, group 7, Transition metal">
+<button type="button" class="pt-a11y-element" data-type="transition" data-category="Transition metal" data-group="7" aria-label="Manganese, symbol Mn, atomic number 25, atomic mass 54.938, group 7, Transition metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">25</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Mn</span>
 <span class="pt-a11y-name" aria-hidden="true">Manganese</span>
 <span class="pt-a11y-mass" aria-hidden="true">54.938</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="transition" data-group="8" aria-label="Iron, symbol Fe, atomic number 26, atomic mass 55.845, group 8, Transition metal">
+<button type="button" class="pt-a11y-element" data-type="transition" data-category="Transition metal" data-group="8" aria-label="Iron, symbol Fe, atomic number 26, atomic mass 55.845, group 8, Transition metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">26</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Fe</span>
 <span class="pt-a11y-name" aria-hidden="true">Iron</span>
 <span class="pt-a11y-mass" aria-hidden="true">55.845</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="transition" data-group="9" aria-label="Cobalt, symbol Co, atomic number 27, atomic mass 58.933, group 9, Transition metal">
+<button type="button" class="pt-a11y-element" data-type="transition" data-category="Transition metal" data-group="9" aria-label="Cobalt, symbol Co, atomic number 27, atomic mass 58.933, group 9, Transition metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">27</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Co</span>
 <span class="pt-a11y-name" aria-hidden="true">Cobalt</span>
 <span class="pt-a11y-mass" aria-hidden="true">58.933</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="transition" data-group="10" aria-label="Nickel, symbol Ni, atomic number 28, atomic mass 58.693, group 10, Transition metal">
+<button type="button" class="pt-a11y-element" data-type="transition" data-category="Transition metal" data-group="10" aria-label="Nickel, symbol Ni, atomic number 28, atomic mass 58.693, group 10, Transition metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">28</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Ni</span>
 <span class="pt-a11y-name" aria-hidden="true">Nickel</span>
 <span class="pt-a11y-mass" aria-hidden="true">58.693</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="transition" data-group="11" aria-label="Copper, symbol Cu, atomic number 29, atomic mass 63.546, group 11, Transition metal">
+<button type="button" class="pt-a11y-element" data-type="transition" data-category="Transition metal" data-group="11" aria-label="Copper, symbol Cu, atomic number 29, atomic mass 63.546, group 11, Transition metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">29</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Cu</span>
 <span class="pt-a11y-name" aria-hidden="true">Copper</span>
 <span class="pt-a11y-mass" aria-hidden="true">63.546</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="transition" data-group="12" aria-label="Zinc, symbol Zn, atomic number 30, atomic mass 65.38, group 12, Transition metal">
+<button type="button" class="pt-a11y-element" data-type="transition" data-category="Transition metal" data-group="12" aria-label="Zinc, symbol Zn, atomic number 30, atomic mass 65.38, group 12, Transition metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">30</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Zn</span>
 <span class="pt-a11y-name" aria-hidden="true">Zinc</span>
 <span class="pt-a11y-mass" aria-hidden="true">65.38</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="post" data-group="13" aria-label="Gallium, symbol Ga, atomic number 31, atomic mass 69.723, group 13, Post-transition metal">
+<button type="button" class="pt-a11y-element" data-type="post" data-category="Post-transition metal" data-group="13" aria-label="Gallium, symbol Ga, atomic number 31, atomic mass 69.723, group 13, Post-transition metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">31</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Ga</span>
 <span class="pt-a11y-name" aria-hidden="true">Gallium</span>
 <span class="pt-a11y-mass" aria-hidden="true">69.723</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="metalloid" data-group="14" aria-label="Germanium, symbol Ge, atomic number 32, atomic mass 72.630, group 14, Metalloid">
+<button type="button" class="pt-a11y-element" data-type="metalloid" data-category="Metalloid" data-group="14" aria-label="Germanium, symbol Ge, atomic number 32, atomic mass 72.630, group 14, Metalloid" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">32</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Ge</span>
 <span class="pt-a11y-name" aria-hidden="true">Germanium</span>
 <span class="pt-a11y-mass" aria-hidden="true">72.630</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="metalloid" data-group="15" aria-label="Arsenic, symbol As, atomic number 33, atomic mass 74.922, group 15, Metalloid">
+<button type="button" class="pt-a11y-element" data-type="metalloid" data-category="Metalloid" data-group="15" aria-label="Arsenic, symbol As, atomic number 33, atomic mass 74.922, group 15, Metalloid" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">33</span>
 <span class="pt-a11y-symbol" aria-hidden="true">As</span>
 <span class="pt-a11y-name" aria-hidden="true">Arsenic</span>
 <span class="pt-a11y-mass" aria-hidden="true">74.922</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="nonmetal" data-group="16" aria-label="Selenium, symbol Se, atomic number 34, atomic mass 78.971, group 16, Nonmetal">
+<button type="button" class="pt-a11y-element" data-type="nonmetal" data-category="Nonmetal" data-group="16" aria-label="Selenium, symbol Se, atomic number 34, atomic mass 78.971, group 16, Nonmetal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">34</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Se</span>
 <span class="pt-a11y-name" aria-hidden="true">Selenium</span>
 <span class="pt-a11y-mass" aria-hidden="true">78.971</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="halogen" data-group="17" aria-label="Bromine, symbol Br, atomic number 35, atomic mass 79.904, group 17, Halogen">
+<button type="button" class="pt-a11y-element" data-type="halogen" data-category="Halogen" data-group="17" aria-label="Bromine, symbol Br, atomic number 35, atomic mass 79.904, group 17, Halogen" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">35</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Br</span>
 <span class="pt-a11y-name" aria-hidden="true">Bromine</span>
 <span class="pt-a11y-mass" aria-hidden="true">79.904</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="noble" data-group="18" aria-label="Krypton, symbol Kr, atomic number 36, atomic mass 83.798, group 18, Noble gas">
+<button type="button" class="pt-a11y-element" data-type="noble" data-category="Noble gas" data-group="18" aria-label="Krypton, symbol Kr, atomic number 36, atomic mass 83.798, group 18, Noble gas" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">36</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Kr</span>
 <span class="pt-a11y-name" aria-hidden="true">Krypton</span>
 <span class="pt-a11y-mass" aria-hidden="true">83.798</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="alkali" data-group="1" style="grid-column: 1;" aria-label="Rubidium, symbol Rb, atomic number 37, atomic mass 85.468, group 1, Alkali metal">
+<button type="button" class="pt-a11y-element" data-type="alkali" data-category="Alkali metal" data-group="1" style="grid-column: 1;" aria-label="Rubidium, symbol Rb, atomic number 37, atomic mass 85.468, group 1, Alkali metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">37</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Rb</span>
 <span class="pt-a11y-name" aria-hidden="true">Rubidium</span>
 <span class="pt-a11y-mass" aria-hidden="true">85.468</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="alkaline" data-group="2" aria-label="Strontium, symbol Sr, atomic number 38, atomic mass 87.62, group 2, Alkaline earth metal">
+<button type="button" class="pt-a11y-element" data-type="alkaline" data-category="Alkaline earth metal" data-group="2" aria-label="Strontium, symbol Sr, atomic number 38, atomic mass 87.62, group 2, Alkaline earth metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">38</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Sr</span>
 <span class="pt-a11y-name" aria-hidden="true">Strontium</span>
 <span class="pt-a11y-mass" aria-hidden="true">87.62</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="transition" data-group="3" aria-label="Yttrium, symbol Y, atomic number 39, atomic mass 88.906, group 3, Transition metal">
+<button type="button" class="pt-a11y-element" data-type="transition" data-category="Transition metal" data-group="3" aria-label="Yttrium, symbol Y, atomic number 39, atomic mass 88.906, group 3, Transition metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">39</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Y</span>
 <span class="pt-a11y-name" aria-hidden="true">Yttrium</span>
 <span class="pt-a11y-mass" aria-hidden="true">88.906</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="transition" data-group="4" aria-label="Zirconium, symbol Zr, atomic number 40, atomic mass 91.224, group 4, Transition metal">
+<button type="button" class="pt-a11y-element" data-type="transition" data-category="Transition metal" data-group="4" aria-label="Zirconium, symbol Zr, atomic number 40, atomic mass 91.224, group 4, Transition metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">40</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Zr</span>
 <span class="pt-a11y-name" aria-hidden="true">Zirconium</span>
 <span class="pt-a11y-mass" aria-hidden="true">91.224</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="transition" data-group="5" aria-label="Niobium, symbol Nb, atomic number 41, atomic mass 92.906, group 5, Transition metal">
+<button type="button" class="pt-a11y-element" data-type="transition" data-category="Transition metal" data-group="5" aria-label="Niobium, symbol Nb, atomic number 41, atomic mass 92.906, group 5, Transition metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">41</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Nb</span>
 <span class="pt-a11y-name" aria-hidden="true">Niobium</span>
 <span class="pt-a11y-mass" aria-hidden="true">92.906</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="transition" data-group="6" aria-label="Molybdenum, symbol Mo, atomic number 42, atomic mass 95.95, group 6, Transition metal">
+<button type="button" class="pt-a11y-element" data-type="transition" data-category="Transition metal" data-group="6" aria-label="Molybdenum, symbol Mo, atomic number 42, atomic mass 95.95, group 6, Transition metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">42</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Mo</span>
 <span class="pt-a11y-name" aria-hidden="true">Molybdenum</span>
 <span class="pt-a11y-mass" aria-hidden="true">95.95</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="transition" data-group="7" aria-label="Technetium, symbol Tc, atomic number 43, atomic mass 98, group 7, Transition metal">
+<button type="button" class="pt-a11y-element" data-type="transition" data-category="Transition metal" data-group="7" aria-label="Technetium, symbol Tc, atomic number 43, atomic mass 98, group 7, Transition metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">43</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Tc</span>
 <span class="pt-a11y-name" aria-hidden="true">Technetium</span>
 <span class="pt-a11y-mass" aria-hidden="true">98</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="transition" data-group="8" aria-label="Ruthenium, symbol Ru, atomic number 44, atomic mass 101.07, group 8, Transition metal">
+<button type="button" class="pt-a11y-element" data-type="transition" data-category="Transition metal" data-group="8" aria-label="Ruthenium, symbol Ru, atomic number 44, atomic mass 101.07, group 8, Transition metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">44</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Ru</span>
 <span class="pt-a11y-name" aria-hidden="true">Ruthenium</span>
 <span class="pt-a11y-mass" aria-hidden="true">101.07</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="transition" data-group="9" aria-label="Rhodium, symbol Rh, atomic number 45, atomic mass 102.91, group 9, Transition metal">
+<button type="button" class="pt-a11y-element" data-type="transition" data-category="Transition metal" data-group="9" aria-label="Rhodium, symbol Rh, atomic number 45, atomic mass 102.91, group 9, Transition metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">45</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Rh</span>
 <span class="pt-a11y-name" aria-hidden="true">Rhodium</span>
 <span class="pt-a11y-mass" aria-hidden="true">102.91</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="transition" data-group="10" aria-label="Palladium, symbol Pd, atomic number 46, atomic mass 106.42, group 10, Transition metal">
+<button type="button" class="pt-a11y-element" data-type="transition" data-category="Transition metal" data-group="10" aria-label="Palladium, symbol Pd, atomic number 46, atomic mass 106.42, group 10, Transition metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">46</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Pd</span>
 <span class="pt-a11y-name" aria-hidden="true">Palladium</span>
 <span class="pt-a11y-mass" aria-hidden="true">106.42</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="transition" data-group="11" aria-label="Silver, symbol Ag, atomic number 47, atomic mass 107.87, group 11, Transition metal">
+<button type="button" class="pt-a11y-element" data-type="transition" data-category="Transition metal" data-group="11" aria-label="Silver, symbol Ag, atomic number 47, atomic mass 107.87, group 11, Transition metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">47</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Ag</span>
 <span class="pt-a11y-name" aria-hidden="true">Silver</span>
 <span class="pt-a11y-mass" aria-hidden="true">107.87</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="transition" data-group="12" aria-label="Cadmium, symbol Cd, atomic number 48, atomic mass 112.41, group 12, Transition metal">
+<button type="button" class="pt-a11y-element" data-type="transition" data-category="Transition metal" data-group="12" aria-label="Cadmium, symbol Cd, atomic number 48, atomic mass 112.41, group 12, Transition metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">48</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Cd</span>
 <span class="pt-a11y-name" aria-hidden="true">Cadmium</span>
 <span class="pt-a11y-mass" aria-hidden="true">112.41</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="post" data-group="13" aria-label="Indium, symbol In, atomic number 49, atomic mass 114.82, group 13, Post-transition metal">
+<button type="button" class="pt-a11y-element" data-type="post" data-category="Post-transition metal" data-group="13" aria-label="Indium, symbol In, atomic number 49, atomic mass 114.82, group 13, Post-transition metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">49</span>
 <span class="pt-a11y-symbol" aria-hidden="true">In</span>
 <span class="pt-a11y-name" aria-hidden="true">Indium</span>
 <span class="pt-a11y-mass" aria-hidden="true">114.82</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="post" data-group="14" aria-label="Tin, symbol Sn, atomic number 50, atomic mass 118.71, group 14, Post-transition metal">
+<button type="button" class="pt-a11y-element" data-type="post" data-category="Post-transition metal" data-group="14" aria-label="Tin, symbol Sn, atomic number 50, atomic mass 118.71, group 14, Post-transition metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">50</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Sn</span>
 <span class="pt-a11y-name" aria-hidden="true">Tin</span>
 <span class="pt-a11y-mass" aria-hidden="true">118.71</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="metalloid" data-group="15" aria-label="Antimony, symbol Sb, atomic number 51, atomic mass 121.76, group 15, Metalloid">
+<button type="button" class="pt-a11y-element" data-type="metalloid" data-category="Metalloid" data-group="15" aria-label="Antimony, symbol Sb, atomic number 51, atomic mass 121.76, group 15, Metalloid" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">51</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Sb</span>
 <span class="pt-a11y-name" aria-hidden="true">Antimony</span>
 <span class="pt-a11y-mass" aria-hidden="true">121.76</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="metalloid" data-group="16" aria-label="Tellurium, symbol Te, atomic number 52, atomic mass 127.60, group 16, Metalloid">
+<button type="button" class="pt-a11y-element" data-type="metalloid" data-category="Metalloid" data-group="16" aria-label="Tellurium, symbol Te, atomic number 52, atomic mass 127.60, group 16, Metalloid" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">52</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Te</span>
 <span class="pt-a11y-name" aria-hidden="true">Tellurium</span>
 <span class="pt-a11y-mass" aria-hidden="true">127.60</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="halogen" data-group="17" aria-label="Iodine, symbol I, atomic number 53, atomic mass 126.90, group 17, Halogen">
+<button type="button" class="pt-a11y-element" data-type="halogen" data-category="Halogen" data-group="17" aria-label="Iodine, symbol I, atomic number 53, atomic mass 126.90, group 17, Halogen" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">53</span>
 <span class="pt-a11y-symbol" aria-hidden="true">I</span>
 <span class="pt-a11y-name" aria-hidden="true">Iodine</span>
 <span class="pt-a11y-mass" aria-hidden="true">126.90</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="noble" data-group="18" aria-label="Xenon, symbol Xe, atomic number 54, atomic mass 131.29, group 18, Noble gas">
+<button type="button" class="pt-a11y-element" data-type="noble" data-category="Noble gas" data-group="18" aria-label="Xenon, symbol Xe, atomic number 54, atomic mass 131.29, group 18, Noble gas" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">54</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Xe</span>
 <span class="pt-a11y-name" aria-hidden="true">Xenon</span>
 <span class="pt-a11y-mass" aria-hidden="true">131.29</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="alkali" data-group="1" style="grid-column: 1;" aria-label="Cesium, symbol Cs, atomic number 55, atomic mass 132.91, group 1, Alkali metal">
+<button type="button" class="pt-a11y-element" data-type="alkali" data-category="Alkali metal" data-group="1" style="grid-column: 1;" aria-label="Cesium, symbol Cs, atomic number 55, atomic mass 132.91, group 1, Alkali metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">55</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Cs</span>
 <span class="pt-a11y-name" aria-hidden="true">Cesium</span>
 <span class="pt-a11y-mass" aria-hidden="true">132.91</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="alkaline" data-group="2" aria-label="Barium, symbol Ba, atomic number 56, atomic mass 137.33, group 2, Alkaline earth metal">
+<button type="button" class="pt-a11y-element" data-type="alkaline" data-category="Alkaline earth metal" data-group="2" aria-label="Barium, symbol Ba, atomic number 56, atomic mass 137.33, group 2, Alkaline earth metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">56</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Ba</span>
 <span class="pt-a11y-name" aria-hidden="true">Barium</span>
 <span class="pt-a11y-mass" aria-hidden="true">137.33</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="lanthanide" data-group="3" aria-label="Lanthanum, symbol La, atomic number 57, atomic mass 138.91, group 3, Lanthanide">
+<button type="button" class="pt-a11y-element" data-type="lanthanide" data-category="Lanthanide" data-group="3" aria-label="Lanthanum, symbol La, atomic number 57, atomic mass 138.91, group 3, Lanthanide" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">57</span>
 <span class="pt-a11y-symbol" aria-hidden="true">La</span>
 <span class="pt-a11y-name" aria-hidden="true">Lanthanum</span>
 <span class="pt-a11y-mass" aria-hidden="true">138.91</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="transition" data-group="4" aria-label="Hafnium, symbol Hf, atomic number 72, atomic mass 178.49, group 4, Transition metal">
+<button type="button" class="pt-a11y-element" data-type="transition" data-category="Transition metal" data-group="4" aria-label="Hafnium, symbol Hf, atomic number 72, atomic mass 178.49, group 4, Transition metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">72</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Hf</span>
 <span class="pt-a11y-name" aria-hidden="true">Hafnium</span>
 <span class="pt-a11y-mass" aria-hidden="true">178.49</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="transition" data-group="5" aria-label="Tantalum, symbol Ta, atomic number 73, atomic mass 180.95, group 5, Transition metal">
+<button type="button" class="pt-a11y-element" data-type="transition" data-category="Transition metal" data-group="5" aria-label="Tantalum, symbol Ta, atomic number 73, atomic mass 180.95, group 5, Transition metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">73</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Ta</span>
 <span class="pt-a11y-name" aria-hidden="true">Tantalum</span>
 <span class="pt-a11y-mass" aria-hidden="true">180.95</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="transition" data-group="6" aria-label="Tungsten, symbol W, atomic number 74, atomic mass 183.84, group 6, Transition metal">
+<button type="button" class="pt-a11y-element" data-type="transition" data-category="Transition metal" data-group="6" aria-label="Tungsten, symbol W, atomic number 74, atomic mass 183.84, group 6, Transition metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">74</span>
 <span class="pt-a11y-symbol" aria-hidden="true">W</span>
 <span class="pt-a11y-name" aria-hidden="true">Tungsten</span>
 <span class="pt-a11y-mass" aria-hidden="true">183.84</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="transition" data-group="7" aria-label="Rhenium, symbol Re, atomic number 75, atomic mass 186.21, group 7, Transition metal">
+<button type="button" class="pt-a11y-element" data-type="transition" data-category="Transition metal" data-group="7" aria-label="Rhenium, symbol Re, atomic number 75, atomic mass 186.21, group 7, Transition metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">75</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Re</span>
 <span class="pt-a11y-name" aria-hidden="true">Rhenium</span>
 <span class="pt-a11y-mass" aria-hidden="true">186.21</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="transition" data-group="8" aria-label="Osmium, symbol Os, atomic number 76, atomic mass 190.23, group 8, Transition metal">
+<button type="button" class="pt-a11y-element" data-type="transition" data-category="Transition metal" data-group="8" aria-label="Osmium, symbol Os, atomic number 76, atomic mass 190.23, group 8, Transition metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">76</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Os</span>
 <span class="pt-a11y-name" aria-hidden="true">Osmium</span>
 <span class="pt-a11y-mass" aria-hidden="true">190.23</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="transition" data-group="9" aria-label="Iridium, symbol Ir, atomic number 77, atomic mass 192.22, group 9, Transition metal">
+<button type="button" class="pt-a11y-element" data-type="transition" data-category="Transition metal" data-group="9" aria-label="Iridium, symbol Ir, atomic number 77, atomic mass 192.22, group 9, Transition metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">77</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Ir</span>
 <span class="pt-a11y-name" aria-hidden="true">Iridium</span>
 <span class="pt-a11y-mass" aria-hidden="true">192.22</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="transition" data-group="10" aria-label="Platinum, symbol Pt, atomic number 78, atomic mass 195.08, group 10, Transition metal">
+<button type="button" class="pt-a11y-element" data-type="transition" data-category="Transition metal" data-group="10" aria-label="Platinum, symbol Pt, atomic number 78, atomic mass 195.08, group 10, Transition metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">78</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Pt</span>
 <span class="pt-a11y-name" aria-hidden="true">Platinum</span>
 <span class="pt-a11y-mass" aria-hidden="true">195.08</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="transition" data-group="11" aria-label="Gold, symbol Au, atomic number 79, atomic mass 196.97, group 11, Transition metal">
+<button type="button" class="pt-a11y-element" data-type="transition" data-category="Transition metal" data-group="11" aria-label="Gold, symbol Au, atomic number 79, atomic mass 196.97, group 11, Transition metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">79</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Au</span>
 <span class="pt-a11y-name" aria-hidden="true">Gold</span>
 <span class="pt-a11y-mass" aria-hidden="true">196.97</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="transition" data-group="12" aria-label="Mercury, symbol Hg, atomic number 80, atomic mass 200.59, group 12, Transition metal">
+<button type="button" class="pt-a11y-element" data-type="transition" data-category="Transition metal" data-group="12" aria-label="Mercury, symbol Hg, atomic number 80, atomic mass 200.59, group 12, Transition metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">80</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Hg</span>
 <span class="pt-a11y-name" aria-hidden="true">Mercury</span>
 <span class="pt-a11y-mass" aria-hidden="true">200.59</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="post" data-group="13" aria-label="Thallium, symbol Tl, atomic number 81, atomic mass 204.38, group 13, Post-transition metal">
+<button type="button" class="pt-a11y-element" data-type="post" data-category="Post-transition metal" data-group="13" aria-label="Thallium, symbol Tl, atomic number 81, atomic mass 204.38, group 13, Post-transition metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">81</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Tl</span>
 <span class="pt-a11y-name" aria-hidden="true">Thallium</span>
 <span class="pt-a11y-mass" aria-hidden="true">204.38</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="post" data-group="14" aria-label="Lead, symbol Pb, atomic number 82, atomic mass 207.2, group 14, Post-transition metal">
+<button type="button" class="pt-a11y-element" data-type="post" data-category="Post-transition metal" data-group="14" aria-label="Lead, symbol Pb, atomic number 82, atomic mass 207.2, group 14, Post-transition metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">82</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Pb</span>
 <span class="pt-a11y-name" aria-hidden="true">Lead</span>
 <span class="pt-a11y-mass" aria-hidden="true">207.2</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="post" data-group="15" aria-label="Bismuth, symbol Bi, atomic number 83, atomic mass 208.98, group 15, Post-transition metal">
+<button type="button" class="pt-a11y-element" data-type="post" data-category="Post-transition metal" data-group="15" aria-label="Bismuth, symbol Bi, atomic number 83, atomic mass 208.98, group 15, Post-transition metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">83</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Bi</span>
 <span class="pt-a11y-name" aria-hidden="true">Bismuth</span>
 <span class="pt-a11y-mass" aria-hidden="true">208.98</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="metalloid" data-group="16" aria-label="Polonium, symbol Po, atomic number 84, atomic mass 209, group 16, Metalloid">
+<button type="button" class="pt-a11y-element" data-type="metalloid" data-category="Metalloid" data-group="16" aria-label="Polonium, symbol Po, atomic number 84, atomic mass 209, group 16, Metalloid" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">84</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Po</span>
 <span class="pt-a11y-name" aria-hidden="true">Polonium</span>
 <span class="pt-a11y-mass" aria-hidden="true">209</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="halogen" data-group="17" aria-label="Astatine, symbol At, atomic number 85, atomic mass 210, group 17, Halogen">
+<button type="button" class="pt-a11y-element" data-type="halogen" data-category="Halogen" data-group="17" aria-label="Astatine, symbol At, atomic number 85, atomic mass 210, group 17, Halogen" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">85</span>
 <span class="pt-a11y-symbol" aria-hidden="true">At</span>
 <span class="pt-a11y-name" aria-hidden="true">Astatine</span>
 <span class="pt-a11y-mass" aria-hidden="true">210</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="noble" data-group="18" aria-label="Radon, symbol Rn, atomic number 86, atomic mass 222, group 18, Noble gas">
+<button type="button" class="pt-a11y-element" data-type="noble" data-category="Noble gas" data-group="18" aria-label="Radon, symbol Rn, atomic number 86, atomic mass 222, group 18, Noble gas" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">86</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Rn</span>
 <span class="pt-a11y-name" aria-hidden="true">Radon</span>
 <span class="pt-a11y-mass" aria-hidden="true">222</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="alkali" data-group="1" style="grid-column: 1;" aria-label="Francium, symbol Fr, atomic number 87, atomic mass 223, group 1, Alkali metal">
+<button type="button" class="pt-a11y-element" data-type="alkali" data-category="Alkali metal" data-group="1" style="grid-column: 1;" aria-label="Francium, symbol Fr, atomic number 87, atomic mass 223, group 1, Alkali metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">87</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Fr</span>
 <span class="pt-a11y-name" aria-hidden="true">Francium</span>
 <span class="pt-a11y-mass" aria-hidden="true">223</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="alkaline" data-group="2" aria-label="Radium, symbol Ra, atomic number 88, atomic mass 226, group 2, Alkaline earth metal">
+<button type="button" class="pt-a11y-element" data-type="alkaline" data-category="Alkaline earth metal" data-group="2" aria-label="Radium, symbol Ra, atomic number 88, atomic mass 226, group 2, Alkaline earth metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">88</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Ra</span>
 <span class="pt-a11y-name" aria-hidden="true">Radium</span>
 <span class="pt-a11y-mass" aria-hidden="true">226</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="actinide" data-group="3" aria-label="Actinium, symbol Ac, atomic number 89, atomic mass 227, group 3, Actinide">
+<button type="button" class="pt-a11y-element" data-type="actinide" data-category="Actinide" data-group="3" aria-label="Actinium, symbol Ac, atomic number 89, atomic mass 227, group 3, Actinide" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">89</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Ac</span>
 <span class="pt-a11y-name" aria-hidden="true">Actinium</span>
 <span class="pt-a11y-mass" aria-hidden="true">227</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="transition" data-group="4" aria-label="Rutherfordium, symbol Rf, atomic number 104, atomic mass 267, group 4, Transition metal">
+<button type="button" class="pt-a11y-element" data-type="transition" data-category="Transition metal" data-group="4" aria-label="Rutherfordium, symbol Rf, atomic number 104, atomic mass 267, group 4, Transition metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">104</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Rf</span>
 <span class="pt-a11y-name" aria-hidden="true">Rutherfordium</span>
 <span class="pt-a11y-mass" aria-hidden="true">267</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="transition" data-group="5" aria-label="Dubnium, symbol Db, atomic number 105, atomic mass 268, group 5, Transition metal">
+<button type="button" class="pt-a11y-element" data-type="transition" data-category="Transition metal" data-group="5" aria-label="Dubnium, symbol Db, atomic number 105, atomic mass 268, group 5, Transition metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">105</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Db</span>
 <span class="pt-a11y-name" aria-hidden="true">Dubnium</span>
 <span class="pt-a11y-mass" aria-hidden="true">268</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="transition" data-group="6" aria-label="Seaborgium, symbol Sg, atomic number 106, atomic mass 271, group 6, Transition metal">
+<button type="button" class="pt-a11y-element" data-type="transition" data-category="Transition metal" data-group="6" aria-label="Seaborgium, symbol Sg, atomic number 106, atomic mass 271, group 6, Transition metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">106</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Sg</span>
 <span class="pt-a11y-name" aria-hidden="true">Seaborgium</span>
 <span class="pt-a11y-mass" aria-hidden="true">271</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="transition" data-group="7" aria-label="Bohrium, symbol Bh, atomic number 107, atomic mass 270, group 7, Transition metal">
+<button type="button" class="pt-a11y-element" data-type="transition" data-category="Transition metal" data-group="7" aria-label="Bohrium, symbol Bh, atomic number 107, atomic mass 270, group 7, Transition metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">107</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Bh</span>
 <span class="pt-a11y-name" aria-hidden="true">Bohrium</span>
 <span class="pt-a11y-mass" aria-hidden="true">270</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="transition" data-group="8" aria-label="Hassium, symbol Hs, atomic number 108, atomic mass 277, group 8, Transition metal">
+<button type="button" class="pt-a11y-element" data-type="transition" data-category="Transition metal" data-group="8" aria-label="Hassium, symbol Hs, atomic number 108, atomic mass 277, group 8, Transition metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">108</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Hs</span>
 <span class="pt-a11y-name" aria-hidden="true">Hassium</span>
 <span class="pt-a11y-mass" aria-hidden="true">277</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="transition" data-group="9" aria-label="Meitnerium, symbol Mt, atomic number 109, atomic mass 278, group 9, Transition metal">
+<button type="button" class="pt-a11y-element" data-type="transition" data-category="Transition metal" data-group="9" aria-label="Meitnerium, symbol Mt, atomic number 109, atomic mass 278, group 9, Transition metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">109</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Mt</span>
 <span class="pt-a11y-name" aria-hidden="true">Meitnerium</span>
 <span class="pt-a11y-mass" aria-hidden="true">278</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="transition" data-group="10" aria-label="Darmstadtium, symbol Ds, atomic number 110, atomic mass 281, group 10, Transition metal">
+<button type="button" class="pt-a11y-element" data-type="transition" data-category="Transition metal" data-group="10" aria-label="Darmstadtium, symbol Ds, atomic number 110, atomic mass 281, group 10, Transition metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">110</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Ds</span>
 <span class="pt-a11y-name" aria-hidden="true">Darmstadtium</span>
 <span class="pt-a11y-mass" aria-hidden="true">281</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="transition" data-group="11" aria-label="Roentgenium, symbol Rg, atomic number 111, atomic mass 282, group 11, Transition metal">
+<button type="button" class="pt-a11y-element" data-type="transition" data-category="Transition metal" data-group="11" aria-label="Roentgenium, symbol Rg, atomic number 111, atomic mass 282, group 11, Transition metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">111</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Rg</span>
 <span class="pt-a11y-name" aria-hidden="true">Roentgenium</span>
 <span class="pt-a11y-mass" aria-hidden="true">282</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="transition" data-group="12" aria-label="Copernicium, symbol Cn, atomic number 112, atomic mass 285, group 12, Transition metal">
+<button type="button" class="pt-a11y-element" data-type="transition" data-category="Transition metal" data-group="12" aria-label="Copernicium, symbol Cn, atomic number 112, atomic mass 285, group 12, Transition metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">112</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Cn</span>
 <span class="pt-a11y-name" aria-hidden="true">Copernicium</span>
 <span class="pt-a11y-mass" aria-hidden="true">285</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="post" data-group="13" aria-label="Nihonium, symbol Nh, atomic number 113, atomic mass 286, group 13, Post-transition metal">
+<button type="button" class="pt-a11y-element" data-type="post" data-category="Post-transition metal" data-group="13" aria-label="Nihonium, symbol Nh, atomic number 113, atomic mass 286, group 13, Post-transition metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">113</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Nh</span>
 <span class="pt-a11y-name" aria-hidden="true">Nihonium</span>
 <span class="pt-a11y-mass" aria-hidden="true">286</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="post" data-group="14" aria-label="Flerovium, symbol Fl, atomic number 114, atomic mass 289, group 14, Post-transition metal">
+<button type="button" class="pt-a11y-element" data-type="post" data-category="Post-transition metal" data-group="14" aria-label="Flerovium, symbol Fl, atomic number 114, atomic mass 289, group 14, Post-transition metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">114</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Fl</span>
 <span class="pt-a11y-name" aria-hidden="true">Flerovium</span>
 <span class="pt-a11y-mass" aria-hidden="true">289</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="post" data-group="15" aria-label="Moscovium, symbol Mc, atomic number 115, atomic mass 290, group 15, Post-transition metal">
+<button type="button" class="pt-a11y-element" data-type="post" data-category="Post-transition metal" data-group="15" aria-label="Moscovium, symbol Mc, atomic number 115, atomic mass 290, group 15, Post-transition metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">115</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Mc</span>
 <span class="pt-a11y-name" aria-hidden="true">Moscovium</span>
 <span class="pt-a11y-mass" aria-hidden="true">290</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="post" data-group="16" aria-label="Livermorium, symbol Lv, atomic number 116, atomic mass 293, group 16, Post-transition metal">
+<button type="button" class="pt-a11y-element" data-type="post" data-category="Post-transition metal" data-group="16" aria-label="Livermorium, symbol Lv, atomic number 116, atomic mass 293, group 16, Post-transition metal" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">116</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Lv</span>
 <span class="pt-a11y-name" aria-hidden="true">Livermorium</span>
 <span class="pt-a11y-mass" aria-hidden="true">293</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="halogen" data-group="17" aria-label="Tennessine, symbol Ts, atomic number 117, atomic mass 294, group 17, Halogen">
+<button type="button" class="pt-a11y-element" data-type="halogen" data-category="Halogen" data-group="17" aria-label="Tennessine, symbol Ts, atomic number 117, atomic mass 294, group 17, Halogen" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">117</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Ts</span>
 <span class="pt-a11y-name" aria-hidden="true">Tennessine</span>
 <span class="pt-a11y-mass" aria-hidden="true">294</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="noble" data-group="18" aria-label="Oganesson, symbol Og, atomic number 118, atomic mass 294, group 18, Noble gas">
+<button type="button" class="pt-a11y-element" data-type="noble" data-category="Noble gas" data-group="18" aria-label="Oganesson, symbol Og, atomic number 118, atomic mass 294, group 18, Noble gas" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">118</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Og</span>
 <span class="pt-a11y-name" aria-hidden="true">Oganesson</span>
 <span class="pt-a11y-mass" aria-hidden="true">294</span>
 </button>
 <div class="pt-a11y-blank" aria-hidden="true" style="grid-column: 1 / span 3;"></div>
-<button type="button" class="pt-a11y-element" data-type="lanthanide" data-group="3" aria-label="Cerium, symbol Ce, atomic number 58, atomic mass 140.12, group 3, Lanthanide">
+<button type="button" class="pt-a11y-element" data-type="lanthanide" data-category="Lanthanide" data-group="3" aria-label="Cerium, symbol Ce, atomic number 58, atomic mass 140.12, group 3, Lanthanide" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">58</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Ce</span>
 <span class="pt-a11y-name" aria-hidden="true">Cerium</span>
 <span class="pt-a11y-mass" aria-hidden="true">140.12</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="lanthanide" data-group="3" aria-label="Praseodymium, symbol Pr, atomic number 59, atomic mass 140.91, group 3, Lanthanide">
+<button type="button" class="pt-a11y-element" data-type="lanthanide" data-category="Lanthanide" data-group="3" aria-label="Praseodymium, symbol Pr, atomic number 59, atomic mass 140.91, group 3, Lanthanide" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">59</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Pr</span>
 <span class="pt-a11y-name" aria-hidden="true">Praseodymium</span>
 <span class="pt-a11y-mass" aria-hidden="true">140.91</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="lanthanide" data-group="3" aria-label="Neodymium, symbol Nd, atomic number 60, atomic mass 144.24, group 3, Lanthanide">
+<button type="button" class="pt-a11y-element" data-type="lanthanide" data-category="Lanthanide" data-group="3" aria-label="Neodymium, symbol Nd, atomic number 60, atomic mass 144.24, group 3, Lanthanide" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">60</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Nd</span>
 <span class="pt-a11y-name" aria-hidden="true">Neodymium</span>
 <span class="pt-a11y-mass" aria-hidden="true">144.24</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="lanthanide" data-group="3" aria-label="Promethium, symbol Pm, atomic number 61, atomic mass 145, group 3, Lanthanide">
+<button type="button" class="pt-a11y-element" data-type="lanthanide" data-category="Lanthanide" data-group="3" aria-label="Promethium, symbol Pm, atomic number 61, atomic mass 145, group 3, Lanthanide" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">61</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Pm</span>
 <span class="pt-a11y-name" aria-hidden="true">Promethium</span>
 <span class="pt-a11y-mass" aria-hidden="true">145</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="lanthanide" data-group="3" aria-label="Samarium, symbol Sm, atomic number 62, atomic mass 150.36, group 3, Lanthanide">
+<button type="button" class="pt-a11y-element" data-type="lanthanide" data-category="Lanthanide" data-group="3" aria-label="Samarium, symbol Sm, atomic number 62, atomic mass 150.36, group 3, Lanthanide" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">62</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Sm</span>
 <span class="pt-a11y-name" aria-hidden="true">Samarium</span>
 <span class="pt-a11y-mass" aria-hidden="true">150.36</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="lanthanide" data-group="3" aria-label="Europium, symbol Eu, atomic number 63, atomic mass 151.96, group 3, Lanthanide">
+<button type="button" class="pt-a11y-element" data-type="lanthanide" data-category="Lanthanide" data-group="3" aria-label="Europium, symbol Eu, atomic number 63, atomic mass 151.96, group 3, Lanthanide" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">63</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Eu</span>
 <span class="pt-a11y-name" aria-hidden="true">Europium</span>
 <span class="pt-a11y-mass" aria-hidden="true">151.96</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="lanthanide" data-group="3" aria-label="Gadolinium, symbol Gd, atomic number 64, atomic mass 157.25, group 3, Lanthanide">
+<button type="button" class="pt-a11y-element" data-type="lanthanide" data-category="Lanthanide" data-group="3" aria-label="Gadolinium, symbol Gd, atomic number 64, atomic mass 157.25, group 3, Lanthanide" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">64</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Gd</span>
 <span class="pt-a11y-name" aria-hidden="true">Gadolinium</span>
 <span class="pt-a11y-mass" aria-hidden="true">157.25</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="lanthanide" data-group="3" aria-label="Terbium, symbol Tb, atomic number 65, atomic mass 158.93, group 3, Lanthanide">
+<button type="button" class="pt-a11y-element" data-type="lanthanide" data-category="Lanthanide" data-group="3" aria-label="Terbium, symbol Tb, atomic number 65, atomic mass 158.93, group 3, Lanthanide" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">65</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Tb</span>
 <span class="pt-a11y-name" aria-hidden="true">Terbium</span>
 <span class="pt-a11y-mass" aria-hidden="true">158.93</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="lanthanide" data-group="3" aria-label="Dysprosium, symbol Dy, atomic number 66, atomic mass 162.50, group 3, Lanthanide">
+<button type="button" class="pt-a11y-element" data-type="lanthanide" data-category="Lanthanide" data-group="3" aria-label="Dysprosium, symbol Dy, atomic number 66, atomic mass 162.50, group 3, Lanthanide" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">66</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Dy</span>
 <span class="pt-a11y-name" aria-hidden="true">Dysprosium</span>
 <span class="pt-a11y-mass" aria-hidden="true">162.50</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="lanthanide" data-group="3" aria-label="Holmium, symbol Ho, atomic number 67, atomic mass 164.93, group 3, Lanthanide">
+<button type="button" class="pt-a11y-element" data-type="lanthanide" data-category="Lanthanide" data-group="3" aria-label="Holmium, symbol Ho, atomic number 67, atomic mass 164.93, group 3, Lanthanide" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">67</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Ho</span>
 <span class="pt-a11y-name" aria-hidden="true">Holmium</span>
 <span class="pt-a11y-mass" aria-hidden="true">164.93</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="lanthanide" data-group="3" aria-label="Erbium, symbol Er, atomic number 68, atomic mass 167.26, group 3, Lanthanide">
+<button type="button" class="pt-a11y-element" data-type="lanthanide" data-category="Lanthanide" data-group="3" aria-label="Erbium, symbol Er, atomic number 68, atomic mass 167.26, group 3, Lanthanide" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">68</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Er</span>
 <span class="pt-a11y-name" aria-hidden="true">Erbium</span>
 <span class="pt-a11y-mass" aria-hidden="true">167.26</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="lanthanide" data-group="3" aria-label="Thulium, symbol Tm, atomic number 69, atomic mass 168.93, group 3, Lanthanide">
+<button type="button" class="pt-a11y-element" data-type="lanthanide" data-category="Lanthanide" data-group="3" aria-label="Thulium, symbol Tm, atomic number 69, atomic mass 168.93, group 3, Lanthanide" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">69</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Tm</span>
 <span class="pt-a11y-name" aria-hidden="true">Thulium</span>
 <span class="pt-a11y-mass" aria-hidden="true">168.93</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="lanthanide" data-group="3" aria-label="Ytterbium, symbol Yb, atomic number 70, atomic mass 173.05, group 3, Lanthanide">
+<button type="button" class="pt-a11y-element" data-type="lanthanide" data-category="Lanthanide" data-group="3" aria-label="Ytterbium, symbol Yb, atomic number 70, atomic mass 173.05, group 3, Lanthanide" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">70</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Yb</span>
 <span class="pt-a11y-name" aria-hidden="true">Ytterbium</span>
 <span class="pt-a11y-mass" aria-hidden="true">173.05</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="lanthanide" data-group="3" aria-label="Lutetium, symbol Lu, atomic number 71, atomic mass 174.97, group 3, Lanthanide">
+<button type="button" class="pt-a11y-element" data-type="lanthanide" data-category="Lanthanide" data-group="3" aria-label="Lutetium, symbol Lu, atomic number 71, atomic mass 174.97, group 3, Lanthanide" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">71</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Lu</span>
 <span class="pt-a11y-name" aria-hidden="true">Lutetium</span>
 <span class="pt-a11y-mass" aria-hidden="true">174.97</span>
 </button>
 <div class="pt-a11y-blank" aria-hidden="true" style="grid-column: 1 / span 3;"></div>
-<button type="button" class="pt-a11y-element" data-type="actinide" data-group="3" aria-label="Thorium, symbol Th, atomic number 90, atomic mass 232.04, group 3, Actinide">
+<button type="button" class="pt-a11y-element" data-type="actinide" data-category="Actinide" data-group="3" aria-label="Thorium, symbol Th, atomic number 90, atomic mass 232.04, group 3, Actinide" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">90</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Th</span>
 <span class="pt-a11y-name" aria-hidden="true">Thorium</span>
 <span class="pt-a11y-mass" aria-hidden="true">232.04</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="actinide" data-group="3" aria-label="Protactinium, symbol Pa, atomic number 91, atomic mass 231.04, group 3, Actinide">
+<button type="button" class="pt-a11y-element" data-type="actinide" data-category="Actinide" data-group="3" aria-label="Protactinium, symbol Pa, atomic number 91, atomic mass 231.04, group 3, Actinide" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">91</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Pa</span>
 <span class="pt-a11y-name" aria-hidden="true">Protactinium</span>
 <span class="pt-a11y-mass" aria-hidden="true">231.04</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="actinide" data-group="3" aria-label="Uranium, symbol U, atomic number 92, atomic mass 238.03, group 3, Actinide">
+<button type="button" class="pt-a11y-element" data-type="actinide" data-category="Actinide" data-group="3" aria-label="Uranium, symbol U, atomic number 92, atomic mass 238.03, group 3, Actinide" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">92</span>
 <span class="pt-a11y-symbol" aria-hidden="true">U</span>
 <span class="pt-a11y-name" aria-hidden="true">Uranium</span>
 <span class="pt-a11y-mass" aria-hidden="true">238.03</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="actinide" data-group="3" aria-label="Neptunium, symbol Np, atomic number 93, atomic mass 237, group 3, Actinide">
+<button type="button" class="pt-a11y-element" data-type="actinide" data-category="Actinide" data-group="3" aria-label="Neptunium, symbol Np, atomic number 93, atomic mass 237, group 3, Actinide" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">93</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Np</span>
 <span class="pt-a11y-name" aria-hidden="true">Neptunium</span>
 <span class="pt-a11y-mass" aria-hidden="true">237</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="actinide" data-group="3" aria-label="Plutonium, symbol Pu, atomic number 94, atomic mass 244, group 3, Actinide">
+<button type="button" class="pt-a11y-element" data-type="actinide" data-category="Actinide" data-group="3" aria-label="Plutonium, symbol Pu, atomic number 94, atomic mass 244, group 3, Actinide" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">94</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Pu</span>
 <span class="pt-a11y-name" aria-hidden="true">Plutonium</span>
 <span class="pt-a11y-mass" aria-hidden="true">244</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="actinide" data-group="3" aria-label="Americium, symbol Am, atomic number 95, atomic mass 243, group 3, Actinide">
+<button type="button" class="pt-a11y-element" data-type="actinide" data-category="Actinide" data-group="3" aria-label="Americium, symbol Am, atomic number 95, atomic mass 243, group 3, Actinide" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">95</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Am</span>
 <span class="pt-a11y-name" aria-hidden="true">Americium</span>
 <span class="pt-a11y-mass" aria-hidden="true">243</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="actinide" data-group="3" aria-label="Curium, symbol Cm, atomic number 96, atomic mass 247, group 3, Actinide">
+<button type="button" class="pt-a11y-element" data-type="actinide" data-category="Actinide" data-group="3" aria-label="Curium, symbol Cm, atomic number 96, atomic mass 247, group 3, Actinide" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">96</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Cm</span>
 <span class="pt-a11y-name" aria-hidden="true">Curium</span>
 <span class="pt-a11y-mass" aria-hidden="true">247</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="actinide" data-group="3" aria-label="Berkelium, symbol Bk, atomic number 97, atomic mass 247, group 3, Actinide">
+<button type="button" class="pt-a11y-element" data-type="actinide" data-category="Actinide" data-group="3" aria-label="Berkelium, symbol Bk, atomic number 97, atomic mass 247, group 3, Actinide" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">97</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Bk</span>
 <span class="pt-a11y-name" aria-hidden="true">Berkelium</span>
 <span class="pt-a11y-mass" aria-hidden="true">247</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="actinide" data-group="3" aria-label="Californium, symbol Cf, atomic number 98, atomic mass 251, group 3, Actinide">
+<button type="button" class="pt-a11y-element" data-type="actinide" data-category="Actinide" data-group="3" aria-label="Californium, symbol Cf, atomic number 98, atomic mass 251, group 3, Actinide" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">98</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Cf</span>
 <span class="pt-a11y-name" aria-hidden="true">Californium</span>
 <span class="pt-a11y-mass" aria-hidden="true">251</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="actinide" data-group="3" aria-label="Einsteinium, symbol Es, atomic number 99, atomic mass 252, group 3, Actinide">
+<button type="button" class="pt-a11y-element" data-type="actinide" data-category="Actinide" data-group="3" aria-label="Einsteinium, symbol Es, atomic number 99, atomic mass 252, group 3, Actinide" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">99</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Es</span>
 <span class="pt-a11y-name" aria-hidden="true">Einsteinium</span>
 <span class="pt-a11y-mass" aria-hidden="true">252</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="actinide" data-group="3" aria-label="Fermium, symbol Fm, atomic number 100, atomic mass 257, group 3, Actinide">
+<button type="button" class="pt-a11y-element" data-type="actinide" data-category="Actinide" data-group="3" aria-label="Fermium, symbol Fm, atomic number 100, atomic mass 257, group 3, Actinide" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">100</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Fm</span>
 <span class="pt-a11y-name" aria-hidden="true">Fermium</span>
 <span class="pt-a11y-mass" aria-hidden="true">257</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="actinide" data-group="3" aria-label="Mendelevium, symbol Md, atomic number 101, atomic mass 258, group 3, Actinide">
+<button type="button" class="pt-a11y-element" data-type="actinide" data-category="Actinide" data-group="3" aria-label="Mendelevium, symbol Md, atomic number 101, atomic mass 258, group 3, Actinide" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">101</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Md</span>
 <span class="pt-a11y-name" aria-hidden="true">Mendelevium</span>
 <span class="pt-a11y-mass" aria-hidden="true">258</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="actinide" data-group="3" aria-label="Nobelium, symbol No, atomic number 102, atomic mass 259, group 3, Actinide">
+<button type="button" class="pt-a11y-element" data-type="actinide" data-category="Actinide" data-group="3" aria-label="Nobelium, symbol No, atomic number 102, atomic mass 259, group 3, Actinide" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">102</span>
 <span class="pt-a11y-symbol" aria-hidden="true">No</span>
 <span class="pt-a11y-name" aria-hidden="true">Nobelium</span>
 <span class="pt-a11y-mass" aria-hidden="true">259</span>
 </button>
-<button type="button" class="pt-a11y-element" data-type="actinide" data-group="3" aria-label="Lawrencium, symbol Lr, atomic number 103, atomic mass 266, group 3, Actinide">
+<button type="button" class="pt-a11y-element" data-type="actinide" data-category="Actinide" data-group="3" aria-label="Lawrencium, symbol Lr, atomic number 103, atomic mass 266, group 3, Actinide" aria-controls="pt-detail-content">
 <span class="pt-a11y-number" aria-hidden="true">103</span>
 <span class="pt-a11y-symbol" aria-hidden="true">Lr</span>
 <span class="pt-a11y-name" aria-hidden="true">Lawrencium</span>
 <span class="pt-a11y-mass" aria-hidden="true">266</span>
 </button>
+</div>
 </div>
 <div class="pt-a11y-table-wrap" id="pt-a11y-table">
 <h3 id="pt-a11y-table-heading">Element reference table</h3>
@@ -1840,31 +1911,76 @@
 </section>
 <script>
 (function () {
-  var wrapper = document.querySelector(".pt-a11y-grid");
-  if (!wrapper) {
+  var params = new URLSearchParams(location.search);
+  if (document.querySelector(".pt-wrapper")) {
+    var size = params.get("size");
+    if (!size && params.get("embed") === "1") {
+      size = "compact";
+    }
+    if (!size) {
+      size = "medium";
+    }
+    document.body.classList.add("pt-size-" + size);
+    if (params.get("embed") === "1") {
+      document.body.classList.add("pt-embed");
+    }
+  }
+
+  var wrapper = document.querySelector(".pt-wrapper, .pt-a11y-grid");
+  var detailContent = document.getElementById("pt-detail-content");
+  if (!wrapper || !detailContent) {
     return;
   }
 
-  var tiles = wrapper.querySelectorAll(".pt-a11y-element");
-  var activeTile = null;
+  var tiles = wrapper.querySelectorAll(".pt-element:not(.blank), .pt-a11y-element");
+  var selectedTile = null;
 
-  function setActiveTile(tile) {
-    activeTile = tile || null;
-    tiles.forEach(function (item) {
-      item.style.pointerEvents = !tile || item === tile ? "auto" : "none";
-    });
+  function readTilePart(tile, selectors) {
+    for (var i = 0; i < selectors.length; i++) {
+      var part = tile.querySelector(selectors[i]);
+      if (part) {
+        return part.textContent;
+      }
+    }
+    return "";
+  }
+
+  function updateDetailPanel(tile) {
+    var number = readTilePart(tile, [".number", ".pt-a11y-number"]);
+    var symbol = readTilePart(tile, [".symbol", ".pt-a11y-symbol"]);
+    var name = readTilePart(tile, [".name", ".pt-a11y-name"]);
+    var mass = readTilePart(tile, [".mass", ".pt-a11y-mass"]);
+    var category = tile.getAttribute("data-category") || "";
+    var group = tile.getAttribute("data-group") || "";
+
+    detailContent.innerHTML =
+      '<p class="pt-detail-symbol">' + symbol + "</p>" +
+      "<h3 class=\"pt-detail-name\">" + name + "</h3>" +
+      '<dl class="pt-detail-list">' +
+      "<dt>Group</dt><dd>" + group + "</dd>" +
+      "<dt>Atomic number</dt><dd>" + number + "</dd>" +
+      "<dt>Symbol</dt><dd>" + symbol + "</dd>" +
+      "<dt>Atomic mass (u)</dt><dd>" + mass + "</dd>" +
+      "<dt>Category</dt><dd>" + category + "</dd>" +
+      "</dl>";
+  }
+
+  function selectTile(tile) {
+    if (selectedTile) {
+      selectedTile.classList.remove("is-selected");
+    }
+    selectedTile = tile;
+    tile.classList.add("is-selected");
+    updateDetailPanel(tile);
   }
 
   tiles.forEach(function (tile) {
-    tile.addEventListener("mouseenter", function () { setActiveTile(tile); });
-    tile.addEventListener("focus", function () { setActiveTile(tile); });
-  });
-
-  wrapper.addEventListener("mouseleave", function () { setActiveTile(null); });
-  wrapper.addEventListener("focusout", function (event) {
-    if (!wrapper.contains(event.relatedTarget)) {
-      setActiveTile(null);
-    }
+    tile.addEventListener("click", function () {
+      selectTile(tile);
+    });
+    tile.addEventListener("focus", function () {
+      selectTile(tile);
+    });
   });
 })();</script>
 </body>

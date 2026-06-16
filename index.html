@@ -29,12 +29,80 @@
     display: none;
   }
   .pt-layout {
+    font-family: Arial, sans-serif;
+  }
+  .pt-wrapper {
+    display: grid;
+    grid-template-columns: repeat(18, minmax(40px, 1fr));
+    gap: 3px;
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: 2px 0 4px;
+  }
+  button.pt-element {
+    position: relative;
+    padding: 6px 3px;
+    text-align: center;
+    border: 1px solid #b4b4b4;
+    background: #f4f4f4;
+    cursor: pointer;
+    border-radius: 4px;
+    font: inherit;
+    color: inherit;
+    width: 100%;
+    display: block;
+    min-height: 36px;
+  }
+  button.pt-element .number { display: block; font-size: 0.55rem; font-weight: 600; }
+  button.pt-element .symbol { display: block; font-size: 0.95rem; font-weight: 700; margin: 2px 0; }
+  button.pt-element .name {
+    display: block;
+    font-size: 0.34rem;
+    line-height: 1.15;
+    text-transform: uppercase;
+    letter-spacing: 0.035em;
+  }
+  button.pt-element .mass { display: block; font-size: 0.38rem; color: #333; margin-top: 2px; font-weight: 700; }
+  .pt-element.blank { border: none; background: transparent; cursor: default; pointer-events: none; }
+  button.pt-element[data-type="alkali"] { background: #fdd9a6; }
+  button.pt-element[data-type="alkaline"] { background: #fdecc2; }
+  button.pt-element[data-type="transition"] { background: #cbe5ff; }
+  button.pt-element[data-type="post"] { background: #dcecff; }
+  button.pt-element[data-type="metalloid"] { background: #e6d5f5; }
+  button.pt-element[data-type="nonmetal"] { background: #c8f7d8; }
+  button.pt-element[data-type="halogen"] { background: #ffd8f2; }
+  button.pt-element[data-type="noble"] { background: #d6f3ff; }
+  button.pt-element[data-type="lanthanide"] { background: #ffeac7; }
+  button.pt-element[data-type="actinide"] { background: #ffe0d4; }
+  body.pt-size-compact .pt-layout { max-width: 980px; }
+  body.pt-size-compact .pt-detail-panel { flex-basis: 130px; padding: 8px; }
+  body.pt-size-compact .pt-detail-symbol { font-size: 1.75rem; }
+  body.pt-size-compact .pt-detail-name { font-size: 0.82rem; }
+  body.pt-size-compact .pt-detail-list { font-size: 0.7rem; }
+  body.pt-size-compact .pt-wrapper {
+    grid-template-columns: repeat(18, minmax(34px, 1fr));
+    gap: 2px;
+  }
+  body.pt-size-compact button.pt-element { padding: 4px 2px; min-height: 34px; }
+  body.pt-size-compact button.pt-element .symbol { font-size: 0.82rem; }
+  body.pt-size-large .pt-layout { max-width: 1100px; }
+  body.pt-size-large .pt-detail-panel { flex-basis: 180px; }
+  body.pt-size-large .pt-wrapper {
+    grid-template-columns: repeat(18, minmax(46px, 1fr));
+    gap: 4px;
+  }
+  body.pt-size-large button.pt-element .symbol { font-size: 1.15rem; }
+  
+  .pt-layout {
     display: flex;
     gap: 10px;
     max-width: 980px;
     margin: 0 auto;
     align-items: flex-start;
-    font-family: Arial, sans-serif;
+  }
+  .pt-a11y-layout {
+    max-width: 1100px;
+    margin-bottom: 24px;
   }
   .pt-detail-panel {
     flex: 0 0 150px;
@@ -82,14 +150,6 @@
     margin: 0;
     line-height: 1.35;
   }
-  .pt-wrapper {
-    display: grid;
-    grid-template-columns: repeat(18, minmax(40px, 1fr));
-    gap: 3px;
-    flex: 1 1 auto;
-    min-width: 0;
-    padding: 2px 0 4px;
-  }
   .pt-group-row {
     display: contents;
   }
@@ -101,69 +161,19 @@
     padding: 4px 0 2px;
     pointer-events: none;
   }
-  button.pt-element {
-    position: relative;
-    padding: 6px 3px;
-    text-align: center;
-    border: 1px solid #b4b4b4;
-    background: #f4f4f4;
-    cursor: pointer;
-    border-radius: 4px;
-    font: inherit;
-    color: inherit;
-    width: 100%;
-    display: block;
-    min-height: 36px;
-  }
   button.pt-element.is-selected,
-  button.pt-element:focus-visible {
+  button.pt-element:focus-visible,
+  button.pt-a11y-element.is-selected,
+  button.pt-a11y-element:focus-visible {
     outline: 3px solid #003366;
     outline-offset: 1px;
     z-index: 2;
   }
-  button.pt-element:hover {
+  button.pt-element:hover,
+  button.pt-a11y-element:hover {
     outline: 2px solid #003366;
     outline-offset: 1px;
   }
-  button.pt-element .number { display: block; font-size: 0.55rem; font-weight: 600; }
-  button.pt-element .symbol { display: block; font-size: 0.95rem; font-weight: 700; margin: 2px 0; }
-  button.pt-element .name {
-    display: block;
-    font-size: 0.34rem;
-    line-height: 1.15;
-    text-transform: uppercase;
-    letter-spacing: 0.035em;
-  }
-  button.pt-element .mass { display: block; font-size: 0.38rem; color: #333; margin-top: 2px; font-weight: 700; }
-  .pt-element.blank { border: none; background: transparent; cursor: default; pointer-events: none; }
-  button.pt-element[data-type="alkali"] { background: #fdd9a6; }
-  button.pt-element[data-type="alkaline"] { background: #fdecc2; }
-  button.pt-element[data-type="transition"] { background: #cbe5ff; }
-  button.pt-element[data-type="post"] { background: #dcecff; }
-  button.pt-element[data-type="metalloid"] { background: #e6d5f5; }
-  button.pt-element[data-type="nonmetal"] { background: #c8f7d8; }
-  button.pt-element[data-type="halogen"] { background: #ffd8f2; }
-  button.pt-element[data-type="noble"] { background: #d6f3ff; }
-  button.pt-element[data-type="lanthanide"] { background: #ffeac7; }
-  button.pt-element[data-type="actinide"] { background: #ffe0d4; }
-  body.pt-size-compact .pt-layout { max-width: 980px; }
-  body.pt-size-compact .pt-detail-panel { flex-basis: 130px; padding: 8px; }
-  body.pt-size-compact .pt-detail-symbol { font-size: 1.75rem; }
-  body.pt-size-compact .pt-detail-name { font-size: 0.82rem; }
-  body.pt-size-compact .pt-detail-list { font-size: 0.7rem; }
-  body.pt-size-compact .pt-wrapper {
-    grid-template-columns: repeat(18, minmax(34px, 1fr));
-    gap: 2px;
-  }
-  body.pt-size-compact button.pt-element { padding: 4px 2px; min-height: 34px; }
-  body.pt-size-compact button.pt-element .symbol { font-size: 0.82rem; }
-  body.pt-size-large .pt-layout { max-width: 1100px; }
-  body.pt-size-large .pt-detail-panel { flex-basis: 180px; }
-  body.pt-size-large .pt-wrapper {
-    grid-template-columns: repeat(18, minmax(46px, 1fr));
-    gap: 4px;
-  }
-  body.pt-size-large button.pt-element .symbol { font-size: 1.15rem; }
 
   </style>
 </head>
@@ -904,32 +914,44 @@
 <script>
 (function () {
   var params = new URLSearchParams(location.search);
-  var size = params.get("size");
-  if (!size && params.get("embed") === "1") {
-    size = "compact";
-  }
-  if (!size) {
-    size = "medium";
-  }
-  document.body.classList.add("pt-size-" + size);
-  if (params.get("embed") === "1") {
-    document.body.classList.add("pt-embed");
+  if (document.querySelector(".pt-wrapper")) {
+    var size = params.get("size");
+    if (!size && params.get("embed") === "1") {
+      size = "compact";
+    }
+    if (!size) {
+      size = "medium";
+    }
+    document.body.classList.add("pt-size-" + size);
+    if (params.get("embed") === "1") {
+      document.body.classList.add("pt-embed");
+    }
   }
 
-  var wrapper = document.querySelector(".pt-wrapper");
+  var wrapper = document.querySelector(".pt-wrapper, .pt-a11y-grid");
   var detailContent = document.getElementById("pt-detail-content");
   if (!wrapper || !detailContent) {
     return;
   }
 
-  var tiles = wrapper.querySelectorAll(".pt-element:not(.blank)");
+  var tiles = wrapper.querySelectorAll(".pt-element:not(.blank), .pt-a11y-element");
   var selectedTile = null;
 
+  function readTilePart(tile, selectors) {
+    for (var i = 0; i < selectors.length; i++) {
+      var part = tile.querySelector(selectors[i]);
+      if (part) {
+        return part.textContent;
+      }
+    }
+    return "";
+  }
+
   function updateDetailPanel(tile) {
-    var number = tile.querySelector(".number").textContent;
-    var symbol = tile.querySelector(".symbol").textContent;
-    var name = tile.querySelector(".name").textContent;
-    var mass = tile.querySelector(".mass").textContent;
+    var number = readTilePart(tile, [".number", ".pt-a11y-number"]);
+    var symbol = readTilePart(tile, [".symbol", ".pt-a11y-symbol"]);
+    var name = readTilePart(tile, [".name", ".pt-a11y-name"]);
+    var mass = readTilePart(tile, [".mass", ".pt-a11y-mass"]);
     var category = tile.getAttribute("data-category") || "";
     var group = tile.getAttribute("data-group") || "";
 
