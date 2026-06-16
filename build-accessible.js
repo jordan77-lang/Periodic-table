@@ -142,10 +142,10 @@ function gridStyleAttr(cell) {
 }
 
 function renderGroupNumbersRow() {
-  return Array.from({ length: 18 }, (_, index) => {
+  return `<div class="pt-group-row" aria-hidden="true">${Array.from({ length: 18 }, (_, index) => {
     const group = index + 1;
-    return `<div class="pt-group-num" aria-hidden="true">${group}</div>`;
-  }).join("\n");
+    return `<div class="pt-group-num">${group}</div>`;
+  }).join("")}</div>`;
 }
 
 function renderStudentGridCell(cell) {
@@ -153,12 +153,12 @@ function renderStudentGridCell(cell) {
     return `<div class="pt-element blank"${gridStyleAttr(cell)} aria-hidden="true"></div>`;
   }
 
-  return `<div class="pt-element" data-type="${cell.type}"${gridStyleAttr(cell)} tabindex="0" role="button" aria-label="${cell.ariaLabel}" title="${cell.name}&#10;Atomic Number: ${cell.number}&#10;Atomic Mass: ${cell.mass}">
-<div class="number">${cell.number}</div>
-<div class="symbol">${cell.symbol}</div>
-<div class="name">${cell.name}</div>
-<div class="mass">${cell.mass}</div>
-</div>`;
+  return `<button type="button" class="pt-element" data-type="${cell.type}"${gridStyleAttr(cell)} aria-label="${cell.ariaLabel}">
+<span class="number" aria-hidden="true">${cell.number}</span>
+<span class="symbol" aria-hidden="true">${cell.symbol}</span>
+<span class="name" aria-hidden="true">${cell.name}</span>
+<span class="mass" aria-hidden="true">${cell.mass}</span>
+</button>`;
 }
 
 function renderHostedGridCell(cell) {
@@ -199,6 +199,62 @@ function renderHostedTableRows() {
 
 const HOSTED_URL = "https://jordan77-lang.github.io/Periodic-table/";
 const FULL_VERSION_URL = "https://jordan77-lang.github.io/Periodic-table/hosted.html";
+const COMPACT_EMBED_URL = `${HOSTED_URL}?embed=1&size=compact`;
+const LARGE_TABLE_URL = `${HOSTED_URL}?size=large`;
+
+const tileInteractionScript = `
+(function () {
+  var params = new URLSearchParams(location.search);
+  var size = params.get("size");
+  if (!size && params.get("embed") === "1") {
+    size = "compact";
+  }
+  if (!size) {
+    size = "medium";
+  }
+  document.body.classList.add("pt-size-" + size);
+  if (params.get("embed") === "1") {
+    document.body.classList.add("pt-embed");
+  }
+
+  var wrapper = document.querySelector(".pt-wrapper, .pt-a11y-grid");
+  if (!wrapper) {
+    return;
+  }
+
+  var tileSelector = wrapper.classList.contains("pt-a11y-grid")
+    ? ".pt-a11y-element"
+    : ".pt-element:not(.blank)";
+  var tiles = wrapper.querySelectorAll(tileSelector);
+  var activeTile = null;
+
+  function setActiveTile(tile) {
+    activeTile = tile || null;
+    tiles.forEach(function (item) {
+      item.style.pointerEvents = !tile || item === tile ? "auto" : "none";
+    });
+  }
+
+  tiles.forEach(function (tile) {
+    tile.addEventListener("mouseenter", function () { setActiveTile(tile); });
+    tile.addEventListener("focus", function () { setActiveTile(tile); });
+  });
+
+  wrapper.addEventListener("mouseleave", function () { setActiveTile(null); });
+  wrapper.addEventListener("focusout", function (event) {
+    if (!wrapper.contains(event.relatedTarget)) {
+      setActiveTile(null);
+    }
+  });
+})();`;
+
+const tilePointerStyles = `
+  .pt-wrapper:has(.pt-element:not(.blank):hover) .pt-element:not(.blank):not(:hover),
+  .pt-wrapper:has(.pt-element:not(.blank):focus-visible) .pt-element:not(.blank):not(:focus-visible),
+  .pt-a11y-grid:has(.pt-a11y-element:hover) .pt-a11y-element:not(:hover),
+  .pt-a11y-grid:has(.pt-a11y-element:focus-visible) .pt-a11y-element:not(:focus-visible) {
+    pointer-events: none;
+  }`;
 
 const hostedStyles = `
   *, *::before, *::after { box-sizing: border-box; }
@@ -325,6 +381,7 @@ const hostedStyles = `
   .pt-a11y-table th, .pt-a11y-table td { border: 1px solid #767676; padding: 8px 10px; text-align: left; }
   .pt-a11y-table thead th { background: #eef3f8; }
   .pt-a11y-table tbody tr:nth-child(even) { background: #fafafa; }
+  ${tilePointerStyles}
 `;
 
 const hostedBody = `<section class="pt-a11y-root" aria-labelledby="pt-a11y-heading">
@@ -370,6 +427,7 @@ const hostedPage = `<!DOCTYPE html>
 </head>
 <body>
 ${hostedBody}
+<script>${tileInteractionScript}</script>
 </body>
 </html>`;
 
@@ -380,6 +438,34 @@ const studentStyles = `
     padding: 16px;
     background: #fff;
   }
+  body.pt-embed {
+    padding: 8px;
+  }
+  .pt-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  .pt-embed-bar {
+    display: none;
+    margin: 0 auto 8px;
+    max-width: 680px;
+    text-align: center;
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+  body.pt-embed .pt-embed-bar {
+    display: block;
+  }
+  .pt-embed-bar a {
+    color: #003366;
+  }
   .pt-wrapper {
     display: grid;
     grid-template-columns: repeat(18, minmax(44px, 1fr));
@@ -388,6 +474,9 @@ const studentStyles = `
     margin: 0 auto;
     font-family: Arial, sans-serif;
     padding: 8px 16px 24px;
+  }
+  .pt-group-row {
+    display: contents;
   }
   .pt-group-num {
     text-align: center;
@@ -399,7 +488,7 @@ const studentStyles = `
     background: transparent;
     pointer-events: none;
   }
-  .pt-element {
+  button.pt-element {
     position: relative;
     padding: 7px 4px;
     text-align: center;
@@ -408,40 +497,66 @@ const studentStyles = `
     transition: transform 0.18s ease, box-shadow 0.18s ease;
     cursor: pointer;
     border-radius: 4px;
+    font: inherit;
+    color: inherit;
+    width: 100%;
+    display: block;
   }
-  .pt-element:hover,
-  .pt-element:focus-visible {
+  button.pt-element:hover,
+  button.pt-element:focus-visible {
     transform: scale(2.8);
     z-index: 100;
     box-shadow: 0 10px 14px rgba(0, 0, 0, 0.25);
     outline: 3px solid #003366;
     outline-offset: 2px;
   }
+  ${tilePointerStyles}
   @media (prefers-reduced-motion: reduce) {
-    .pt-element { transition: none; }
-    .pt-element:hover,
-    .pt-element:focus-visible { transform: none; }
+    button.pt-element { transition: none; }
+    button.pt-element:hover,
+    button.pt-element:focus-visible { transform: none; }
   }
-  .pt-element .number { font-size: 0.65rem; font-weight: 600; }
-  .pt-element .symbol { font-size: 1.25rem; font-weight: 700; margin: 2px 0; }
-  .pt-element .name {
+  button.pt-element .number { display: block; font-size: 0.65rem; font-weight: 600; }
+  button.pt-element .symbol { display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0; }
+  button.pt-element .name {
+    display: block;
     font-size: 0.4rem;
     line-height: 1.15;
     text-transform: uppercase;
     letter-spacing: 0.035em;
   }
-  .pt-element .mass { font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700; }
+  button.pt-element .mass { display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700; }
   .pt-element.blank { border: none; background: transparent; cursor: default; pointer-events: none; }
-  .pt-element[data-type="alkali"] { background: #fdd9a6; }
-  .pt-element[data-type="alkaline"] { background: #fdecc2; }
-  .pt-element[data-type="transition"] { background: #cbe5ff; }
-  .pt-element[data-type="post"] { background: #dcecff; }
-  .pt-element[data-type="metalloid"] { background: #e6d5f5; }
-  .pt-element[data-type="nonmetal"] { background: #c8f7d8; }
-  .pt-element[data-type="halogen"] { background: #ffd8f2; }
-  .pt-element[data-type="noble"] { background: #d6f3ff; }
-  .pt-element[data-type="lanthanide"] { background: #ffeac7; }
-  .pt-element[data-type="actinide"] { background: #ffe0d4; }
+  button.pt-element[data-type="alkali"] { background: #fdd9a6; }
+  button.pt-element[data-type="alkaline"] { background: #fdecc2; }
+  button.pt-element[data-type="transition"] { background: #cbe5ff; }
+  button.pt-element[data-type="post"] { background: #dcecff; }
+  button.pt-element[data-type="metalloid"] { background: #e6d5f5; }
+  button.pt-element[data-type="nonmetal"] { background: #c8f7d8; }
+  button.pt-element[data-type="halogen"] { background: #ffd8f2; }
+  button.pt-element[data-type="noble"] { background: #d6f3ff; }
+  button.pt-element[data-type="lanthanide"] { background: #ffeac7; }
+  button.pt-element[data-type="actinide"] { background: #ffe0d4; }
+  body.pt-size-compact .pt-wrapper {
+    grid-template-columns: repeat(18, minmax(26px, 1fr));
+    max-width: 680px;
+    gap: 2px;
+    padding: 4px 8px 12px;
+  }
+  body.pt-size-compact .pt-group-num { font-size: 0.62rem; padding: 2px 0; }
+  body.pt-size-compact button.pt-element { padding: 3px 1px; }
+  body.pt-size-compact button.pt-element .number { font-size: 0.45rem; }
+  body.pt-size-compact button.pt-element .symbol { font-size: 0.72rem; }
+  body.pt-size-compact button.pt-element .name { font-size: 0.28rem; }
+  body.pt-size-compact button.pt-element .mass { font-size: 0.34rem; margin-top: 2px; }
+  body.pt-size-compact button.pt-element:hover,
+  body.pt-size-compact button.pt-element:focus-visible { transform: scale(2.5); }
+  body.pt-size-large .pt-wrapper {
+    grid-template-columns: repeat(18, minmax(52px, 1fr));
+    max-width: 1200px;
+    gap: 5px;
+  }
+  body.pt-size-large button.pt-element .symbol { font-size: 1.4rem; }
 `;
 
 const studentPage = `<!DOCTYPE html>
@@ -454,44 +569,58 @@ const studentPage = `<!DOCTYPE html>
   </style>
 </head>
 <body>
-<main aria-label="Periodic table of the elements">
-<div class="pt-wrapper" role="group" aria-label="Groups 1 through 18">
+<p class="pt-embed-bar">
+  <a href="${LARGE_TABLE_URL}" target="_blank" rel="noopener noreferrer">Open larger periodic table</a>
+  &nbsp;|&nbsp;
+  <a href="${FULL_VERSION_URL}" target="_blank" rel="noopener noreferrer">Accessible version with full element list</a>
+</p>
+<main aria-labelledby="pt-page-title">
+<h1 id="pt-page-title" class="pt-sr-only">Periodic table of the elements</h1>
+<p class="pt-sr-only" id="pt-table-help">Interactive periodic table. Tab between element buttons. Each button announces the element name, symbol, atomic number, atomic mass, and category. Group numbers 1 through 18 are shown above the table.</p>
+<div class="pt-wrapper" role="group" aria-labelledby="pt-page-title" aria-describedby="pt-table-help">
 ${renderGroupNumbersRow()}
 ${gridCells.map(renderStudentGridCell).join("\n")}
 </div>
 </main>
+<script>${tileInteractionScript}</script>
 </body>
 </html>`;
 
 const iframeSnippet = `<!--
-  Canvas iframe embed (recommended if inline HTML loses styling)
+  Canvas iframe embed
 
-  SETUP (one time):
-  1. Push to GitHub: https://github.com/jordan77-lang/Periodic-table
-  2. In the repo, go to Settings > Pages
-  3. Under "Build and deployment", set Source to "Deploy from a branch"
-  4. Choose branch "main" and folder "/ (root)", then Save
-  5. Student table (groups + elements only): ${HOSTED_URL}
-     Full accessible version: ${FULL_VERSION_URL}
+  RESIZING IN CANVAS:
+  Canvas does not provide drag-to-resize handles for iframes in the rich text
+  editor. To adjust size, edit the HTML and change:
+    1. height="..." on the iframe (vertical space)
+    2. max-width in the iframe style (horizontal space)
+    3. size= in the iframe src URL: compact | medium | large
 
-  CANVAS PAGE:
-  1. Edit the page and open the HTML editor (</>).
-  2. Paste the block below.
-  3. Save and preview.
+  PRESETS (copy one block):
 
-  NEW QUIZ:
-  Paste the same block into the question stem HTML editor.
-  Some institutions restrict iframes in quizzes — test before publishing.
+  COMPACT (default — best for assignments):
+    src: ${COMPACT_EMBED_URL}
+    height: 720, max-width: 720px
+
+  MEDIUM:
+    src: ${HOSTED_URL}?embed=1&size=medium
+    height: 900, max-width: 900px
+
+  LARGE:
+    src: ${LARGE_TABLE_URL}
+    height: 1100, max-width: 1100px
 -->
 <p>
-  <a href="${HOSTED_URL}" target="_blank" rel="noopener noreferrer">Open periodic table in a new tab</a>
+  <a href="${LARGE_TABLE_URL}" target="_blank" rel="noopener noreferrer">Open larger periodic table in a new tab</a>
+  &nbsp;|&nbsp;
+  <a href="${FULL_VERSION_URL}" target="_blank" rel="noopener noreferrer">Accessible version with element list</a>
 </p>
 <iframe
-  src="${HOSTED_URL}"
-  title="Periodic table of the elements with group numbers"
+  src="${COMPACT_EMBED_URL}"
+  title="Periodic table of the elements with group numbers 1 through 18"
   width="100%"
-  height="1050"
-  style="border: 1px solid #767676; border-radius: 4px; max-width: 1100px; display: block; margin: 0 auto;"
+  height="720"
+  style="border: 1px solid #767676; border-radius: 4px; max-width: 720px; display: block; margin: 0 auto;"
   loading="lazy"
 ></iframe>`;
 
@@ -688,4 +817,6 @@ console.log(`Wrote ${previewPath}`);
 console.log(`Wrote ${hostedPath}`);
 console.log(`Wrote ${iframeSnippetPath}`);
 console.log(`Student URL: ${HOSTED_URL}`);
+console.log(`Compact embed URL: ${COMPACT_EMBED_URL}`);
+console.log(`Large table URL: ${LARGE_TABLE_URL}`);
 console.log(`Full accessible URL: ${FULL_VERSION_URL}`);

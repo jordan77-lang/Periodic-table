@@ -1,31 +1,37 @@
 <!--
-  Canvas iframe embed (recommended if inline HTML loses styling)
+  Canvas iframe embed
 
-  SETUP (one time):
-  1. Push to GitHub: https://github.com/jordan77-lang/Periodic-table
-  2. In the repo, go to Settings > Pages
-  3. Under "Build and deployment", set Source to "Deploy from a branch"
-  4. Choose branch "main" and folder "/ (root)", then Save
-  5. Student table (groups + elements only): https://jordan77-lang.github.io/Periodic-table/
-     Full accessible version: https://jordan77-lang.github.io/Periodic-table/hosted.html
+  RESIZING IN CANVAS:
+  Canvas does not provide drag-to-resize handles for iframes in the rich text
+  editor. To adjust size, edit the HTML and change:
+    1. height="..." on the iframe (vertical space)
+    2. max-width in the iframe style (horizontal space)
+    3. size= in the iframe src URL: compact | medium | large
 
-  CANVAS PAGE:
-  1. Edit the page and open the HTML editor (</>).
-  2. Paste the block below.
-  3. Save and preview.
+  PRESETS (copy one block):
 
-  NEW QUIZ:
-  Paste the same block into the question stem HTML editor.
-  Some institutions restrict iframes in quizzes — test before publishing.
+  COMPACT (default — best for assignments):
+    src: https://jordan77-lang.github.io/Periodic-table/?embed=1&size=compact
+    height: 720, max-width: 720px
+
+  MEDIUM:
+    src: https://jordan77-lang.github.io/Periodic-table/?embed=1&size=medium
+    height: 900, max-width: 900px
+
+  LARGE:
+    src: https://jordan77-lang.github.io/Periodic-table/?size=large
+    height: 1100, max-width: 1100px
 -->
 <p>
-  <a href="https://jordan77-lang.github.io/Periodic-table/" target="_blank" rel="noopener noreferrer">Open periodic table in a new tab</a>
+  <a href="https://jordan77-lang.github.io/Periodic-table/?size=large" target="_blank" rel="noopener noreferrer">Open larger periodic table in a new tab</a>
+  &nbsp;|&nbsp;
+  <a href="https://jordan77-lang.github.io/Periodic-table/hosted.html" target="_blank" rel="noopener noreferrer">Accessible version with element list</a>
 </p>
 <iframe
-  src="https://jordan77-lang.github.io/Periodic-table/"
-  title="Periodic table of the elements with group numbers"
+  src="https://jordan77-lang.github.io/Periodic-table/?embed=1&size=compact"
+  title="Periodic table of the elements with group numbers 1 through 18"
   width="100%"
-  height="1050"
-  style="border: 1px solid #767676; border-radius: 4px; max-width: 1100px; display: block; margin: 0 auto;"
+  height="720"
+  style="border: 1px solid #767676; border-radius: 4px; max-width: 720px; display: block; margin: 0 auto;"
   loading="lazy"
 ></iframe>
