@@ -153,7 +153,7 @@ function renderStudentGridCell(cell) {
     return `<div class="pt-element blank"${gridStyleAttr(cell)} aria-hidden="true"></div>`;
   }
 
-  return `<button type="button" class="pt-element" data-type="${cell.type}"${gridStyleAttr(cell)} aria-label="${cell.ariaLabel}">
+  return `<button type="button" class="pt-element" data-type="${cell.type}" data-category="${cell.category}"${gridStyleAttr(cell)} aria-label="${cell.ariaLabel}" aria-controls="pt-detail-content">
 <span class="number" aria-hidden="true">${cell.number}</span>
 <span class="symbol" aria-hidden="true">${cell.symbol}</span>
 <span class="name" aria-hidden="true">${cell.name}</span>
@@ -202,7 +202,7 @@ const FULL_VERSION_URL = "https://jordan77-lang.github.io/Periodic-table/hosted.
 const COMPACT_EMBED_URL = `${HOSTED_URL}?embed=1&size=compact`;
 const LARGE_TABLE_URL = `${HOSTED_URL}?size=large`;
 
-const tileInteractionScript = `
+const studentDetailScript = `
 (function () {
   var params = new URLSearchParams(location.search);
   var size = params.get("size");
@@ -213,77 +213,84 @@ const tileInteractionScript = `
     size = "medium";
   }
   document.body.classList.add("pt-size-" + size);
-  var isEmbed = params.get("embed") === "1";
-  if (isEmbed) {
+  if (params.get("embed") === "1") {
     document.body.classList.add("pt-embed");
   }
 
-  var wrapper = document.querySelector(".pt-wrapper, .pt-a11y-grid");
+  var wrapper = document.querySelector(".pt-wrapper");
+  var detailContent = document.getElementById("pt-detail-content");
+  if (!wrapper || !detailContent) {
+    return;
+  }
+
+  var tiles = wrapper.querySelectorAll(".pt-element:not(.blank)");
+  var selectedTile = null;
+
+  function updateDetailPanel(tile) {
+    var number = tile.querySelector(".number").textContent;
+    var symbol = tile.querySelector(".symbol").textContent;
+    var name = tile.querySelector(".name").textContent;
+    var mass = tile.querySelector(".mass").textContent;
+    var category = tile.getAttribute("data-category") || "";
+
+    detailContent.innerHTML =
+      '<p class="pt-detail-symbol">' + symbol + "</p>" +
+      "<h3 class=\\"pt-detail-name\\">" + name + "</h3>" +
+      '<dl class="pt-detail-list">' +
+      "<dt>Atomic number</dt><dd>" + number + "</dd>" +
+      "<dt>Symbol</dt><dd>" + symbol + "</dd>" +
+      "<dt>Atomic mass (u)</dt><dd>" + mass + "</dd>" +
+      "<dt>Category</dt><dd>" + category + "</dd>" +
+      "</dl>";
+  }
+
+  function selectTile(tile) {
+    if (selectedTile) {
+      selectedTile.classList.remove("is-selected");
+    }
+    selectedTile = tile;
+    tile.classList.add("is-selected");
+    updateDetailPanel(tile);
+  }
+
+  tiles.forEach(function (tile) {
+    tile.addEventListener("click", function () {
+      selectTile(tile);
+    });
+    tile.addEventListener("focus", function () {
+      selectTile(tile);
+    });
+  });
+})();`;
+
+const hostedTileScript = `
+(function () {
+  var wrapper = document.querySelector(".pt-a11y-grid");
   if (!wrapper) {
     return;
   }
 
-  var tileSelector = wrapper.classList.contains("pt-a11y-grid")
-    ? ".pt-a11y-element"
-    : ".pt-element:not(.blank)";
-  var tiles = wrapper.querySelectorAll(tileSelector);
-
-  function clearExpanded() {
-    wrapper.querySelectorAll(".is-expanded").forEach(function (tile) {
-      tile.classList.remove("is-expanded");
-    });
-    tiles.forEach(function (item) {
-      item.style.pointerEvents = "";
-    });
-  }
+  var tiles = wrapper.querySelectorAll(".pt-a11y-element");
+  var activeTile = null;
 
   function setActiveTile(tile) {
+    activeTile = tile || null;
     tiles.forEach(function (item) {
       item.style.pointerEvents = !tile || item === tile ? "auto" : "none";
     });
   }
 
-  if (isEmbed && wrapper.classList.contains("pt-wrapper")) {
-    tiles.forEach(function (tile) {
-      tile.addEventListener("click", function () {
-        var wasExpanded = tile.classList.contains("is-expanded");
-        clearExpanded();
-        if (!wasExpanded) {
-          tile.classList.add("is-expanded");
-          setActiveTile(tile);
-        }
-      });
-      tile.addEventListener("focus", function () {
-        if (!tile.classList.contains("is-expanded")) {
-          setActiveTile(tile);
-        }
-      });
-    });
+  tiles.forEach(function (tile) {
+    tile.addEventListener("mouseenter", function () { setActiveTile(tile); });
+    tile.addEventListener("focus", function () { setActiveTile(tile); });
+  });
 
-    wrapper.addEventListener("focusout", function (event) {
-      if (!wrapper.contains(event.relatedTarget)) {
-        clearExpanded();
-      }
-    });
-
-    document.addEventListener("keydown", function (event) {
-      if (event.key === "Escape") {
-        clearExpanded();
-      }
-    });
-  } else {
-    tiles.forEach(function (tile) {
-      tile.addEventListener("mouseenter", function () { setActiveTile(tile); });
-      tile.addEventListener("focus", function () { setActiveTile(tile); });
-    });
-
-    wrapper.addEventListener("mouseleave", function () { setActiveTile(null); });
-    wrapper.addEventListener("focusout", function (event) {
-      if (!wrapper.contains(event.relatedTarget)) {
-        setActiveTile(null);
-      }
-    });
-  }
+  wrapper.addEventListener("mouseleave", function () { setActiveTile(null); });
+  wrapper.addEventListener("focusout", function (event) {
+    if (!wrapper.contains(event.relatedTarget)) {
+      setActiveTile(null);
+    }
+  });
 })();`;
 
 const tilePointerStyles = `
@@ -467,7 +474,7 @@ const hostedPage = `<!DOCTYPE html>
 </head>
 <body>
 ${hostedBody}
-<script>${tileInteractionScript}</script>
+<script>${hostedTileScript}</script>
 </body>
 </html>`;
 
@@ -494,23 +501,68 @@ const studentStyles = `
   }
   .pt-embed-bar {
     display: none;
-    margin: 0 auto 8px;
-    max-width: 960px;
-    text-align: center;
-    font-size: 0.85rem;
+  }
+  .pt-layout {
+    display: flex;
+    gap: 10px;
+    max-width: 980px;
+    margin: 0 auto;
+    align-items: flex-start;
+    font-family: Arial, sans-serif;
+  }
+  .pt-detail-panel {
+    flex: 0 0 150px;
+    border: 1px solid #767676;
+    border-radius: 4px;
+    padding: 10px;
+    background: #f8f9fa;
+    color: #1a1a1a;
+  }
+  .pt-detail-heading {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 0 0 8px;
+    color: #444;
+  }
+  .pt-detail-symbol {
+    font-size: 2.1rem;
+    font-weight: 700;
+    line-height: 1;
+    margin: 0 0 4px;
+  }
+  .pt-detail-name {
+    font-size: 0.92rem;
+    font-weight: 700;
+    margin: 0 0 10px;
+    line-height: 1.2;
+  }
+  .pt-detail-list {
+    margin: 0;
+    font-size: 0.76rem;
     line-height: 1.4;
   }
-  .pt-embed-bar a {
-    color: #003366;
+  .pt-detail-list dt {
+    font-weight: 700;
+    margin-top: 6px;
+  }
+  .pt-detail-list dd {
+    margin: 0;
+  }
+  .pt-detail-empty {
+    font-size: 0.78rem;
+    color: #555;
+    margin: 0;
+    line-height: 1.35;
   }
   .pt-wrapper {
     display: grid;
-    grid-template-columns: repeat(18, minmax(44px, 1fr));
-    gap: 4px;
-    max-width: 1100px;
-    margin: 0 auto;
-    font-family: Arial, sans-serif;
-    padding: 8px 16px 24px;
+    grid-template-columns: repeat(18, minmax(40px, 1fr));
+    gap: 3px;
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: 2px 0 4px;
   }
   .pt-group-row {
     display: contents;
@@ -518,66 +570,45 @@ const studentStyles = `
   .pt-group-num {
     text-align: center;
     font-weight: 700;
-    font-size: 0.85rem;
+    font-size: 0.78rem;
     color: #444;
-    padding: 6px 0 2px;
-    border: none;
-    background: transparent;
+    padding: 4px 0 2px;
     pointer-events: none;
   }
   button.pt-element {
     position: relative;
-    padding: 7px 4px;
+    padding: 6px 3px;
     text-align: center;
     border: 1px solid #b4b4b4;
     background: #f4f4f4;
-    transition: transform 0.18s ease, box-shadow 0.18s ease;
     cursor: pointer;
     border-radius: 4px;
     font: inherit;
     color: inherit;
     width: 100%;
     display: block;
+    min-height: 36px;
   }
-  button.pt-element:hover,
-  button.pt-element.is-expanded,
+  button.pt-element.is-selected,
   button.pt-element:focus-visible {
-    transform: scale(2.8);
-    z-index: 100;
-    box-shadow: 0 10px 14px rgba(0, 0, 0, 0.25);
     outline: 3px solid #003366;
-    outline-offset: 2px;
+    outline-offset: 1px;
+    z-index: 2;
   }
-  body.pt-embed button.pt-element:hover {
-    transform: none;
-    box-shadow: none;
-    outline: none;
+  button.pt-element:hover {
+    outline: 2px solid #003366;
+    outline-offset: 1px;
   }
-  body.pt-embed button.pt-element.is-expanded,
-  body.pt-embed button.pt-element:focus-visible {
-    transform: scale(2.4);
-    z-index: 100;
-    box-shadow: 0 10px 14px rgba(0, 0, 0, 0.25);
-    outline: 3px solid #003366;
-    outline-offset: 2px;
-  }
-  ${tilePointerStyles}
-  @media (prefers-reduced-motion: reduce) {
-    button.pt-element { transition: none; }
-    button.pt-element:hover,
-    button.pt-element.is-expanded,
-    button.pt-element:focus-visible { transform: none; }
-  }
-  button.pt-element .number { display: block; font-size: 0.65rem; font-weight: 600; }
-  button.pt-element .symbol { display: block; font-size: 1.25rem; font-weight: 700; margin: 2px 0; }
+  button.pt-element .number { display: block; font-size: 0.55rem; font-weight: 600; }
+  button.pt-element .symbol { display: block; font-size: 0.95rem; font-weight: 700; margin: 2px 0; }
   button.pt-element .name {
     display: block;
-    font-size: 0.4rem;
+    font-size: 0.34rem;
     line-height: 1.15;
     text-transform: uppercase;
     letter-spacing: 0.035em;
   }
-  button.pt-element .mass { display: block; font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700; }
+  button.pt-element .mass { display: block; font-size: 0.38rem; color: #333; margin-top: 2px; font-weight: 700; }
   .pt-element.blank { border: none; background: transparent; cursor: default; pointer-events: none; }
   button.pt-element[data-type="alkali"] { background: #fdd9a6; }
   button.pt-element[data-type="alkaline"] { background: #fdecc2; }
@@ -589,29 +620,24 @@ const studentStyles = `
   button.pt-element[data-type="noble"] { background: #d6f3ff; }
   button.pt-element[data-type="lanthanide"] { background: #ffeac7; }
   button.pt-element[data-type="actinide"] { background: #ffe0d4; }
+  body.pt-size-compact .pt-layout { max-width: 980px; }
+  body.pt-size-compact .pt-detail-panel { flex-basis: 130px; padding: 8px; }
+  body.pt-size-compact .pt-detail-symbol { font-size: 1.75rem; }
+  body.pt-size-compact .pt-detail-name { font-size: 0.82rem; }
+  body.pt-size-compact .pt-detail-list { font-size: 0.7rem; }
   body.pt-size-compact .pt-wrapper {
-    grid-template-columns: repeat(18, minmax(38px, 1fr));
-    max-width: 960px;
-    gap: 3px;
-    padding: 2px 4px 4px;
+    grid-template-columns: repeat(18, minmax(34px, 1fr));
+    gap: 2px;
   }
-  body.pt-size-compact .pt-group-num { font-size: 0.7rem; padding: 2px 0; }
-  body.pt-size-compact button.pt-element {
-    padding: 5px 2px;
-    min-height: 36px;
-  }
-  body.pt-size-compact button.pt-element .number { font-size: 0.5rem; }
-  body.pt-size-compact button.pt-element .symbol { font-size: 0.85rem; }
-  body.pt-size-compact button.pt-element .name { font-size: 0.32rem; }
-  body.pt-size-compact button.pt-element .mass { font-size: 0.38rem; margin-top: 2px; }
-  body.pt-size-compact button.pt-element.is-expanded,
-  body.pt-size-compact button.pt-element:focus-visible { transform: scale(2.2); }
+  body.pt-size-compact button.pt-element { padding: 4px 2px; min-height: 34px; }
+  body.pt-size-compact button.pt-element .symbol { font-size: 0.82rem; }
+  body.pt-size-large .pt-layout { max-width: 1100px; }
+  body.pt-size-large .pt-detail-panel { flex-basis: 180px; }
   body.pt-size-large .pt-wrapper {
-    grid-template-columns: repeat(18, minmax(52px, 1fr));
-    max-width: 1200px;
-    gap: 5px;
+    grid-template-columns: repeat(18, minmax(46px, 1fr));
+    gap: 4px;
   }
-  body.pt-size-large button.pt-element .symbol { font-size: 1.4rem; }
+  body.pt-size-large button.pt-element .symbol { font-size: 1.15rem; }
 `;
 
 const studentPage = `<!DOCTYPE html>
@@ -631,13 +657,21 @@ const studentPage = `<!DOCTYPE html>
 </p>
 <main aria-labelledby="pt-page-title">
 <h1 id="pt-page-title" class="pt-sr-only">Periodic table of the elements</h1>
-<p class="pt-sr-only" id="pt-table-help">Interactive periodic table. Tab between element buttons. Each button announces the element name, symbol, atomic number, atomic mass, and category. Group numbers 1 through 18 are shown above the table. Click an element to enlarge it; click again or press Escape to close.</p>
+<p class="pt-sr-only" id="pt-table-help">Interactive periodic table. Tab between element buttons in the grid. Element details appear in the panel to the left and are announced by your screen reader. Group numbers 1 through 18 are shown above the table.</p>
+<div class="pt-layout">
+<aside class="pt-detail-panel" id="pt-detail-panel" aria-live="polite" aria-atomic="true" aria-labelledby="pt-detail-heading">
+<h2 id="pt-detail-heading" class="pt-detail-heading">Element details</h2>
+<div id="pt-detail-content">
+<p class="pt-detail-empty">Tab to or click an element in the table.</p>
+</div>
+</aside>
 <div class="pt-wrapper" role="group" aria-labelledby="pt-page-title" aria-describedby="pt-table-help">
 ${renderGroupNumbersRow()}
 ${gridCells.map(renderStudentGridCell).join("\n")}
 </div>
+</div>
 </main>
-<script>${tileInteractionScript}</script>
+<script>${studentDetailScript}</script>
 </body>
 </html>`;
 
@@ -670,13 +704,13 @@ const iframeSnippet = `<!--
   &nbsp;|&nbsp;
   <a href="${FULL_VERSION_URL}" target="_blank" rel="noopener noreferrer">Accessible version with element list</a>
   &nbsp;|&nbsp;
-  <span style="font-size: 0.9rem; color: #444;">Click an element to enlarge it</span>
+  <span style="font-size: 0.9rem; color: #444;">Click or tab an element to view details on the left</span>
 </p>
 <iframe
   src="${COMPACT_EMBED_URL}"
   title="Periodic table of the elements with group numbers 1 through 18"
   width="100%"
-  height="580"
+  height="560"
   style="border: 1px solid #767676; border-radius: 4px; max-width: 980px; width: 100%; display: block; margin: 0 auto;"
   loading="lazy"
 ></iframe>`;
