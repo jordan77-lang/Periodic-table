@@ -3,849 +3,814 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Interactive Periodic Table Hover Demo</title>
+  <title>Periodic Table</title>
   <style>
-    /* CSS grid sized to match the 18 columns of the periodic table */
-    .pt-wrapper {
-      display: grid;
-      /* Slightly smaller tiles and tighter gaps to fit one page more easily */
-      grid-template-columns: repeat(18, minmax(48px, 1fr));
-      gap: 4px;
-      max-width: 1100px;
-      margin: 32px auto;
-      font-family: Arial, sans-serif;
-      /* More left/right padding for breathing room around edges */
-      padding: 40px 80px; /* top/bottom 40px, left/right 80px */
-      background: transparent; /* Keep page background visible around the grid */
-    }
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 16px;
+    background: #fff;
+  }
+  .pt-wrapper {
+    display: grid;
+    grid-template-columns: repeat(18, minmax(44px, 1fr));
+    gap: 4px;
+    max-width: 1100px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+    padding: 8px 16px 24px;
+  }
+  .pt-group-num {
+    text-align: center;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: #444;
+    padding: 6px 0 2px;
+    border: none;
+    background: transparent;
+    pointer-events: none;
+  }
+  .pt-element {
+    position: relative;
+    padding: 7px 4px;
+    text-align: center;
+    border: 1px solid #b4b4b4;
+    background: #f4f4f4;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  .pt-element:hover,
+  .pt-element:focus-visible {
+    transform: scale(2.8);
+    z-index: 100;
+    box-shadow: 0 10px 14px rgba(0, 0, 0, 0.25);
+    outline: 3px solid #003366;
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .pt-element { transition: none; }
+    .pt-element:hover,
+    .pt-element:focus-visible { transform: none; }
+  }
+  .pt-element .number { font-size: 0.65rem; font-weight: 600; }
+  .pt-element .symbol { font-size: 1.25rem; font-weight: 700; margin: 2px 0; }
+  .pt-element .name {
+    font-size: 0.4rem;
+    line-height: 1.15;
+    text-transform: uppercase;
+    letter-spacing: 0.035em;
+  }
+  .pt-element .mass { font-size: 0.5rem; color: #333; margin-top: 4px; font-weight: 700; }
+  .pt-element.blank { border: none; background: transparent; cursor: default; pointer-events: none; }
+  .pt-element[data-type="alkali"] { background: #fdd9a6; }
+  .pt-element[data-type="alkaline"] { background: #fdecc2; }
+  .pt-element[data-type="transition"] { background: #cbe5ff; }
+  .pt-element[data-type="post"] { background: #dcecff; }
+  .pt-element[data-type="metalloid"] { background: #e6d5f5; }
+  .pt-element[data-type="nonmetal"] { background: #c8f7d8; }
+  .pt-element[data-type="halogen"] { background: #ffd8f2; }
+  .pt-element[data-type="noble"] { background: #d6f3ff; }
+  .pt-element[data-type="lanthanide"] { background: #ffeac7; }
+  .pt-element[data-type="actinide"] { background: #ffe0d4; }
 
-    .pt-element {
-      position: relative;
-      padding: 7px 4px; /* slightly reduced to help compact height */
-      text-align: center;
-      border: 1px solid #b4b4b4;
-      background: #f4f4f4;
-      transition: transform 0.18s ease, box-shadow 0.18s ease;
-      cursor: pointer;
-      border-radius: 4px;
-    }
-
-    .pt-element:hover {
-      transform: scale(2.8);
-      z-index: 100;
-      box-shadow: 0 10px 14px rgba(0, 0, 0, 0.25);
-    }
-
-    .pt-element .number {
-      font-size: 0.65rem;
-      font-weight: 600;
-    }
-
-    .pt-element .symbol {
-      font-size: 1.25rem;
-      font-weight: 700;
-      margin: 2px 0;
-    }
-
-    .pt-element .name {
-      font-size: 0.4rem;
-      line-height: 1.15;
-      text-transform: uppercase;
-      letter-spacing: 0.035em;
-      overflow-wrap: normal;
-      word-break: normal;
-      hyphens: auto;
-      hyphenate-character: "-";
-    }
-
-    .pt-element .mass {
-      font-size: 0.5rem;
-      color: #333;
-      margin-top: 4px;
-      font-weight: 700;
-    }
-
-    .pt-element.blank {
-      border: none;
-      background: transparent;
-      cursor: default;
-      pointer-events: none;
-    }
-
-    .pt-element[data-type="alkali"] { background: #fdd9a6; }
-    .pt-element[data-type="alkaline"] { background: #fdecc2; }
-    .pt-element[data-type="transition"] { background: #cbe5ff; }
-    .pt-element[data-type="post"] { background: #dcecff; }
-    .pt-element[data-type="metalloid"] { background: #e6d5f5; }
-    .pt-element[data-type="nonmetal"] { background: #c8f7d8; }
-    .pt-element[data-type="halogen"] { background: #ffd8f2; }
-    .pt-element[data-type="noble"] { background: #d6f3ff; }
-    .pt-element[data-type="lanthanide"] { background: #ffeac7; }
-    .pt-element[data-type="actinide"] { background: #ffe0d4; }
-
-    header {
-      text-align: center;
-      margin-top: 32px;
-      font-family: "Segoe UI", Arial, sans-serif;
-    }
-
-    header h1 {
-      margin-bottom: 8px;
-    }
-
-    header p {
-      margin: 0 auto;
-      max-width: 720px;
-      font-size: 0.95rem;
-      color: #444;
-    }
   </style>
 </head>
 <body>
-  <!--
-    Canvas embedding instructions:
-    1. In Canvas, edit the destination page and switch to the HTML editor (</>).
-    2. Delete the existing content in the HTML editor.
-    3. Copy everything from the <style> tag below through the closing </div> of the periodic table wrapper and paste it into Canvas.
-       (Do not include the outer <!DOCTYPE html>, <html>, <head>, or <body> tags; Canvas strips them.)
-    4. Save your changes and preview the page.
-  -->
-  <header>
-    <h1>Interactive Periodic Table</h1>
-    <p>Hover over any element to enlarge its tile.</p>
-  </header>
-
-  <div class="pt-wrapper">
-    <!-- Period 1 -->
-    <div class="pt-element" style="grid-column: 1;" data-type="nonmetal" title="Hydrogen\nAtomic Number: 1\nAtomic Mass: 1.008">
-      <div class="number">1</div>
-      <div class="symbol">H</div>
-      <div class="name">Hydrogen</div>
-      <div class="mass">1.008</div>
-    </div>
-    <div class="pt-element blank" style="grid-column: 2 / span 16;"></div>
-    <div class="pt-element" data-type="noble" title="Helium\nAtomic Number: 2\nAtomic Mass: 4.0026">
-      <div class="number">2</div>
-      <div class="symbol">He</div>
-      <div class="name">Helium</div>
-      <div class="mass">4.0026</div>
-    </div>
-
-    <!-- Period 2 -->
-    <div class="pt-element" style="grid-column: 1;" data-type="alkali" title="Lithium\nAtomic Number: 3\nAtomic Mass: 6.94">
-      <div class="number">3</div>
-      <div class="symbol">Li</div>
-      <div class="name">Lithium</div>
-      <div class="mass">6.94</div>
-    </div>
-    <div class="pt-element" data-type="alkaline" title="Beryllium\nAtomic Number: 4\nAtomic Mass: 9.0122">
-      <div class="number">4</div>
-      <div class="symbol">Be</div>
-      <div class="name">Beryllium</div>
-      <div class="mass">9.0122</div>
-    </div>
-    <div class="pt-element blank" style="grid-column: 3 / span 10;"></div>
-    <div class="pt-element" data-type="metalloid" title="Boron\nAtomic Number: 5\nAtomic Mass: 10.81">
-      <div class="number">5</div>
-      <div class="symbol">B</div>
-      <div class="name">Boron</div>
-      <div class="mass">10.81</div>
-    </div>
-    <div class="pt-element" data-type="nonmetal" title="Carbon\nAtomic Number: 6\nAtomic Mass: 12.011">
-      <div class="number">6</div>
-      <div class="symbol">C</div>
-      <div class="name">Carbon</div>
-      <div class="mass">12.011</div>
-    </div>
-    <div class="pt-element" data-type="nonmetal" title="Nitrogen\nAtomic Number: 7\nAtomic Mass: 14.007">
-      <div class="number">7</div>
-      <div class="symbol">N</div>
-      <div class="name">Nitrogen</div>
-      <div class="mass">14.007</div>
-    </div>
-    <div class="pt-element" data-type="nonmetal" title="Oxygen\nAtomic Number: 8\nAtomic Mass: 15.999">
-      <div class="number">8</div>
-      <div class="symbol">O</div>
-      <div class="name">Oxygen</div>
-      <div class="mass">15.999</div>
-    </div>
-    <div class="pt-element" data-type="halogen" title="Fluorine\nAtomic Number: 9\nAtomic Mass: 18.998">
-      <div class="number">9</div>
-      <div class="symbol">F</div>
-      <div class="name">Fluorine</div>
-      <div class="mass">18.998</div>
-    </div>
-    <div class="pt-element" data-type="noble" title="Neon\nAtomic Number: 10\nAtomic Mass: 20.180">
-      <div class="number">10</div>
-      <div class="symbol">Ne</div>
-      <div class="name">Neon</div>
-      <div class="mass">20.180</div>
-    </div>
-
-    <!-- Period 3 -->
-    <div class="pt-element" style="grid-column: 1;" data-type="alkali" title="Sodium\nAtomic Number: 11\nAtomic Mass: 22.990">
-      <div class="number">11</div>
-      <div class="symbol">Na</div>
-      <div class="name">Sodium</div>
-      <div class="mass">22.990</div>
-    </div>
-    <div class="pt-element" data-type="alkaline" title="Magnesium\nAtomic Number: 12\nAtomic Mass: 24.305">
-      <div class="number">12</div>
-      <div class="symbol">Mg</div>
-      <div class="name">Magnesium</div>
-      <div class="mass">24.305</div>
-    </div>
-    <div class="pt-element blank" style="grid-column: 3 / span 10;"></div>
-    <div class="pt-element" data-type="post" title="Aluminum\nAtomic Number: 13\nAtomic Mass: 26.982">
-      <div class="number">13</div>
-      <div class="symbol">Al</div>
-      <div class="name">Aluminum</div>
-      <div class="mass">26.982</div>
-    </div>
-    <div class="pt-element" data-type="metalloid" title="Silicon\nAtomic Number: 14\nAtomic Mass: 28.085">
-      <div class="number">14</div>
-      <div class="symbol">Si</div>
-      <div class="name">Silicon</div>
-      <div class="mass">28.085</div>
-    </div>
-    <div class="pt-element" data-type="nonmetal" title="Phosphorus\nAtomic Number: 15\nAtomic Mass: 30.974">
-      <div class="number">15</div>
-      <div class="symbol">P</div>
-      <div class="name">Phosphorus</div>
-      <div class="mass">30.974</div>
-    </div>
-    <div class="pt-element" data-type="nonmetal" title="Sulfur\nAtomic Number: 16\nAtomic Mass: 32.06">
-      <div class="number">16</div>
-      <div class="symbol">S</div>
-      <div class="name">Sulfur</div>
-      <div class="mass">32.06</div>
-    </div>
-    <div class="pt-element" data-type="halogen" title="Chlorine\nAtomic Number: 17\nAtomic Mass: 35.45">
-      <div class="number">17</div>
-      <div class="symbol">Cl</div>
-      <div class="name">Chlorine</div>
-      <div class="mass">35.45</div>
-    </div>
-    <div class="pt-element" data-type="noble" title="Argon\nAtomic Number: 18\nAtomic Mass: 39.948">
-      <div class="number">18</div>
-      <div class="symbol">Ar</div>
-      <div class="name">Argon</div>
-      <div class="mass">39.948</div>
-    </div>
-
-    <!-- Period 4 -->
-    <div class="pt-element" style="grid-column: 1;" data-type="alkali" title="Potassium\nAtomic Number: 19\nAtomic Mass: 39.098">
-      <div class="number">19</div>
-      <div class="symbol">K</div>
-      <div class="name">Potassium</div>
-      <div class="mass">39.098</div>
-    </div>
-    <div class="pt-element" data-type="alkaline" title="Calcium\nAtomic Number: 20\nAtomic Mass: 40.078">
-      <div class="number">20</div>
-      <div class="symbol">Ca</div>
-      <div class="name">Calcium</div>
-      <div class="mass">40.078</div>
-    </div>
-    <div class="pt-element" data-type="transition" title="Scandium\nAtomic Number: 21\nAtomic Mass: 44.956">
-      <div class="number">21</div>
-      <div class="symbol">Sc</div>
-      <div class="name">Scandium</div>
-      <div class="mass">44.956</div>
-    </div>
-    <div class="pt-element" data-type="transition" title="Titanium\nAtomic Number: 22\nAtomic Mass: 47.867">
-      <div class="number">22</div>
-      <div class="symbol">Ti</div>
-      <div class="name">Titanium</div>
-      <div class="mass">47.867</div>
-    </div>
-    <div class="pt-element" data-type="transition" title="Vanadium\nAtomic Number: 23\nAtomic Mass: 50.942">
-      <div class="number">23</div>
-      <div class="symbol">V</div>
-      <div class="name">Vanadium</div>
-      <div class="mass">50.942</div>
-    </div>
-    <div class="pt-element" data-type="transition" title="Chromium\nAtomic Number: 24\nAtomic Mass: 51.996">
-      <div class="number">24</div>
-      <div class="symbol">Cr</div>
-      <div class="name">Chromium</div>
-      <div class="mass">51.996</div>
-    </div>
-    <div class="pt-element" data-type="transition" title="Manganese\nAtomic Number: 25\nAtomic Mass: 54.938">
-      <div class="number">25</div>
-      <div class="symbol">Mn</div>
-      <div class="name">Manganese</div>
-      <div class="mass">54.938</div>
-    </div>
-    <div class="pt-element" data-type="transition" title="Iron\nAtomic Number: 26\nAtomic Mass: 55.845">
-      <div class="number">26</div>
-      <div class="symbol">Fe</div>
-      <div class="name">Iron</div>
-      <div class="mass">55.845</div>
-    </div>
-    <div class="pt-element" data-type="transition" title="Cobalt\nAtomic Number: 27\nAtomic Mass: 58.933">
-      <div class="number">27</div>
-      <div class="symbol">Co</div>
-      <div class="name">Cobalt</div>
-      <div class="mass">58.933</div>
-    </div>
-    <div class="pt-element" data-type="transition" title="Nickel\nAtomic Number: 28\nAtomic Mass: 58.693">
-      <div class="number">28</div>
-      <div class="symbol">Ni</div>
-      <div class="name">Nickel</div>
-      <div class="mass">58.693</div>
-    </div>
-    <div class="pt-element" data-type="transition" title="Copper\nAtomic Number: 29\nAtomic Mass: 63.546">
-      <div class="number">29</div>
-      <div class="symbol">Cu</div>
-      <div class="name">Copper</div>
-      <div class="mass">63.546</div>
-    </div>
-    <div class="pt-element" data-type="transition" title="Zinc\nAtomic Number: 30\nAtomic Mass: 65.38">
-      <div class="number">30</div>
-      <div class="symbol">Zn</div>
-      <div class="name">Zinc</div>
-      <div class="mass">65.38</div>
-    </div>
-    <div class="pt-element" data-type="post" title="Gallium\nAtomic Number: 31\nAtomic Mass: 69.723">
-      <div class="number">31</div>
-      <div class="symbol">Ga</div>
-      <div class="name">Gallium</div>
-      <div class="mass">69.723</div>
-    </div>
-    <div class="pt-element" data-type="metalloid" title="Germanium\nAtomic Number: 32\nAtomic Mass: 72.630">
-      <div class="number">32</div>
-      <div class="symbol">Ge</div>
-      <div class="name">Germanium</div>
-      <div class="mass">72.630</div>
-    </div>
-    <div class="pt-element" data-type="metalloid" title="Arsenic\nAtomic Number: 33\nAtomic Mass: 74.922">
-      <div class="number">33</div>
-      <div class="symbol">As</div>
-      <div class="name">Arsenic</div>
-      <div class="mass">74.922</div>
-    </div>
-    <div class="pt-element" data-type="nonmetal" title="Selenium\nAtomic Number: 34\nAtomic Mass: 78.971">
-      <div class="number">34</div>
-      <div class="symbol">Se</div>
-      <div class="name">Selenium</div>
-      <div class="mass">78.971</div>
-    </div>
-    <div class="pt-element" data-type="halogen" title="Bromine\nAtomic Number: 35\nAtomic Mass: 79.904">
-      <div class="number">35</div>
-      <div class="symbol">Br</div>
-      <div class="name">Bromine</div>
-      <div class="mass">79.904</div>
-    </div>
-    <div class="pt-element" data-type="noble" title="Krypton\nAtomic Number: 36\nAtomic Mass: 83.798">
-      <div class="number">36</div>
-      <div class="symbol">Kr</div>
-      <div class="name">Krypton</div>
-      <div class="mass">83.798</div>
-    </div>
-
-    <!-- Period 5 -->
-    <div class="pt-element" style="grid-column: 1;" data-type="alkali" title="Rubidium\nAtomic Number: 37\nAtomic Mass: 85.468">
-      <div class="number">37</div>
-      <div class="symbol">Rb</div>
-      <div class="name">Rubidium</div>
-      <div class="mass">85.468</div>
-    </div>
-    <div class="pt-element" data-type="alkaline" title="Strontium\nAtomic Number: 38\nAtomic Mass: 87.62">
-      <div class="number">38</div>
-      <div class="symbol">Sr</div>
-      <div class="name">Strontium</div>
-      <div class="mass">87.62</div>
-    </div>
-    <div class="pt-element" data-type="transition" title="Yttrium\nAtomic Number: 39\nAtomic Mass: 88.906">
-      <div class="number">39</div>
-      <div class="symbol">Y</div>
-      <div class="name">Yttrium</div>
-      <div class="mass">88.906</div>
-    </div>
-    <div class="pt-element" data-type="transition" title="Zirconium\nAtomic Number: 40\nAtomic Mass: 91.224">
-      <div class="number">40</div>
-      <div class="symbol">Zr</div>
-      <div class="name">Zirconium</div>
-      <div class="mass">91.224</div>
-    </div>
-    <div class="pt-element" data-type="transition" title="Niobium\nAtomic Number: 41\nAtomic Mass: 92.906">
-      <div class="number">41</div>
-      <div class="symbol">Nb</div>
-      <div class="name">Niobium</div>
-      <div class="mass">92.906</div>
-    </div>
-    <div class="pt-element" data-type="transition" title="Molybdenum\nAtomic Number: 42\nAtomic Mass: 95.95">
-      <div class="number">42</div>
-      <div class="symbol">Mo</div>
-      <div class="name">Molybdenum</div>
-      <div class="mass">95.95</div>
-    </div>
-    <div class="pt-element" data-type="transition" title="Technetium\nAtomic Number: 43\nAtomic Mass: 98">
-      <div class="number">43</div>
-      <div class="symbol">Tc</div>
-      <div class="name">Technetium</div>
-      <div class="mass">98</div>
-    </div>
-    <div class="pt-element" data-type="transition" title="Ruthenium\nAtomic Number: 44\nAtomic Mass: 101.07">
-      <div class="number">44</div>
-      <div class="symbol">Ru</div>
-      <div class="name">Ruthenium</div>
-      <div class="mass">101.07</div>
-    </div>
-    <div class="pt-element" data-type="transition" title="Rhodium\nAtomic Number: 45\nAtomic Mass: 102.91">
-      <div class="number">45</div>
-      <div class="symbol">Rh</div>
-      <div class="name">Rhodium</div>
-      <div class="mass">102.91</div>
-    </div>
-    <div class="pt-element" data-type="transition" title="Palladium\nAtomic Number: 46\nAtomic Mass: 106.42">
-      <div class="number">46</div>
-      <div class="symbol">Pd</div>
-      <div class="name">Palladium</div>
-      <div class="mass">106.42</div>
-    </div>
-    <div class="pt-element" data-type="transition" title="Silver\nAtomic Number: 47\nAtomic Mass: 107.87">
-      <div class="number">47</div>
-      <div class="symbol">Ag</div>
-      <div class="name">Silver</div>
-      <div class="mass">107.87</div>
-    </div>
-    <div class="pt-element" data-type="transition" title="Cadmium\nAtomic Number: 48\nAtomic Mass: 112.41">
-      <div class="number">48</div>
-      <div class="symbol">Cd</div>
-      <div class="name">Cadmium</div>
-      <div class="mass">112.41</div>
-    </div>
-    <div class="pt-element" data-type="post" title="Indium\nAtomic Number: 49\nAtomic Mass: 114.82">
-      <div class="number">49</div>
-      <div class="symbol">In</div>
-      <div class="name">Indium</div>
-      <div class="mass">114.82</div>
-    </div>
-    <div class="pt-element" data-type="post" title="Tin\nAtomic Number: 50\nAtomic Mass: 118.71">
-      <div class="number">50</div>
-      <div class="symbol">Sn</div>
-      <div class="name">Tin</div>
-      <div class="mass">118.71</div>
-    </div>
-    <div class="pt-element" data-type="metalloid" title="Antimony\nAtomic Number: 51\nAtomic Mass: 121.76">
-      <div class="number">51</div>
-      <div class="symbol">Sb</div>
-      <div class="name">Antimony</div>
-      <div class="mass">121.76</div>
-    </div>
-    <div class="pt-element" data-type="metalloid" title="Tellurium\nAtomic Number: 52\nAtomic Mass: 127.60">
-      <div class="number">52</div>
-      <div class="symbol">Te</div>
-      <div class="name">Tellurium</div>
-      <div class="mass">127.60</div>
-    </div>
-    <div class="pt-element" data-type="halogen" title="Iodine\nAtomic Number: 53\nAtomic Mass: 126.90">
-      <div class="number">53</div>
-      <div class="symbol">I</div>
-      <div class="name">Iodine</div>
-      <div class="mass">126.90</div>
-    </div>
-    <div class="pt-element" data-type="noble" title="Xenon\nAtomic Number: 54\nAtomic Mass: 131.29">
-      <div class="number">54</div>
-      <div class="symbol">Xe</div>
-      <div class="name">Xenon</div>
-      <div class="mass">131.29</div>
-    </div>
-
-    <!-- Period 6 -->
-    <div class="pt-element" style="grid-column: 1;" data-type="alkali" title="Cesium\nAtomic Number: 55\nAtomic Mass: 132.91">
-      <div class="number">55</div>
-      <div class="symbol">Cs</div>
-      <div class="name">Cesium</div>
-      <div class="mass">132.91</div>
-    </div>
-    <div class="pt-element" data-type="alkaline" title="Barium\nAtomic Number: 56\nAtomic Mass: 137.33">
-      <div class="number">56</div>
-      <div class="symbol">Ba</div>
-      <div class="name">Barium</div>
-      <div class="mass">137.33</div>
-    </div>
-    <div class="pt-element" data-type="lanthanide" title="Lanthanum\nAtomic Number: 57\nAtomic Mass: 138.91">
-      <div class="number">57</div>
-      <div class="symbol">La</div>
-      <div class="name">Lanthanum</div>
-      <div class="mass">138.91</div>
-    </div>
-    <div class="pt-element" data-type="transition" title="Hafnium\nAtomic Number: 72\nAtomic Mass: 178.49">
-      <div class="number">72</div>
-      <div class="symbol">Hf</div>
-      <div class="name">Hafnium</div>
-      <div class="mass">178.49</div>
-    </div>
-    <div class="pt-element" data-type="transition" title="Tantalum\nAtomic Number: 73\nAtomic Mass: 180.95">
-      <div class="number">73</div>
-      <div class="symbol">Ta</div>
-      <div class="name">Tantalum</div>
-      <div class="mass">180.95</div>
-    </div>
-    <div class="pt-element" data-type="transition" title="Tungsten\nAtomic Number: 74\nAtomic Mass: 183.84">
-      <div class="number">74</div>
-      <div class="symbol">W</div>
-      <div class="name">Tungsten</div>
-      <div class="mass">183.84</div>
-    </div>
-    <div class="pt-element" data-type="transition" title="Rhenium\nAtomic Number: 75\nAtomic Mass: 186.21">
-      <div class="number">75</div>
-      <div class="symbol">Re</div>
-      <div class="name">Rhenium</div>
-      <div class="mass">186.21</div>
-    </div>
-    <div class="pt-element" data-type="transition" title="Osmium\nAtomic Number: 76\nAtomic Mass: 190.23">
-      <div class="number">76</div>
-      <div class="symbol">Os</div>
-      <div class="name">Osmium</div>
-      <div class="mass">190.23</div>
-    </div>
-    <div class="pt-element" data-type="transition" title="Iridium\nAtomic Number: 77\nAtomic Mass: 192.22">
-      <div class="number">77</div>
-      <div class="symbol">Ir</div>
-      <div class="name">Iridium</div>
-      <div class="mass">192.22</div>
-    </div>
-    <div class="pt-element" data-type="transition" title="Platinum\nAtomic Number: 78\nAtomic Mass: 195.08">
-      <div class="number">78</div>
-      <div class="symbol">Pt</div>
-      <div class="name">Platinum</div>
-      <div class="mass">195.08</div>
-    </div>
-    <div class="pt-element" data-type="transition" title="Gold\nAtomic Number: 79\nAtomic Mass: 196.97">
-      <div class="number">79</div>
-      <div class="symbol">Au</div>
-      <div class="name">Gold</div>
-      <div class="mass">196.97</div>
-    </div>
-    <div class="pt-element" data-type="transition" title="Mercury\nAtomic Number: 80\nAtomic Mass: 200.59">
-      <div class="number">80</div>
-      <div class="symbol">Hg</div>
-      <div class="name">Mercury</div>
-      <div class="mass">200.59</div>
-    </div>
-    <div class="pt-element" data-type="post" title="Thallium\nAtomic Number: 81\nAtomic Mass: 204.38">
-      <div class="number">81</div>
-      <div class="symbol">Tl</div>
-      <div class="name">Thallium</div>
-      <div class="mass">204.38</div>
-    </div>
-    <div class="pt-element" data-type="post" title="Lead\nAtomic Number: 82\nAtomic Mass: 207.2">
-      <div class="number">82</div>
-      <div class="symbol">Pb</div>
-      <div class="name">Lead</div>
-      <div class="mass">207.2</div>
-    </div>
-    <div class="pt-element" data-type="post" title="Bismuth\nAtomic Number: 83\nAtomic Mass: 208.98">
-      <div class="number">83</div>
-      <div class="symbol">Bi</div>
-      <div class="name">Bismuth</div>
-      <div class="mass">208.98</div>
-    </div>
-    <div class="pt-element" data-type="metalloid" title="Polonium\nAtomic Number: 84\nAtomic Mass: 209">
-      <div class="number">84</div>
-      <div class="symbol">Po</div>
-      <div class="name">Polonium</div>
-      <div class="mass">209</div>
-    </div>
-    <div class="pt-element" data-type="halogen" title="Astatine\nAtomic Number: 85\nAtomic Mass: 210">
-      <div class="number">85</div>
-      <div class="symbol">At</div>
-      <div class="name">Astatine</div>
-      <div class="mass">210</div>
-    </div>
-    <div class="pt-element" data-type="noble" title="Radon\nAtomic Number: 86\nAtomic Mass: 222">
-      <div class="number">86</div>
-      <div class="symbol">Rn</div>
-      <div class="name">Radon</div>
-      <div class="mass">222</div>
-    </div>
-
-    <!-- Period 7 -->
-    <div class="pt-element" style="grid-column: 1;" data-type="alkali" title="Francium\nAtomic Number: 87\nAtomic Mass: 223">
-      <div class="number">87</div>
-      <div class="symbol">Fr</div>
-      <div class="name">Francium</div>
-      <div class="mass">223</div>
-    </div>
-    <div class="pt-element" data-type="alkaline" title="Radium\nAtomic Number: 88\nAtomic Mass: 226">
-      <div class="number">88</div>
-      <div class="symbol">Ra</div>
-      <div class="name">Radium</div>
-      <div class="mass">226</div>
-    </div>
-    <div class="pt-element" data-type="actinide" title="Actinium\nAtomic Number: 89\nAtomic Mass: 227">
-      <div class="number">89</div>
-      <div class="symbol">Ac</div>
-      <div class="name">Actinium</div>
-      <div class="mass">227</div>
-    </div>
-    <div class="pt-element" data-type="transition" title="Rutherfordium\nAtomic Number: 104\nAtomic Mass: 267">
-      <div class="number">104</div>
-      <div class="symbol">Rf</div>
-      <div class="name">Ruther&shy;ford&shy;ium</div>
-      <div class="mass">267</div>
-    </div>
-    <div class="pt-element" data-type="transition" title="Dubnium\nAtomic Number: 105\nAtomic Mass: 268">
-      <div class="number">105</div>
-      <div class="symbol">Db</div>
-      <div class="name">Dubnium</div>
-      <div class="mass">268</div>
-    </div>
-    <div class="pt-element" data-type="transition" title="Seaborgium\nAtomic Number: 106\nAtomic Mass: 271">
-      <div class="number">106</div>
-      <div class="symbol">Sg</div>
-      <div class="name">Seaborgium</div>
-      <div class="mass">271</div>
-    </div>
-    <div class="pt-element" data-type="transition" title="Bohrium\nAtomic Number: 107\nAtomic Mass: 270">
-      <div class="number">107</div>
-      <div class="symbol">Bh</div>
-      <div class="name">Bohrium</div>
-      <div class="mass">270</div>
-    </div>
-    <div class="pt-element" data-type="transition" title="Hassium\nAtomic Number: 108\nAtomic Mass: 277">
-      <div class="number">108</div>
-      <div class="symbol">Hs</div>
-      <div class="name">Hassium</div>
-      <div class="mass">277</div>
-    </div>
-    <div class="pt-element" data-type="transition" title="Meitnerium\nAtomic Number: 109\nAtomic Mass: 278">
-      <div class="number">109</div>
-      <div class="symbol">Mt</div>
-      <div class="name">Meitnerium</div>
-      <div class="mass">278</div>
-    </div>
-    <div class="pt-element" data-type="transition" title="Darmstadtium\nAtomic Number: 110\nAtomic Mass: 281">
-      <div class="number">110</div>
-      <div class="symbol">Ds</div>
-      <div class="name">Darm&shy;stad&shy;tium</div>
-      <div class="mass">281</div>
-    </div>
-    <div class="pt-element" data-type="transition" title="Roentgenium\nAtomic Number: 111\nAtomic Mass: 282">
-      <div class="number">111</div>
-      <div class="symbol">Rg</div>
-      <div class="name">Roentgenium</div>
-      <div class="mass">282</div>
-    </div>
-    <div class="pt-element" data-type="transition" title="Copernicium\nAtomic Number: 112\nAtomic Mass: 285">
-      <div class="number">112</div>
-      <div class="symbol">Cn</div>
-      <div class="name">Copernicium</div>
-      <div class="mass">285</div>
-    </div>
-    <div class="pt-element" data-type="post" title="Nihonium\nAtomic Number: 113\nAtomic Mass: 286">
-      <div class="number">113</div>
-      <div class="symbol">Nh</div>
-      <div class="name">Nihonium</div>
-      <div class="mass">286</div>
-    </div>
-    <div class="pt-element" data-type="post" title="Flerovium\nAtomic Number: 114\nAtomic Mass: 289">
-      <div class="number">114</div>
-      <div class="symbol">Fl</div>
-      <div class="name">Flerovium</div>
-      <div class="mass">289</div>
-    </div>
-    <div class="pt-element" data-type="post" title="Moscovium\nAtomic Number: 115\nAtomic Mass: 290">
-      <div class="number">115</div>
-      <div class="symbol">Mc</div>
-      <div class="name">Moscovium</div>
-      <div class="mass">290</div>
-    </div>
-    <div class="pt-element" data-type="post" title="Livermorium\nAtomic Number: 116\nAtomic Mass: 293">
-      <div class="number">116</div>
-      <div class="symbol">Lv</div>
-      <div class="name">Livermorium</div>
-      <div class="mass">293</div>
-    </div>
-    <div class="pt-element" data-type="halogen" title="Tennessine\nAtomic Number: 117\nAtomic Mass: 294">
-      <div class="number">117</div>
-      <div class="symbol">Ts</div>
-      <div class="name">Tennessine</div>
-      <div class="mass">294</div>
-    </div>
-    <div class="pt-element" data-type="noble" title="Oganesson\nAtomic Number: 118\nAtomic Mass: 294">
-      <div class="number">118</div>
-      <div class="symbol">Og</div>
-      <div class="name">Oganesson</div>
-      <div class="mass">294</div>
-    </div>
-
-    <!-- Lanthanides Row -->
-    <div class="pt-element blank" style="grid-column: 1 / span 3;"></div>
-    <div class="pt-element" data-type="lanthanide" title="Cerium\nAtomic Number: 58\nAtomic Mass: 140.12">
-      <div class="number">58</div>
-      <div class="symbol">Ce</div>
-      <div class="name">Cerium</div>
-      <div class="mass">140.12</div>
-    </div>
-    <div class="pt-element" data-type="lanthanide" title="Praseodymium\nAtomic Number: 59\nAtomic Mass: 140.91">
-      <div class="number">59</div>
-      <div class="symbol">Pr</div>
-      <div class="name">Prase&shy;ody&shy;mium</div>
-      <div class="mass">140.91</div>
-    </div>
-    <div class="pt-element" data-type="lanthanide" title="Neodymium\nAtomic Number: 60\nAtomic Mass: 144.24">
-      <div class="number">60</div>
-      <div class="symbol">Nd</div>
-      <div class="name">Neodymium</div>
-      <div class="mass">144.24</div>
-    </div>
-    <div class="pt-element" data-type="lanthanide" title="Promethium\nAtomic Number: 61\nAtomic Mass: 145">
-      <div class="number">61</div>
-      <div class="symbol">Pm</div>
-      <div class="name">Promethium</div>
-      <div class="mass">145</div>
-    </div>
-    <div class="pt-element" data-type="lanthanide" title="Samarium\nAtomic Number: 62\nAtomic Mass: 150.36">
-      <div class="number">62</div>
-      <div class="symbol">Sm</div>
-      <div class="name">Samarium</div>
-      <div class="mass">150.36</div>
-    </div>
-    <div class="pt-element" data-type="lanthanide" title="Europium\nAtomic Number: 63\nAtomic Mass: 151.96">
-      <div class="number">63</div>
-      <div class="symbol">Eu</div>
-      <div class="name">Europium</div>
-      <div class="mass">151.96</div>
-    </div>
-    <div class="pt-element" data-type="lanthanide" title="Gadolinium\nAtomic Number: 64\nAtomic Mass: 157.25">
-      <div class="number">64</div>
-      <div class="symbol">Gd</div>
-      <div class="name">Gadolinium</div>
-      <div class="mass">157.25</div>
-    </div>
-    <div class="pt-element" data-type="lanthanide" title="Terbium\nAtomic Number: 65\nAtomic Mass: 158.93">
-      <div class="number">65</div>
-      <div class="symbol">Tb</div>
-      <div class="name">Terbium</div>
-      <div class="mass">158.93</div>
-    </div>
-    <div class="pt-element" data-type="lanthanide" title="Dysprosium\nAtomic Number: 66\nAtomic Mass: 162.50">
-      <div class="number">66</div>
-      <div class="symbol">Dy</div>
-      <div class="name">Dysprosium</div>
-      <div class="mass">162.50</div>
-    </div>
-    <div class="pt-element" data-type="lanthanide" title="Holmium\nAtomic Number: 67\nAtomic Mass: 164.93">
-      <div class="number">67</div>
-      <div class="symbol">Ho</div>
-      <div class="name">Holmium</div>
-      <div class="mass">164.93</div>
-    </div>
-    <div class="pt-element" data-type="lanthanide" title="Erbium\nAtomic Number: 68\nAtomic Mass: 167.26">
-      <div class="number">68</div>
-      <div class="symbol">Er</div>
-      <div class="name">Erbium</div>
-      <div class="mass">167.26</div>
-    </div>
-    <div class="pt-element" data-type="lanthanide" title="Thulium\nAtomic Number: 69\nAtomic Mass: 168.93">
-      <div class="number">69</div>
-      <div class="symbol">Tm</div>
-      <div class="name">Thulium</div>
-      <div class="mass">168.93</div>
-    </div>
-    <div class="pt-element" data-type="lanthanide" title="Ytterbium\nAtomic Number: 70\nAtomic Mass: 173.05">
-      <div class="number">70</div>
-      <div class="symbol">Yb</div>
-      <div class="name">Ytterbium</div>
-      <div class="mass">173.05</div>
-    </div>
-    <div class="pt-element" data-type="lanthanide" title="Lutetium\nAtomic Number: 71\nAtomic Mass: 174.97">
-      <div class="number">71</div>
-      <div class="symbol">Lu</div>
-      <div class="name">Lutetium</div>
-      <div class="mass">174.97</div>
-    </div>
-
-    <!-- Actinides Row -->
-    <div class="pt-element blank" style="grid-column: 1 / span 3;"></div>
-    <div class="pt-element" data-type="actinide" title="Thorium\nAtomic Number: 90\nAtomic Mass: 232.04">
-      <div class="number">90</div>
-      <div class="symbol">Th</div>
-      <div class="name">Thorium</div>
-      <div class="mass">232.04</div>
-    </div>
-    <div class="pt-element" data-type="actinide" title="Protactinium\nAtomic Number: 91\nAtomic Mass: 231.04">
-      <div class="number">91</div>
-      <div class="symbol">Pa</div>
-      <div class="name">Protactinium</div>
-      <div class="mass">231.04</div>
-    </div>
-    <div class="pt-element" data-type="actinide" title="Uranium\nAtomic Number: 92\nAtomic Mass: 238.03">
-      <div class="number">92</div>
-      <div class="symbol">U</div>
-      <div class="name">Uranium</div>
-      <div class="mass">238.03</div>
-    </div>
-    <div class="pt-element" data-type="actinide" title="Neptunium\nAtomic Number: 93\nAtomic Mass: 237">
-      <div class="number">93</div>
-      <div class="symbol">Np</div>
-      <div class="name">Neptunium</div>
-      <div class="mass">237</div>
-    </div>
-    <div class="pt-element" data-type="actinide" title="Plutonium\nAtomic Number: 94\nAtomic Mass: 244">
-      <div class="number">94</div>
-      <div class="symbol">Pu</div>
-      <div class="name">Plutonium</div>
-      <div class="mass">244</div>
-    </div>
-    <div class="pt-element" data-type="actinide" title="Americium\nAtomic Number: 95\nAtomic Mass: 243">
-      <div class="number">95</div>
-      <div class="symbol">Am</div>
-      <div class="name">Americium</div>
-      <div class="mass">243</div>
-    </div>
-    <div class="pt-element" data-type="actinide" title="Curium\nAtomic Number: 96\nAtomic Mass: 247">
-      <div class="number">96</div>
-      <div class="symbol">Cm</div>
-      <div class="name">Curium</div>
-      <div class="mass">247</div>
-    </div>
-    <div class="pt-element" data-type="actinide" title="Berkelium\nAtomic Number: 97\nAtomic Mass: 247">
-      <div class="number">97</div>
-      <div class="symbol">Bk</div>
-      <div class="name">Berkelium</div>
-      <div class="mass">247</div>
-    </div>
-    <div class="pt-element" data-type="actinide" title="Californium\nAtomic Number: 98\nAtomic Mass: 251">
-      <div class="number">98</div>
-      <div class="symbol">Cf</div>
-      <div class="name">Californium</div>
-      <div class="mass">251</div>
-    </div>
-    <div class="pt-element" data-type="actinide" title="Einsteinium\nAtomic Number: 99\nAtomic Mass: 252">
-      <div class="number">99</div>
-      <div class="symbol">Es</div>
-      <div class="name">Einsteinium</div>
-      <div class="mass">252</div>
-    </div>
-    <div class="pt-element" data-type="actinide" title="Fermium\nAtomic Number: 100\nAtomic Mass: 257">
-      <div class="number">100</div>
-      <div class="symbol">Fm</div>
-      <div class="name">Fermium</div>
-      <div class="mass">257</div>
-    </div>
-    <div class="pt-element" data-type="actinide" title="Mendelevium\nAtomic Number: 101\nAtomic Mass: 258">
-      <div class="number">101</div>
-      <div class="symbol">Md</div>
-      <div class="name">Mendelevium</div>
-      <div class="mass">258</div>
-    </div>
-    <div class="pt-element" data-type="actinide" title="Nobelium\nAtomic Number: 102\nAtomic Mass: 259">
-      <div class="number">102</div>
-      <div class="symbol">No</div>
-      <div class="name">Nobelium</div>
-      <div class="mass">259</div>
-    </div>
-    <div class="pt-element" data-type="actinide" title="Lawrencium\nAtomic Number: 103\nAtomic Mass: 266">
-      <div class="number">103</div>
-      <div class="symbol">Lr</div>
-      <div class="name">Lawrencium</div>
-      <div class="mass">266</div>
-    </div>
-  </div>
+<main aria-label="Periodic table of the elements">
+<div class="pt-wrapper" role="group" aria-label="Groups 1 through 18">
+<div class="pt-group-num" aria-hidden="true">1</div>
+<div class="pt-group-num" aria-hidden="true">2</div>
+<div class="pt-group-num" aria-hidden="true">3</div>
+<div class="pt-group-num" aria-hidden="true">4</div>
+<div class="pt-group-num" aria-hidden="true">5</div>
+<div class="pt-group-num" aria-hidden="true">6</div>
+<div class="pt-group-num" aria-hidden="true">7</div>
+<div class="pt-group-num" aria-hidden="true">8</div>
+<div class="pt-group-num" aria-hidden="true">9</div>
+<div class="pt-group-num" aria-hidden="true">10</div>
+<div class="pt-group-num" aria-hidden="true">11</div>
+<div class="pt-group-num" aria-hidden="true">12</div>
+<div class="pt-group-num" aria-hidden="true">13</div>
+<div class="pt-group-num" aria-hidden="true">14</div>
+<div class="pt-group-num" aria-hidden="true">15</div>
+<div class="pt-group-num" aria-hidden="true">16</div>
+<div class="pt-group-num" aria-hidden="true">17</div>
+<div class="pt-group-num" aria-hidden="true">18</div>
+<div class="pt-element" data-type="nonmetal" style="grid-column: 1;" tabindex="0" role="button" aria-label="Hydrogen, symbol H, atomic number 1, atomic mass 1.008, Nonmetal" title="Hydrogen&#10;Atomic Number: 1&#10;Atomic Mass: 1.008">
+<div class="number">1</div>
+<div class="symbol">H</div>
+<div class="name">Hydrogen</div>
+<div class="mass">1.008</div>
+</div>
+<div class="pt-element blank" style="grid-column: 2 / span 16;" aria-hidden="true"></div>
+<div class="pt-element" data-type="noble" tabindex="0" role="button" aria-label="Helium, symbol He, atomic number 2, atomic mass 4.0026, Noble gas" title="Helium&#10;Atomic Number: 2&#10;Atomic Mass: 4.0026">
+<div class="number">2</div>
+<div class="symbol">He</div>
+<div class="name">Helium</div>
+<div class="mass">4.0026</div>
+</div>
+<div class="pt-element" data-type="alkali" style="grid-column: 1;" tabindex="0" role="button" aria-label="Lithium, symbol Li, atomic number 3, atomic mass 6.94, Alkali metal" title="Lithium&#10;Atomic Number: 3&#10;Atomic Mass: 6.94">
+<div class="number">3</div>
+<div class="symbol">Li</div>
+<div class="name">Lithium</div>
+<div class="mass">6.94</div>
+</div>
+<div class="pt-element" data-type="alkaline" tabindex="0" role="button" aria-label="Beryllium, symbol Be, atomic number 4, atomic mass 9.0122, Alkaline earth metal" title="Beryllium&#10;Atomic Number: 4&#10;Atomic Mass: 9.0122">
+<div class="number">4</div>
+<div class="symbol">Be</div>
+<div class="name">Beryllium</div>
+<div class="mass">9.0122</div>
+</div>
+<div class="pt-element blank" style="grid-column: 3 / span 10;" aria-hidden="true"></div>
+<div class="pt-element" data-type="metalloid" tabindex="0" role="button" aria-label="Boron, symbol B, atomic number 5, atomic mass 10.81, Metalloid" title="Boron&#10;Atomic Number: 5&#10;Atomic Mass: 10.81">
+<div class="number">5</div>
+<div class="symbol">B</div>
+<div class="name">Boron</div>
+<div class="mass">10.81</div>
+</div>
+<div class="pt-element" data-type="nonmetal" tabindex="0" role="button" aria-label="Carbon, symbol C, atomic number 6, atomic mass 12.011, Nonmetal" title="Carbon&#10;Atomic Number: 6&#10;Atomic Mass: 12.011">
+<div class="number">6</div>
+<div class="symbol">C</div>
+<div class="name">Carbon</div>
+<div class="mass">12.011</div>
+</div>
+<div class="pt-element" data-type="nonmetal" tabindex="0" role="button" aria-label="Nitrogen, symbol N, atomic number 7, atomic mass 14.007, Nonmetal" title="Nitrogen&#10;Atomic Number: 7&#10;Atomic Mass: 14.007">
+<div class="number">7</div>
+<div class="symbol">N</div>
+<div class="name">Nitrogen</div>
+<div class="mass">14.007</div>
+</div>
+<div class="pt-element" data-type="nonmetal" tabindex="0" role="button" aria-label="Oxygen, symbol O, atomic number 8, atomic mass 15.999, Nonmetal" title="Oxygen&#10;Atomic Number: 8&#10;Atomic Mass: 15.999">
+<div class="number">8</div>
+<div class="symbol">O</div>
+<div class="name">Oxygen</div>
+<div class="mass">15.999</div>
+</div>
+<div class="pt-element" data-type="halogen" tabindex="0" role="button" aria-label="Fluorine, symbol F, atomic number 9, atomic mass 18.998, Halogen" title="Fluorine&#10;Atomic Number: 9&#10;Atomic Mass: 18.998">
+<div class="number">9</div>
+<div class="symbol">F</div>
+<div class="name">Fluorine</div>
+<div class="mass">18.998</div>
+</div>
+<div class="pt-element" data-type="noble" tabindex="0" role="button" aria-label="Neon, symbol Ne, atomic number 10, atomic mass 20.180, Noble gas" title="Neon&#10;Atomic Number: 10&#10;Atomic Mass: 20.180">
+<div class="number">10</div>
+<div class="symbol">Ne</div>
+<div class="name">Neon</div>
+<div class="mass">20.180</div>
+</div>
+<div class="pt-element" data-type="alkali" style="grid-column: 1;" tabindex="0" role="button" aria-label="Sodium, symbol Na, atomic number 11, atomic mass 22.990, Alkali metal" title="Sodium&#10;Atomic Number: 11&#10;Atomic Mass: 22.990">
+<div class="number">11</div>
+<div class="symbol">Na</div>
+<div class="name">Sodium</div>
+<div class="mass">22.990</div>
+</div>
+<div class="pt-element" data-type="alkaline" tabindex="0" role="button" aria-label="Magnesium, symbol Mg, atomic number 12, atomic mass 24.305, Alkaline earth metal" title="Magnesium&#10;Atomic Number: 12&#10;Atomic Mass: 24.305">
+<div class="number">12</div>
+<div class="symbol">Mg</div>
+<div class="name">Magnesium</div>
+<div class="mass">24.305</div>
+</div>
+<div class="pt-element blank" style="grid-column: 3 / span 10;" aria-hidden="true"></div>
+<div class="pt-element" data-type="post" tabindex="0" role="button" aria-label="Aluminum, symbol Al, atomic number 13, atomic mass 26.982, Post-transition metal" title="Aluminum&#10;Atomic Number: 13&#10;Atomic Mass: 26.982">
+<div class="number">13</div>
+<div class="symbol">Al</div>
+<div class="name">Aluminum</div>
+<div class="mass">26.982</div>
+</div>
+<div class="pt-element" data-type="metalloid" tabindex="0" role="button" aria-label="Silicon, symbol Si, atomic number 14, atomic mass 28.085, Metalloid" title="Silicon&#10;Atomic Number: 14&#10;Atomic Mass: 28.085">
+<div class="number">14</div>
+<div class="symbol">Si</div>
+<div class="name">Silicon</div>
+<div class="mass">28.085</div>
+</div>
+<div class="pt-element" data-type="nonmetal" tabindex="0" role="button" aria-label="Phosphorus, symbol P, atomic number 15, atomic mass 30.974, Nonmetal" title="Phosphorus&#10;Atomic Number: 15&#10;Atomic Mass: 30.974">
+<div class="number">15</div>
+<div class="symbol">P</div>
+<div class="name">Phosphorus</div>
+<div class="mass">30.974</div>
+</div>
+<div class="pt-element" data-type="nonmetal" tabindex="0" role="button" aria-label="Sulfur, symbol S, atomic number 16, atomic mass 32.06, Nonmetal" title="Sulfur&#10;Atomic Number: 16&#10;Atomic Mass: 32.06">
+<div class="number">16</div>
+<div class="symbol">S</div>
+<div class="name">Sulfur</div>
+<div class="mass">32.06</div>
+</div>
+<div class="pt-element" data-type="halogen" tabindex="0" role="button" aria-label="Chlorine, symbol Cl, atomic number 17, atomic mass 35.45, Halogen" title="Chlorine&#10;Atomic Number: 17&#10;Atomic Mass: 35.45">
+<div class="number">17</div>
+<div class="symbol">Cl</div>
+<div class="name">Chlorine</div>
+<div class="mass">35.45</div>
+</div>
+<div class="pt-element" data-type="noble" tabindex="0" role="button" aria-label="Argon, symbol Ar, atomic number 18, atomic mass 39.948, Noble gas" title="Argon&#10;Atomic Number: 18&#10;Atomic Mass: 39.948">
+<div class="number">18</div>
+<div class="symbol">Ar</div>
+<div class="name">Argon</div>
+<div class="mass">39.948</div>
+</div>
+<div class="pt-element" data-type="alkali" style="grid-column: 1;" tabindex="0" role="button" aria-label="Potassium, symbol K, atomic number 19, atomic mass 39.098, Alkali metal" title="Potassium&#10;Atomic Number: 19&#10;Atomic Mass: 39.098">
+<div class="number">19</div>
+<div class="symbol">K</div>
+<div class="name">Potassium</div>
+<div class="mass">39.098</div>
+</div>
+<div class="pt-element" data-type="alkaline" tabindex="0" role="button" aria-label="Calcium, symbol Ca, atomic number 20, atomic mass 40.078, Alkaline earth metal" title="Calcium&#10;Atomic Number: 20&#10;Atomic Mass: 40.078">
+<div class="number">20</div>
+<div class="symbol">Ca</div>
+<div class="name">Calcium</div>
+<div class="mass">40.078</div>
+</div>
+<div class="pt-element" data-type="transition" tabindex="0" role="button" aria-label="Scandium, symbol Sc, atomic number 21, atomic mass 44.956, Transition metal" title="Scandium&#10;Atomic Number: 21&#10;Atomic Mass: 44.956">
+<div class="number">21</div>
+<div class="symbol">Sc</div>
+<div class="name">Scandium</div>
+<div class="mass">44.956</div>
+</div>
+<div class="pt-element" data-type="transition" tabindex="0" role="button" aria-label="Titanium, symbol Ti, atomic number 22, atomic mass 47.867, Transition metal" title="Titanium&#10;Atomic Number: 22&#10;Atomic Mass: 47.867">
+<div class="number">22</div>
+<div class="symbol">Ti</div>
+<div class="name">Titanium</div>
+<div class="mass">47.867</div>
+</div>
+<div class="pt-element" data-type="transition" tabindex="0" role="button" aria-label="Vanadium, symbol V, atomic number 23, atomic mass 50.942, Transition metal" title="Vanadium&#10;Atomic Number: 23&#10;Atomic Mass: 50.942">
+<div class="number">23</div>
+<div class="symbol">V</div>
+<div class="name">Vanadium</div>
+<div class="mass">50.942</div>
+</div>
+<div class="pt-element" data-type="transition" tabindex="0" role="button" aria-label="Chromium, symbol Cr, atomic number 24, atomic mass 51.996, Transition metal" title="Chromium&#10;Atomic Number: 24&#10;Atomic Mass: 51.996">
+<div class="number">24</div>
+<div class="symbol">Cr</div>
+<div class="name">Chromium</div>
+<div class="mass">51.996</div>
+</div>
+<div class="pt-element" data-type="transition" tabindex="0" role="button" aria-label="Manganese, symbol Mn, atomic number 25, atomic mass 54.938, Transition metal" title="Manganese&#10;Atomic Number: 25&#10;Atomic Mass: 54.938">
+<div class="number">25</div>
+<div class="symbol">Mn</div>
+<div class="name">Manganese</div>
+<div class="mass">54.938</div>
+</div>
+<div class="pt-element" data-type="transition" tabindex="0" role="button" aria-label="Iron, symbol Fe, atomic number 26, atomic mass 55.845, Transition metal" title="Iron&#10;Atomic Number: 26&#10;Atomic Mass: 55.845">
+<div class="number">26</div>
+<div class="symbol">Fe</div>
+<div class="name">Iron</div>
+<div class="mass">55.845</div>
+</div>
+<div class="pt-element" data-type="transition" tabindex="0" role="button" aria-label="Cobalt, symbol Co, atomic number 27, atomic mass 58.933, Transition metal" title="Cobalt&#10;Atomic Number: 27&#10;Atomic Mass: 58.933">
+<div class="number">27</div>
+<div class="symbol">Co</div>
+<div class="name">Cobalt</div>
+<div class="mass">58.933</div>
+</div>
+<div class="pt-element" data-type="transition" tabindex="0" role="button" aria-label="Nickel, symbol Ni, atomic number 28, atomic mass 58.693, Transition metal" title="Nickel&#10;Atomic Number: 28&#10;Atomic Mass: 58.693">
+<div class="number">28</div>
+<div class="symbol">Ni</div>
+<div class="name">Nickel</div>
+<div class="mass">58.693</div>
+</div>
+<div class="pt-element" data-type="transition" tabindex="0" role="button" aria-label="Copper, symbol Cu, atomic number 29, atomic mass 63.546, Transition metal" title="Copper&#10;Atomic Number: 29&#10;Atomic Mass: 63.546">
+<div class="number">29</div>
+<div class="symbol">Cu</div>
+<div class="name">Copper</div>
+<div class="mass">63.546</div>
+</div>
+<div class="pt-element" data-type="transition" tabindex="0" role="button" aria-label="Zinc, symbol Zn, atomic number 30, atomic mass 65.38, Transition metal" title="Zinc&#10;Atomic Number: 30&#10;Atomic Mass: 65.38">
+<div class="number">30</div>
+<div class="symbol">Zn</div>
+<div class="name">Zinc</div>
+<div class="mass">65.38</div>
+</div>
+<div class="pt-element" data-type="post" tabindex="0" role="button" aria-label="Gallium, symbol Ga, atomic number 31, atomic mass 69.723, Post-transition metal" title="Gallium&#10;Atomic Number: 31&#10;Atomic Mass: 69.723">
+<div class="number">31</div>
+<div class="symbol">Ga</div>
+<div class="name">Gallium</div>
+<div class="mass">69.723</div>
+</div>
+<div class="pt-element" data-type="metalloid" tabindex="0" role="button" aria-label="Germanium, symbol Ge, atomic number 32, atomic mass 72.630, Metalloid" title="Germanium&#10;Atomic Number: 32&#10;Atomic Mass: 72.630">
+<div class="number">32</div>
+<div class="symbol">Ge</div>
+<div class="name">Germanium</div>
+<div class="mass">72.630</div>
+</div>
+<div class="pt-element" data-type="metalloid" tabindex="0" role="button" aria-label="Arsenic, symbol As, atomic number 33, atomic mass 74.922, Metalloid" title="Arsenic&#10;Atomic Number: 33&#10;Atomic Mass: 74.922">
+<div class="number">33</div>
+<div class="symbol">As</div>
+<div class="name">Arsenic</div>
+<div class="mass">74.922</div>
+</div>
+<div class="pt-element" data-type="nonmetal" tabindex="0" role="button" aria-label="Selenium, symbol Se, atomic number 34, atomic mass 78.971, Nonmetal" title="Selenium&#10;Atomic Number: 34&#10;Atomic Mass: 78.971">
+<div class="number">34</div>
+<div class="symbol">Se</div>
+<div class="name">Selenium</div>
+<div class="mass">78.971</div>
+</div>
+<div class="pt-element" data-type="halogen" tabindex="0" role="button" aria-label="Bromine, symbol Br, atomic number 35, atomic mass 79.904, Halogen" title="Bromine&#10;Atomic Number: 35&#10;Atomic Mass: 79.904">
+<div class="number">35</div>
+<div class="symbol">Br</div>
+<div class="name">Bromine</div>
+<div class="mass">79.904</div>
+</div>
+<div class="pt-element" data-type="noble" tabindex="0" role="button" aria-label="Krypton, symbol Kr, atomic number 36, atomic mass 83.798, Noble gas" title="Krypton&#10;Atomic Number: 36&#10;Atomic Mass: 83.798">
+<div class="number">36</div>
+<div class="symbol">Kr</div>
+<div class="name">Krypton</div>
+<div class="mass">83.798</div>
+</div>
+<div class="pt-element" data-type="alkali" style="grid-column: 1;" tabindex="0" role="button" aria-label="Rubidium, symbol Rb, atomic number 37, atomic mass 85.468, Alkali metal" title="Rubidium&#10;Atomic Number: 37&#10;Atomic Mass: 85.468">
+<div class="number">37</div>
+<div class="symbol">Rb</div>
+<div class="name">Rubidium</div>
+<div class="mass">85.468</div>
+</div>
+<div class="pt-element" data-type="alkaline" tabindex="0" role="button" aria-label="Strontium, symbol Sr, atomic number 38, atomic mass 87.62, Alkaline earth metal" title="Strontium&#10;Atomic Number: 38&#10;Atomic Mass: 87.62">
+<div class="number">38</div>
+<div class="symbol">Sr</div>
+<div class="name">Strontium</div>
+<div class="mass">87.62</div>
+</div>
+<div class="pt-element" data-type="transition" tabindex="0" role="button" aria-label="Yttrium, symbol Y, atomic number 39, atomic mass 88.906, Transition metal" title="Yttrium&#10;Atomic Number: 39&#10;Atomic Mass: 88.906">
+<div class="number">39</div>
+<div class="symbol">Y</div>
+<div class="name">Yttrium</div>
+<div class="mass">88.906</div>
+</div>
+<div class="pt-element" data-type="transition" tabindex="0" role="button" aria-label="Zirconium, symbol Zr, atomic number 40, atomic mass 91.224, Transition metal" title="Zirconium&#10;Atomic Number: 40&#10;Atomic Mass: 91.224">
+<div class="number">40</div>
+<div class="symbol">Zr</div>
+<div class="name">Zirconium</div>
+<div class="mass">91.224</div>
+</div>
+<div class="pt-element" data-type="transition" tabindex="0" role="button" aria-label="Niobium, symbol Nb, atomic number 41, atomic mass 92.906, Transition metal" title="Niobium&#10;Atomic Number: 41&#10;Atomic Mass: 92.906">
+<div class="number">41</div>
+<div class="symbol">Nb</div>
+<div class="name">Niobium</div>
+<div class="mass">92.906</div>
+</div>
+<div class="pt-element" data-type="transition" tabindex="0" role="button" aria-label="Molybdenum, symbol Mo, atomic number 42, atomic mass 95.95, Transition metal" title="Molybdenum&#10;Atomic Number: 42&#10;Atomic Mass: 95.95">
+<div class="number">42</div>
+<div class="symbol">Mo</div>
+<div class="name">Molybdenum</div>
+<div class="mass">95.95</div>
+</div>
+<div class="pt-element" data-type="transition" tabindex="0" role="button" aria-label="Technetium, symbol Tc, atomic number 43, atomic mass 98, Transition metal" title="Technetium&#10;Atomic Number: 43&#10;Atomic Mass: 98">
+<div class="number">43</div>
+<div class="symbol">Tc</div>
+<div class="name">Technetium</div>
+<div class="mass">98</div>
+</div>
+<div class="pt-element" data-type="transition" tabindex="0" role="button" aria-label="Ruthenium, symbol Ru, atomic number 44, atomic mass 101.07, Transition metal" title="Ruthenium&#10;Atomic Number: 44&#10;Atomic Mass: 101.07">
+<div class="number">44</div>
+<div class="symbol">Ru</div>
+<div class="name">Ruthenium</div>
+<div class="mass">101.07</div>
+</div>
+<div class="pt-element" data-type="transition" tabindex="0" role="button" aria-label="Rhodium, symbol Rh, atomic number 45, atomic mass 102.91, Transition metal" title="Rhodium&#10;Atomic Number: 45&#10;Atomic Mass: 102.91">
+<div class="number">45</div>
+<div class="symbol">Rh</div>
+<div class="name">Rhodium</div>
+<div class="mass">102.91</div>
+</div>
+<div class="pt-element" data-type="transition" tabindex="0" role="button" aria-label="Palladium, symbol Pd, atomic number 46, atomic mass 106.42, Transition metal" title="Palladium&#10;Atomic Number: 46&#10;Atomic Mass: 106.42">
+<div class="number">46</div>
+<div class="symbol">Pd</div>
+<div class="name">Palladium</div>
+<div class="mass">106.42</div>
+</div>
+<div class="pt-element" data-type="transition" tabindex="0" role="button" aria-label="Silver, symbol Ag, atomic number 47, atomic mass 107.87, Transition metal" title="Silver&#10;Atomic Number: 47&#10;Atomic Mass: 107.87">
+<div class="number">47</div>
+<div class="symbol">Ag</div>
+<div class="name">Silver</div>
+<div class="mass">107.87</div>
+</div>
+<div class="pt-element" data-type="transition" tabindex="0" role="button" aria-label="Cadmium, symbol Cd, atomic number 48, atomic mass 112.41, Transition metal" title="Cadmium&#10;Atomic Number: 48&#10;Atomic Mass: 112.41">
+<div class="number">48</div>
+<div class="symbol">Cd</div>
+<div class="name">Cadmium</div>
+<div class="mass">112.41</div>
+</div>
+<div class="pt-element" data-type="post" tabindex="0" role="button" aria-label="Indium, symbol In, atomic number 49, atomic mass 114.82, Post-transition metal" title="Indium&#10;Atomic Number: 49&#10;Atomic Mass: 114.82">
+<div class="number">49</div>
+<div class="symbol">In</div>
+<div class="name">Indium</div>
+<div class="mass">114.82</div>
+</div>
+<div class="pt-element" data-type="post" tabindex="0" role="button" aria-label="Tin, symbol Sn, atomic number 50, atomic mass 118.71, Post-transition metal" title="Tin&#10;Atomic Number: 50&#10;Atomic Mass: 118.71">
+<div class="number">50</div>
+<div class="symbol">Sn</div>
+<div class="name">Tin</div>
+<div class="mass">118.71</div>
+</div>
+<div class="pt-element" data-type="metalloid" tabindex="0" role="button" aria-label="Antimony, symbol Sb, atomic number 51, atomic mass 121.76, Metalloid" title="Antimony&#10;Atomic Number: 51&#10;Atomic Mass: 121.76">
+<div class="number">51</div>
+<div class="symbol">Sb</div>
+<div class="name">Antimony</div>
+<div class="mass">121.76</div>
+</div>
+<div class="pt-element" data-type="metalloid" tabindex="0" role="button" aria-label="Tellurium, symbol Te, atomic number 52, atomic mass 127.60, Metalloid" title="Tellurium&#10;Atomic Number: 52&#10;Atomic Mass: 127.60">
+<div class="number">52</div>
+<div class="symbol">Te</div>
+<div class="name">Tellurium</div>
+<div class="mass">127.60</div>
+</div>
+<div class="pt-element" data-type="halogen" tabindex="0" role="button" aria-label="Iodine, symbol I, atomic number 53, atomic mass 126.90, Halogen" title="Iodine&#10;Atomic Number: 53&#10;Atomic Mass: 126.90">
+<div class="number">53</div>
+<div class="symbol">I</div>
+<div class="name">Iodine</div>
+<div class="mass">126.90</div>
+</div>
+<div class="pt-element" data-type="noble" tabindex="0" role="button" aria-label="Xenon, symbol Xe, atomic number 54, atomic mass 131.29, Noble gas" title="Xenon&#10;Atomic Number: 54&#10;Atomic Mass: 131.29">
+<div class="number">54</div>
+<div class="symbol">Xe</div>
+<div class="name">Xenon</div>
+<div class="mass">131.29</div>
+</div>
+<div class="pt-element" data-type="alkali" style="grid-column: 1;" tabindex="0" role="button" aria-label="Cesium, symbol Cs, atomic number 55, atomic mass 132.91, Alkali metal" title="Cesium&#10;Atomic Number: 55&#10;Atomic Mass: 132.91">
+<div class="number">55</div>
+<div class="symbol">Cs</div>
+<div class="name">Cesium</div>
+<div class="mass">132.91</div>
+</div>
+<div class="pt-element" data-type="alkaline" tabindex="0" role="button" aria-label="Barium, symbol Ba, atomic number 56, atomic mass 137.33, Alkaline earth metal" title="Barium&#10;Atomic Number: 56&#10;Atomic Mass: 137.33">
+<div class="number">56</div>
+<div class="symbol">Ba</div>
+<div class="name">Barium</div>
+<div class="mass">137.33</div>
+</div>
+<div class="pt-element" data-type="lanthanide" tabindex="0" role="button" aria-label="Lanthanum, symbol La, atomic number 57, atomic mass 138.91, Lanthanide" title="Lanthanum&#10;Atomic Number: 57&#10;Atomic Mass: 138.91">
+<div class="number">57</div>
+<div class="symbol">La</div>
+<div class="name">Lanthanum</div>
+<div class="mass">138.91</div>
+</div>
+<div class="pt-element" data-type="transition" tabindex="0" role="button" aria-label="Hafnium, symbol Hf, atomic number 72, atomic mass 178.49, Transition metal" title="Hafnium&#10;Atomic Number: 72&#10;Atomic Mass: 178.49">
+<div class="number">72</div>
+<div class="symbol">Hf</div>
+<div class="name">Hafnium</div>
+<div class="mass">178.49</div>
+</div>
+<div class="pt-element" data-type="transition" tabindex="0" role="button" aria-label="Tantalum, symbol Ta, atomic number 73, atomic mass 180.95, Transition metal" title="Tantalum&#10;Atomic Number: 73&#10;Atomic Mass: 180.95">
+<div class="number">73</div>
+<div class="symbol">Ta</div>
+<div class="name">Tantalum</div>
+<div class="mass">180.95</div>
+</div>
+<div class="pt-element" data-type="transition" tabindex="0" role="button" aria-label="Tungsten, symbol W, atomic number 74, atomic mass 183.84, Transition metal" title="Tungsten&#10;Atomic Number: 74&#10;Atomic Mass: 183.84">
+<div class="number">74</div>
+<div class="symbol">W</div>
+<div class="name">Tungsten</div>
+<div class="mass">183.84</div>
+</div>
+<div class="pt-element" data-type="transition" tabindex="0" role="button" aria-label="Rhenium, symbol Re, atomic number 75, atomic mass 186.21, Transition metal" title="Rhenium&#10;Atomic Number: 75&#10;Atomic Mass: 186.21">
+<div class="number">75</div>
+<div class="symbol">Re</div>
+<div class="name">Rhenium</div>
+<div class="mass">186.21</div>
+</div>
+<div class="pt-element" data-type="transition" tabindex="0" role="button" aria-label="Osmium, symbol Os, atomic number 76, atomic mass 190.23, Transition metal" title="Osmium&#10;Atomic Number: 76&#10;Atomic Mass: 190.23">
+<div class="number">76</div>
+<div class="symbol">Os</div>
+<div class="name">Osmium</div>
+<div class="mass">190.23</div>
+</div>
+<div class="pt-element" data-type="transition" tabindex="0" role="button" aria-label="Iridium, symbol Ir, atomic number 77, atomic mass 192.22, Transition metal" title="Iridium&#10;Atomic Number: 77&#10;Atomic Mass: 192.22">
+<div class="number">77</div>
+<div class="symbol">Ir</div>
+<div class="name">Iridium</div>
+<div class="mass">192.22</div>
+</div>
+<div class="pt-element" data-type="transition" tabindex="0" role="button" aria-label="Platinum, symbol Pt, atomic number 78, atomic mass 195.08, Transition metal" title="Platinum&#10;Atomic Number: 78&#10;Atomic Mass: 195.08">
+<div class="number">78</div>
+<div class="symbol">Pt</div>
+<div class="name">Platinum</div>
+<div class="mass">195.08</div>
+</div>
+<div class="pt-element" data-type="transition" tabindex="0" role="button" aria-label="Gold, symbol Au, atomic number 79, atomic mass 196.97, Transition metal" title="Gold&#10;Atomic Number: 79&#10;Atomic Mass: 196.97">
+<div class="number">79</div>
+<div class="symbol">Au</div>
+<div class="name">Gold</div>
+<div class="mass">196.97</div>
+</div>
+<div class="pt-element" data-type="transition" tabindex="0" role="button" aria-label="Mercury, symbol Hg, atomic number 80, atomic mass 200.59, Transition metal" title="Mercury&#10;Atomic Number: 80&#10;Atomic Mass: 200.59">
+<div class="number">80</div>
+<div class="symbol">Hg</div>
+<div class="name">Mercury</div>
+<div class="mass">200.59</div>
+</div>
+<div class="pt-element" data-type="post" tabindex="0" role="button" aria-label="Thallium, symbol Tl, atomic number 81, atomic mass 204.38, Post-transition metal" title="Thallium&#10;Atomic Number: 81&#10;Atomic Mass: 204.38">
+<div class="number">81</div>
+<div class="symbol">Tl</div>
+<div class="name">Thallium</div>
+<div class="mass">204.38</div>
+</div>
+<div class="pt-element" data-type="post" tabindex="0" role="button" aria-label="Lead, symbol Pb, atomic number 82, atomic mass 207.2, Post-transition metal" title="Lead&#10;Atomic Number: 82&#10;Atomic Mass: 207.2">
+<div class="number">82</div>
+<div class="symbol">Pb</div>
+<div class="name">Lead</div>
+<div class="mass">207.2</div>
+</div>
+<div class="pt-element" data-type="post" tabindex="0" role="button" aria-label="Bismuth, symbol Bi, atomic number 83, atomic mass 208.98, Post-transition metal" title="Bismuth&#10;Atomic Number: 83&#10;Atomic Mass: 208.98">
+<div class="number">83</div>
+<div class="symbol">Bi</div>
+<div class="name">Bismuth</div>
+<div class="mass">208.98</div>
+</div>
+<div class="pt-element" data-type="metalloid" tabindex="0" role="button" aria-label="Polonium, symbol Po, atomic number 84, atomic mass 209, Metalloid" title="Polonium&#10;Atomic Number: 84&#10;Atomic Mass: 209">
+<div class="number">84</div>
+<div class="symbol">Po</div>
+<div class="name">Polonium</div>
+<div class="mass">209</div>
+</div>
+<div class="pt-element" data-type="halogen" tabindex="0" role="button" aria-label="Astatine, symbol At, atomic number 85, atomic mass 210, Halogen" title="Astatine&#10;Atomic Number: 85&#10;Atomic Mass: 210">
+<div class="number">85</div>
+<div class="symbol">At</div>
+<div class="name">Astatine</div>
+<div class="mass">210</div>
+</div>
+<div class="pt-element" data-type="noble" tabindex="0" role="button" aria-label="Radon, symbol Rn, atomic number 86, atomic mass 222, Noble gas" title="Radon&#10;Atomic Number: 86&#10;Atomic Mass: 222">
+<div class="number">86</div>
+<div class="symbol">Rn</div>
+<div class="name">Radon</div>
+<div class="mass">222</div>
+</div>
+<div class="pt-element" data-type="alkali" style="grid-column: 1;" tabindex="0" role="button" aria-label="Francium, symbol Fr, atomic number 87, atomic mass 223, Alkali metal" title="Francium&#10;Atomic Number: 87&#10;Atomic Mass: 223">
+<div class="number">87</div>
+<div class="symbol">Fr</div>
+<div class="name">Francium</div>
+<div class="mass">223</div>
+</div>
+<div class="pt-element" data-type="alkaline" tabindex="0" role="button" aria-label="Radium, symbol Ra, atomic number 88, atomic mass 226, Alkaline earth metal" title="Radium&#10;Atomic Number: 88&#10;Atomic Mass: 226">
+<div class="number">88</div>
+<div class="symbol">Ra</div>
+<div class="name">Radium</div>
+<div class="mass">226</div>
+</div>
+<div class="pt-element" data-type="actinide" tabindex="0" role="button" aria-label="Actinium, symbol Ac, atomic number 89, atomic mass 227, Actinide" title="Actinium&#10;Atomic Number: 89&#10;Atomic Mass: 227">
+<div class="number">89</div>
+<div class="symbol">Ac</div>
+<div class="name">Actinium</div>
+<div class="mass">227</div>
+</div>
+<div class="pt-element" data-type="transition" tabindex="0" role="button" aria-label="Rutherfordium, symbol Rf, atomic number 104, atomic mass 267, Transition metal" title="Rutherfordium&#10;Atomic Number: 104&#10;Atomic Mass: 267">
+<div class="number">104</div>
+<div class="symbol">Rf</div>
+<div class="name">Rutherfordium</div>
+<div class="mass">267</div>
+</div>
+<div class="pt-element" data-type="transition" tabindex="0" role="button" aria-label="Dubnium, symbol Db, atomic number 105, atomic mass 268, Transition metal" title="Dubnium&#10;Atomic Number: 105&#10;Atomic Mass: 268">
+<div class="number">105</div>
+<div class="symbol">Db</div>
+<div class="name">Dubnium</div>
+<div class="mass">268</div>
+</div>
+<div class="pt-element" data-type="transition" tabindex="0" role="button" aria-label="Seaborgium, symbol Sg, atomic number 106, atomic mass 271, Transition metal" title="Seaborgium&#10;Atomic Number: 106&#10;Atomic Mass: 271">
+<div class="number">106</div>
+<div class="symbol">Sg</div>
+<div class="name">Seaborgium</div>
+<div class="mass">271</div>
+</div>
+<div class="pt-element" data-type="transition" tabindex="0" role="button" aria-label="Bohrium, symbol Bh, atomic number 107, atomic mass 270, Transition metal" title="Bohrium&#10;Atomic Number: 107&#10;Atomic Mass: 270">
+<div class="number">107</div>
+<div class="symbol">Bh</div>
+<div class="name">Bohrium</div>
+<div class="mass">270</div>
+</div>
+<div class="pt-element" data-type="transition" tabindex="0" role="button" aria-label="Hassium, symbol Hs, atomic number 108, atomic mass 277, Transition metal" title="Hassium&#10;Atomic Number: 108&#10;Atomic Mass: 277">
+<div class="number">108</div>
+<div class="symbol">Hs</div>
+<div class="name">Hassium</div>
+<div class="mass">277</div>
+</div>
+<div class="pt-element" data-type="transition" tabindex="0" role="button" aria-label="Meitnerium, symbol Mt, atomic number 109, atomic mass 278, Transition metal" title="Meitnerium&#10;Atomic Number: 109&#10;Atomic Mass: 278">
+<div class="number">109</div>
+<div class="symbol">Mt</div>
+<div class="name">Meitnerium</div>
+<div class="mass">278</div>
+</div>
+<div class="pt-element" data-type="transition" tabindex="0" role="button" aria-label="Darmstadtium, symbol Ds, atomic number 110, atomic mass 281, Transition metal" title="Darmstadtium&#10;Atomic Number: 110&#10;Atomic Mass: 281">
+<div class="number">110</div>
+<div class="symbol">Ds</div>
+<div class="name">Darmstadtium</div>
+<div class="mass">281</div>
+</div>
+<div class="pt-element" data-type="transition" tabindex="0" role="button" aria-label="Roentgenium, symbol Rg, atomic number 111, atomic mass 282, Transition metal" title="Roentgenium&#10;Atomic Number: 111&#10;Atomic Mass: 282">
+<div class="number">111</div>
+<div class="symbol">Rg</div>
+<div class="name">Roentgenium</div>
+<div class="mass">282</div>
+</div>
+<div class="pt-element" data-type="transition" tabindex="0" role="button" aria-label="Copernicium, symbol Cn, atomic number 112, atomic mass 285, Transition metal" title="Copernicium&#10;Atomic Number: 112&#10;Atomic Mass: 285">
+<div class="number">112</div>
+<div class="symbol">Cn</div>
+<div class="name">Copernicium</div>
+<div class="mass">285</div>
+</div>
+<div class="pt-element" data-type="post" tabindex="0" role="button" aria-label="Nihonium, symbol Nh, atomic number 113, atomic mass 286, Post-transition metal" title="Nihonium&#10;Atomic Number: 113&#10;Atomic Mass: 286">
+<div class="number">113</div>
+<div class="symbol">Nh</div>
+<div class="name">Nihonium</div>
+<div class="mass">286</div>
+</div>
+<div class="pt-element" data-type="post" tabindex="0" role="button" aria-label="Flerovium, symbol Fl, atomic number 114, atomic mass 289, Post-transition metal" title="Flerovium&#10;Atomic Number: 114&#10;Atomic Mass: 289">
+<div class="number">114</div>
+<div class="symbol">Fl</div>
+<div class="name">Flerovium</div>
+<div class="mass">289</div>
+</div>
+<div class="pt-element" data-type="post" tabindex="0" role="button" aria-label="Moscovium, symbol Mc, atomic number 115, atomic mass 290, Post-transition metal" title="Moscovium&#10;Atomic Number: 115&#10;Atomic Mass: 290">
+<div class="number">115</div>
+<div class="symbol">Mc</div>
+<div class="name">Moscovium</div>
+<div class="mass">290</div>
+</div>
+<div class="pt-element" data-type="post" tabindex="0" role="button" aria-label="Livermorium, symbol Lv, atomic number 116, atomic mass 293, Post-transition metal" title="Livermorium&#10;Atomic Number: 116&#10;Atomic Mass: 293">
+<div class="number">116</div>
+<div class="symbol">Lv</div>
+<div class="name">Livermorium</div>
+<div class="mass">293</div>
+</div>
+<div class="pt-element" data-type="halogen" tabindex="0" role="button" aria-label="Tennessine, symbol Ts, atomic number 117, atomic mass 294, Halogen" title="Tennessine&#10;Atomic Number: 117&#10;Atomic Mass: 294">
+<div class="number">117</div>
+<div class="symbol">Ts</div>
+<div class="name">Tennessine</div>
+<div class="mass">294</div>
+</div>
+<div class="pt-element" data-type="noble" tabindex="0" role="button" aria-label="Oganesson, symbol Og, atomic number 118, atomic mass 294, Noble gas" title="Oganesson&#10;Atomic Number: 118&#10;Atomic Mass: 294">
+<div class="number">118</div>
+<div class="symbol">Og</div>
+<div class="name">Oganesson</div>
+<div class="mass">294</div>
+</div>
+<div class="pt-element blank" style="grid-column: 1 / span 3;" aria-hidden="true"></div>
+<div class="pt-element" data-type="lanthanide" tabindex="0" role="button" aria-label="Cerium, symbol Ce, atomic number 58, atomic mass 140.12, Lanthanide" title="Cerium&#10;Atomic Number: 58&#10;Atomic Mass: 140.12">
+<div class="number">58</div>
+<div class="symbol">Ce</div>
+<div class="name">Cerium</div>
+<div class="mass">140.12</div>
+</div>
+<div class="pt-element" data-type="lanthanide" tabindex="0" role="button" aria-label="Praseodymium, symbol Pr, atomic number 59, atomic mass 140.91, Lanthanide" title="Praseodymium&#10;Atomic Number: 59&#10;Atomic Mass: 140.91">
+<div class="number">59</div>
+<div class="symbol">Pr</div>
+<div class="name">Praseodymium</div>
+<div class="mass">140.91</div>
+</div>
+<div class="pt-element" data-type="lanthanide" tabindex="0" role="button" aria-label="Neodymium, symbol Nd, atomic number 60, atomic mass 144.24, Lanthanide" title="Neodymium&#10;Atomic Number: 60&#10;Atomic Mass: 144.24">
+<div class="number">60</div>
+<div class="symbol">Nd</div>
+<div class="name">Neodymium</div>
+<div class="mass">144.24</div>
+</div>
+<div class="pt-element" data-type="lanthanide" tabindex="0" role="button" aria-label="Promethium, symbol Pm, atomic number 61, atomic mass 145, Lanthanide" title="Promethium&#10;Atomic Number: 61&#10;Atomic Mass: 145">
+<div class="number">61</div>
+<div class="symbol">Pm</div>
+<div class="name">Promethium</div>
+<div class="mass">145</div>
+</div>
+<div class="pt-element" data-type="lanthanide" tabindex="0" role="button" aria-label="Samarium, symbol Sm, atomic number 62, atomic mass 150.36, Lanthanide" title="Samarium&#10;Atomic Number: 62&#10;Atomic Mass: 150.36">
+<div class="number">62</div>
+<div class="symbol">Sm</div>
+<div class="name">Samarium</div>
+<div class="mass">150.36</div>
+</div>
+<div class="pt-element" data-type="lanthanide" tabindex="0" role="button" aria-label="Europium, symbol Eu, atomic number 63, atomic mass 151.96, Lanthanide" title="Europium&#10;Atomic Number: 63&#10;Atomic Mass: 151.96">
+<div class="number">63</div>
+<div class="symbol">Eu</div>
+<div class="name">Europium</div>
+<div class="mass">151.96</div>
+</div>
+<div class="pt-element" data-type="lanthanide" tabindex="0" role="button" aria-label="Gadolinium, symbol Gd, atomic number 64, atomic mass 157.25, Lanthanide" title="Gadolinium&#10;Atomic Number: 64&#10;Atomic Mass: 157.25">
+<div class="number">64</div>
+<div class="symbol">Gd</div>
+<div class="name">Gadolinium</div>
+<div class="mass">157.25</div>
+</div>
+<div class="pt-element" data-type="lanthanide" tabindex="0" role="button" aria-label="Terbium, symbol Tb, atomic number 65, atomic mass 158.93, Lanthanide" title="Terbium&#10;Atomic Number: 65&#10;Atomic Mass: 158.93">
+<div class="number">65</div>
+<div class="symbol">Tb</div>
+<div class="name">Terbium</div>
+<div class="mass">158.93</div>
+</div>
+<div class="pt-element" data-type="lanthanide" tabindex="0" role="button" aria-label="Dysprosium, symbol Dy, atomic number 66, atomic mass 162.50, Lanthanide" title="Dysprosium&#10;Atomic Number: 66&#10;Atomic Mass: 162.50">
+<div class="number">66</div>
+<div class="symbol">Dy</div>
+<div class="name">Dysprosium</div>
+<div class="mass">162.50</div>
+</div>
+<div class="pt-element" data-type="lanthanide" tabindex="0" role="button" aria-label="Holmium, symbol Ho, atomic number 67, atomic mass 164.93, Lanthanide" title="Holmium&#10;Atomic Number: 67&#10;Atomic Mass: 164.93">
+<div class="number">67</div>
+<div class="symbol">Ho</div>
+<div class="name">Holmium</div>
+<div class="mass">164.93</div>
+</div>
+<div class="pt-element" data-type="lanthanide" tabindex="0" role="button" aria-label="Erbium, symbol Er, atomic number 68, atomic mass 167.26, Lanthanide" title="Erbium&#10;Atomic Number: 68&#10;Atomic Mass: 167.26">
+<div class="number">68</div>
+<div class="symbol">Er</div>
+<div class="name">Erbium</div>
+<div class="mass">167.26</div>
+</div>
+<div class="pt-element" data-type="lanthanide" tabindex="0" role="button" aria-label="Thulium, symbol Tm, atomic number 69, atomic mass 168.93, Lanthanide" title="Thulium&#10;Atomic Number: 69&#10;Atomic Mass: 168.93">
+<div class="number">69</div>
+<div class="symbol">Tm</div>
+<div class="name">Thulium</div>
+<div class="mass">168.93</div>
+</div>
+<div class="pt-element" data-type="lanthanide" tabindex="0" role="button" aria-label="Ytterbium, symbol Yb, atomic number 70, atomic mass 173.05, Lanthanide" title="Ytterbium&#10;Atomic Number: 70&#10;Atomic Mass: 173.05">
+<div class="number">70</div>
+<div class="symbol">Yb</div>
+<div class="name">Ytterbium</div>
+<div class="mass">173.05</div>
+</div>
+<div class="pt-element" data-type="lanthanide" tabindex="0" role="button" aria-label="Lutetium, symbol Lu, atomic number 71, atomic mass 174.97, Lanthanide" title="Lutetium&#10;Atomic Number: 71&#10;Atomic Mass: 174.97">
+<div class="number">71</div>
+<div class="symbol">Lu</div>
+<div class="name">Lutetium</div>
+<div class="mass">174.97</div>
+</div>
+<div class="pt-element blank" style="grid-column: 1 / span 3;" aria-hidden="true"></div>
+<div class="pt-element" data-type="actinide" tabindex="0" role="button" aria-label="Thorium, symbol Th, atomic number 90, atomic mass 232.04, Actinide" title="Thorium&#10;Atomic Number: 90&#10;Atomic Mass: 232.04">
+<div class="number">90</div>
+<div class="symbol">Th</div>
+<div class="name">Thorium</div>
+<div class="mass">232.04</div>
+</div>
+<div class="pt-element" data-type="actinide" tabindex="0" role="button" aria-label="Protactinium, symbol Pa, atomic number 91, atomic mass 231.04, Actinide" title="Protactinium&#10;Atomic Number: 91&#10;Atomic Mass: 231.04">
+<div class="number">91</div>
+<div class="symbol">Pa</div>
+<div class="name">Protactinium</div>
+<div class="mass">231.04</div>
+</div>
+<div class="pt-element" data-type="actinide" tabindex="0" role="button" aria-label="Uranium, symbol U, atomic number 92, atomic mass 238.03, Actinide" title="Uranium&#10;Atomic Number: 92&#10;Atomic Mass: 238.03">
+<div class="number">92</div>
+<div class="symbol">U</div>
+<div class="name">Uranium</div>
+<div class="mass">238.03</div>
+</div>
+<div class="pt-element" data-type="actinide" tabindex="0" role="button" aria-label="Neptunium, symbol Np, atomic number 93, atomic mass 237, Actinide" title="Neptunium&#10;Atomic Number: 93&#10;Atomic Mass: 237">
+<div class="number">93</div>
+<div class="symbol">Np</div>
+<div class="name">Neptunium</div>
+<div class="mass">237</div>
+</div>
+<div class="pt-element" data-type="actinide" tabindex="0" role="button" aria-label="Plutonium, symbol Pu, atomic number 94, atomic mass 244, Actinide" title="Plutonium&#10;Atomic Number: 94&#10;Atomic Mass: 244">
+<div class="number">94</div>
+<div class="symbol">Pu</div>
+<div class="name">Plutonium</div>
+<div class="mass">244</div>
+</div>
+<div class="pt-element" data-type="actinide" tabindex="0" role="button" aria-label="Americium, symbol Am, atomic number 95, atomic mass 243, Actinide" title="Americium&#10;Atomic Number: 95&#10;Atomic Mass: 243">
+<div class="number">95</div>
+<div class="symbol">Am</div>
+<div class="name">Americium</div>
+<div class="mass">243</div>
+</div>
+<div class="pt-element" data-type="actinide" tabindex="0" role="button" aria-label="Curium, symbol Cm, atomic number 96, atomic mass 247, Actinide" title="Curium&#10;Atomic Number: 96&#10;Atomic Mass: 247">
+<div class="number">96</div>
+<div class="symbol">Cm</div>
+<div class="name">Curium</div>
+<div class="mass">247</div>
+</div>
+<div class="pt-element" data-type="actinide" tabindex="0" role="button" aria-label="Berkelium, symbol Bk, atomic number 97, atomic mass 247, Actinide" title="Berkelium&#10;Atomic Number: 97&#10;Atomic Mass: 247">
+<div class="number">97</div>
+<div class="symbol">Bk</div>
+<div class="name">Berkelium</div>
+<div class="mass">247</div>
+</div>
+<div class="pt-element" data-type="actinide" tabindex="0" role="button" aria-label="Californium, symbol Cf, atomic number 98, atomic mass 251, Actinide" title="Californium&#10;Atomic Number: 98&#10;Atomic Mass: 251">
+<div class="number">98</div>
+<div class="symbol">Cf</div>
+<div class="name">Californium</div>
+<div class="mass">251</div>
+</div>
+<div class="pt-element" data-type="actinide" tabindex="0" role="button" aria-label="Einsteinium, symbol Es, atomic number 99, atomic mass 252, Actinide" title="Einsteinium&#10;Atomic Number: 99&#10;Atomic Mass: 252">
+<div class="number">99</div>
+<div class="symbol">Es</div>
+<div class="name">Einsteinium</div>
+<div class="mass">252</div>
+</div>
+<div class="pt-element" data-type="actinide" tabindex="0" role="button" aria-label="Fermium, symbol Fm, atomic number 100, atomic mass 257, Actinide" title="Fermium&#10;Atomic Number: 100&#10;Atomic Mass: 257">
+<div class="number">100</div>
+<div class="symbol">Fm</div>
+<div class="name">Fermium</div>
+<div class="mass">257</div>
+</div>
+<div class="pt-element" data-type="actinide" tabindex="0" role="button" aria-label="Mendelevium, symbol Md, atomic number 101, atomic mass 258, Actinide" title="Mendelevium&#10;Atomic Number: 101&#10;Atomic Mass: 258">
+<div class="number">101</div>
+<div class="symbol">Md</div>
+<div class="name">Mendelevium</div>
+<div class="mass">258</div>
+</div>
+<div class="pt-element" data-type="actinide" tabindex="0" role="button" aria-label="Nobelium, symbol No, atomic number 102, atomic mass 259, Actinide" title="Nobelium&#10;Atomic Number: 102&#10;Atomic Mass: 259">
+<div class="number">102</div>
+<div class="symbol">No</div>
+<div class="name">Nobelium</div>
+<div class="mass">259</div>
+</div>
+<div class="pt-element" data-type="actinide" tabindex="0" role="button" aria-label="Lawrencium, symbol Lr, atomic number 103, atomic mass 266, Actinide" title="Lawrencium&#10;Atomic Number: 103&#10;Atomic Mass: 266">
+<div class="number">103</div>
+<div class="symbol">Lr</div>
+<div class="name">Lawrencium</div>
+<div class="mass">266</div>
+</div>
+</div>
+</main>
 </body>
 </html>
