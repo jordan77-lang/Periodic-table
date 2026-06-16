@@ -84,6 +84,66 @@ function parseElementBlock(block) {
   };
 }
 
+function parseGridColumnStyle(gridStyle) {
+  if (!gridStyle) {
+    return null;
+  }
+  const startMatch = gridStyle.match(/grid-column:\s*(\d+)/);
+  if (!startMatch) {
+    return null;
+  }
+  const spanMatch = gridStyle.match(/span\s+(\d+)/);
+  return {
+    start: parseInt(startMatch[1], 10),
+    span: spanMatch ? parseInt(spanMatch[1], 10) : 1,
+  };
+}
+
+function assignGroupNumbers(gridCells) {
+  const COLS = 18;
+  let col = 1;
+
+  gridCells.forEach((cell) => {
+    const gridColumn = parseGridColumnStyle(cell.gridStyle);
+
+    if (cell.blank) {
+      if (gridColumn) {
+        col = gridColumn.start + gridColumn.span;
+        if (col > COLS) {
+          col = 1;
+        }
+      }
+      return;
+    }
+
+    if (gridColumn) {
+      cell.group = gridColumn.start;
+      col = gridColumn.start + gridColumn.span;
+    } else {
+      cell.group = col;
+      col++;
+    }
+    if (col > COLS) {
+      col = 1;
+    }
+
+    const atomicNumber = parseInt(cell.number, 10);
+    if ((atomicNumber >= 58 && atomicNumber <= 71) || (atomicNumber >= 90 && atomicNumber <= 103)) {
+      cell.group = 3;
+    }
+
+    cell.ariaLabel = `${cell.name}, symbol ${cell.symbol}, atomic number ${cell.number}, atomic mass ${cell.mass}, group ${cell.group}, ${cell.category}`;
+  });
+
+  elements.forEach((element) => {
+    const match = gridCells.find((cell) => !cell.blank && cell.number === element.number);
+    if (match) {
+      element.group = match.group;
+      element.ariaLabel = match.ariaLabel;
+    }
+  });
+}
+
 const wrapperMatch = html.match(/<div class="pt-wrapper">([\s\S]*?)<\/div>\s*<\/body>/);
 if (!wrapperMatch) {
   throw new Error("Could not find pt-wrapper content in index.html");
@@ -105,6 +165,8 @@ const gridCells = blocks.map((block) => {
 });
 
 elements.sort((a, b) => Number(a.number) - Number(b.number));
+
+assignGroupNumbers(gridCells);
 
 const elementButtonStyle = (cell) =>
   style({
@@ -153,7 +215,7 @@ function renderStudentGridCell(cell) {
     return `<div class="pt-element blank"${gridStyleAttr(cell)} aria-hidden="true"></div>`;
   }
 
-  return `<button type="button" class="pt-element" data-type="${cell.type}" data-category="${cell.category}"${gridStyleAttr(cell)} aria-label="${cell.ariaLabel}" aria-controls="pt-detail-content">
+  return `<button type="button" class="pt-element" data-type="${cell.type}" data-category="${cell.category}" data-group="${cell.group}"${gridStyleAttr(cell)} aria-label="${cell.ariaLabel}" aria-controls="pt-detail-content">
 <span class="number" aria-hidden="true">${cell.number}</span>
 <span class="symbol" aria-hidden="true">${cell.symbol}</span>
 <span class="name" aria-hidden="true">${cell.name}</span>
@@ -166,7 +228,7 @@ function renderHostedGridCell(cell) {
     return `<div class="pt-a11y-blank" aria-hidden="true"${gridStyleAttr(cell)}></div>`;
   }
 
-  return `<button type="button" class="pt-a11y-element" data-type="${cell.type}"${gridStyleAttr(cell)} aria-label="${cell.ariaLabel}">
+  return `<button type="button" class="pt-a11y-element" data-type="${cell.type}" data-group="${cell.group}"${gridStyleAttr(cell)} aria-label="${cell.ariaLabel}">
 <span class="pt-a11y-number" aria-hidden="true">${cell.number}</span>
 <span class="pt-a11y-symbol" aria-hidden="true">${cell.symbol}</span>
 <span class="pt-a11y-name" aria-hidden="true">${cell.name}</span>
@@ -191,6 +253,7 @@ function renderHostedTableRows() {
 <td>${el.symbol}</td>
 <td>${el.name}</td>
 <td>${el.mass}</td>
+<td>${el.group}</td>
 <td>${el.category}</td>
 </tr>`
     )
@@ -232,11 +295,13 @@ const studentDetailScript = `
     var name = tile.querySelector(".name").textContent;
     var mass = tile.querySelector(".mass").textContent;
     var category = tile.getAttribute("data-category") || "";
+    var group = tile.getAttribute("data-group") || "";
 
     detailContent.innerHTML =
       '<p class="pt-detail-symbol">' + symbol + "</p>" +
       "<h3 class=\\"pt-detail-name\\">" + name + "</h3>" +
       '<dl class="pt-detail-list">' +
+      "<dt>Group</dt><dd>" + group + "</dd>" +
       "<dt>Atomic number</dt><dd>" + number + "</dd>" +
       "<dt>Symbol</dt><dd>" + symbol + "</dd>" +
       "<dt>Atomic mass (u)</dt><dd>" + mass + "</dd>" +
@@ -434,7 +499,7 @@ const hostedStyles = `
 const hostedBody = `<section class="pt-a11y-root" aria-labelledby="pt-a11y-heading">
 <a class="pt-a11y-skip" href="#pt-a11y-table">Skip to element reference table</a>
 <h2 id="pt-a11y-heading">Accessible Periodic Table of the Elements</h2>
-<p class="pt-a11y-intro" id="pt-a11y-intro">Each tile is a button. Use Tab to move between elements; focused tiles enlarge with a visible outline. Screen reader users can browse the full element list in the reference table below.</p>
+<p class="pt-a11y-intro" id="pt-a11y-intro">Each tile is a button. Use Tab to move between elements; focused tiles enlarge with a visible outline. Each element announces its group number. Screen reader users can browse the full element list in the reference table below.</p>
 <h3>Element category legend</h3>
 <ul class="pt-a11y-legend" aria-label="Element categories by color">
 ${renderHostedLegendItems()}
@@ -453,6 +518,7 @@ ${gridCells.map(renderHostedGridCell).join("\n")}
 <th scope="col">Symbol</th>
 <th scope="col">Name</th>
 <th scope="col">Atomic mass (u)</th>
+<th scope="col">Group</th>
 <th scope="col">Category</th>
 </tr>
 </thead>
@@ -657,7 +723,7 @@ const studentPage = `<!DOCTYPE html>
 </p>
 <main aria-labelledby="pt-page-title">
 <h1 id="pt-page-title" class="pt-sr-only">Periodic table of the elements</h1>
-<p class="pt-sr-only" id="pt-table-help">Interactive periodic table. Tab between element buttons in the grid. Element details appear in the panel to the left and are announced by your screen reader. Group numbers 1 through 18 are shown above the table.</p>
+<p class="pt-sr-only" id="pt-table-help">Interactive periodic table. Tab between element buttons in the grid. Each button announces the element name, symbol, atomic number, atomic mass, group number, and category. Element details appear in the panel to the left. Group numbers 1 through 18 are shown above the table.</p>
 <div class="pt-layout">
 <aside class="pt-detail-panel" id="pt-detail-panel" aria-live="polite" aria-atomic="true" aria-labelledby="pt-detail-heading">
 <h2 id="pt-detail-heading" class="pt-detail-heading">Element details</h2>
@@ -742,6 +808,7 @@ function renderTableRows() {
 <td style="${style({ border: "1px solid #767676", padding: "8px 10px", textAlign: "left" })}">${el.symbol}</td>
 <td style="${style({ border: "1px solid #767676", padding: "8px 10px", textAlign: "left" })}">${el.name}</td>
 <td style="${style({ border: "1px solid #767676", padding: "8px 10px", textAlign: "left" })}">${el.mass}</td>
+<td style="${style({ border: "1px solid #767676", padding: "8px 10px", textAlign: "left" })}">${el.group}</td>
 <td style="${style({ border: "1px solid #767676", padding: "8px 10px", textAlign: "left" })}">${el.category}</td>
 </tr>`
     )
@@ -854,6 +921,7 @@ ${gridCells.map(renderGridCell).join("\n")}
 <th scope="col" style="${style({ border: "1px solid #767676", padding: "8px 10px", textAlign: "left", background: "#eef3f8" })}">Symbol</th>
 <th scope="col" style="${style({ border: "1px solid #767676", padding: "8px 10px", textAlign: "left", background: "#eef3f8" })}">Name</th>
 <th scope="col" style="${style({ border: "1px solid #767676", padding: "8px 10px", textAlign: "left", background: "#eef3f8" })}">Atomic mass (u)</th>
+<th scope="col" style="${style({ border: "1px solid #767676", padding: "8px 10px", textAlign: "left", background: "#eef3f8" })}">Group</th>
 <th scope="col" style="${style({ border: "1px solid #767676", padding: "8px 10px", textAlign: "left", background: "#eef3f8" })}">Category</th>
 </tr>
 </thead>
