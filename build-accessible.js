@@ -213,7 +213,8 @@ const tileInteractionScript = `
     size = "medium";
   }
   document.body.classList.add("pt-size-" + size);
-  if (params.get("embed") === "1") {
+  var isEmbed = params.get("embed") === "1";
+  if (isEmbed) {
     document.body.classList.add("pt-embed");
   }
 
@@ -226,31 +227,70 @@ const tileInteractionScript = `
     ? ".pt-a11y-element"
     : ".pt-element:not(.blank)";
   var tiles = wrapper.querySelectorAll(tileSelector);
-  var activeTile = null;
+
+  function clearExpanded() {
+    wrapper.querySelectorAll(".is-expanded").forEach(function (tile) {
+      tile.classList.remove("is-expanded");
+    });
+    tiles.forEach(function (item) {
+      item.style.pointerEvents = "";
+    });
+  }
 
   function setActiveTile(tile) {
-    activeTile = tile || null;
     tiles.forEach(function (item) {
       item.style.pointerEvents = !tile || item === tile ? "auto" : "none";
     });
   }
 
-  tiles.forEach(function (tile) {
-    tile.addEventListener("mouseenter", function () { setActiveTile(tile); });
-    tile.addEventListener("focus", function () { setActiveTile(tile); });
-  });
+  if (isEmbed && wrapper.classList.contains("pt-wrapper")) {
+    tiles.forEach(function (tile) {
+      tile.addEventListener("click", function () {
+        var wasExpanded = tile.classList.contains("is-expanded");
+        clearExpanded();
+        if (!wasExpanded) {
+          tile.classList.add("is-expanded");
+          setActiveTile(tile);
+        }
+      });
+      tile.addEventListener("focus", function () {
+        if (!tile.classList.contains("is-expanded")) {
+          setActiveTile(tile);
+        }
+      });
+    });
 
-  wrapper.addEventListener("mouseleave", function () { setActiveTile(null); });
-  wrapper.addEventListener("focusout", function (event) {
-    if (!wrapper.contains(event.relatedTarget)) {
-      setActiveTile(null);
-    }
-  });
+    wrapper.addEventListener("focusout", function (event) {
+      if (!wrapper.contains(event.relatedTarget)) {
+        clearExpanded();
+      }
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") {
+        clearExpanded();
+      }
+    });
+  } else {
+    tiles.forEach(function (tile) {
+      tile.addEventListener("mouseenter", function () { setActiveTile(tile); });
+      tile.addEventListener("focus", function () { setActiveTile(tile); });
+    });
+
+    wrapper.addEventListener("mouseleave", function () { setActiveTile(null); });
+    wrapper.addEventListener("focusout", function (event) {
+      if (!wrapper.contains(event.relatedTarget)) {
+        setActiveTile(null);
+      }
+    });
+  }
 })();`;
 
 const tilePointerStyles = `
+  .pt-wrapper:has(.pt-element.is-expanded) .pt-element:not(.blank):not(.is-expanded),
   .pt-wrapper:has(.pt-element:not(.blank):hover) .pt-element:not(.blank):not(:hover),
   .pt-wrapper:has(.pt-element:not(.blank):focus-visible) .pt-element:not(.blank):not(:focus-visible),
+  .pt-a11y-grid:has(.pt-a11y-element.is-expanded) .pt-a11y-element:not(.is-expanded),
   .pt-a11y-grid:has(.pt-a11y-element:hover) .pt-a11y-element:not(:hover),
   .pt-a11y-grid:has(.pt-a11y-element:focus-visible) .pt-a11y-element:not(:focus-visible) {
     pointer-events: none;
@@ -439,7 +479,7 @@ const studentStyles = `
     background: #fff;
   }
   body.pt-embed {
-    padding: 8px;
+    padding: 4px 8px;
   }
   .pt-sr-only {
     position: absolute;
@@ -455,13 +495,10 @@ const studentStyles = `
   .pt-embed-bar {
     display: none;
     margin: 0 auto 8px;
-    max-width: 680px;
+    max-width: 960px;
     text-align: center;
     font-size: 0.85rem;
     line-height: 1.4;
-  }
-  body.pt-embed .pt-embed-bar {
-    display: block;
   }
   .pt-embed-bar a {
     color: #003366;
@@ -503,8 +540,22 @@ const studentStyles = `
     display: block;
   }
   button.pt-element:hover,
+  button.pt-element.is-expanded,
   button.pt-element:focus-visible {
     transform: scale(2.8);
+    z-index: 100;
+    box-shadow: 0 10px 14px rgba(0, 0, 0, 0.25);
+    outline: 3px solid #003366;
+    outline-offset: 2px;
+  }
+  body.pt-embed button.pt-element:hover {
+    transform: none;
+    box-shadow: none;
+    outline: none;
+  }
+  body.pt-embed button.pt-element.is-expanded,
+  body.pt-embed button.pt-element:focus-visible {
+    transform: scale(2.4);
     z-index: 100;
     box-shadow: 0 10px 14px rgba(0, 0, 0, 0.25);
     outline: 3px solid #003366;
@@ -514,6 +565,7 @@ const studentStyles = `
   @media (prefers-reduced-motion: reduce) {
     button.pt-element { transition: none; }
     button.pt-element:hover,
+    button.pt-element.is-expanded,
     button.pt-element:focus-visible { transform: none; }
   }
   button.pt-element .number { display: block; font-size: 0.65rem; font-weight: 600; }
@@ -538,19 +590,22 @@ const studentStyles = `
   button.pt-element[data-type="lanthanide"] { background: #ffeac7; }
   button.pt-element[data-type="actinide"] { background: #ffe0d4; }
   body.pt-size-compact .pt-wrapper {
-    grid-template-columns: repeat(18, minmax(26px, 1fr));
-    max-width: 680px;
-    gap: 2px;
-    padding: 4px 8px 12px;
+    grid-template-columns: repeat(18, minmax(38px, 1fr));
+    max-width: 960px;
+    gap: 3px;
+    padding: 2px 4px 4px;
   }
-  body.pt-size-compact .pt-group-num { font-size: 0.62rem; padding: 2px 0; }
-  body.pt-size-compact button.pt-element { padding: 3px 1px; }
-  body.pt-size-compact button.pt-element .number { font-size: 0.45rem; }
-  body.pt-size-compact button.pt-element .symbol { font-size: 0.72rem; }
-  body.pt-size-compact button.pt-element .name { font-size: 0.28rem; }
-  body.pt-size-compact button.pt-element .mass { font-size: 0.34rem; margin-top: 2px; }
-  body.pt-size-compact button.pt-element:hover,
-  body.pt-size-compact button.pt-element:focus-visible { transform: scale(2.5); }
+  body.pt-size-compact .pt-group-num { font-size: 0.7rem; padding: 2px 0; }
+  body.pt-size-compact button.pt-element {
+    padding: 5px 2px;
+    min-height: 36px;
+  }
+  body.pt-size-compact button.pt-element .number { font-size: 0.5rem; }
+  body.pt-size-compact button.pt-element .symbol { font-size: 0.85rem; }
+  body.pt-size-compact button.pt-element .name { font-size: 0.32rem; }
+  body.pt-size-compact button.pt-element .mass { font-size: 0.38rem; margin-top: 2px; }
+  body.pt-size-compact button.pt-element.is-expanded,
+  body.pt-size-compact button.pt-element:focus-visible { transform: scale(2.2); }
   body.pt-size-large .pt-wrapper {
     grid-template-columns: repeat(18, minmax(52px, 1fr));
     max-width: 1200px;
@@ -576,7 +631,7 @@ const studentPage = `<!DOCTYPE html>
 </p>
 <main aria-labelledby="pt-page-title">
 <h1 id="pt-page-title" class="pt-sr-only">Periodic table of the elements</h1>
-<p class="pt-sr-only" id="pt-table-help">Interactive periodic table. Tab between element buttons. Each button announces the element name, symbol, atomic number, atomic mass, and category. Group numbers 1 through 18 are shown above the table.</p>
+<p class="pt-sr-only" id="pt-table-help">Interactive periodic table. Tab between element buttons. Each button announces the element name, symbol, atomic number, atomic mass, and category. Group numbers 1 through 18 are shown above the table. Click an element to enlarge it; click again or press Escape to close.</p>
 <div class="pt-wrapper" role="group" aria-labelledby="pt-page-title" aria-describedby="pt-table-help">
 ${renderGroupNumbersRow()}
 ${gridCells.map(renderStudentGridCell).join("\n")}
@@ -600,27 +655,29 @@ const iframeSnippet = `<!--
 
   COMPACT (default — best for assignments):
     src: ${COMPACT_EMBED_URL}
-    height: 720, max-width: 720px
+    height: 580, max-width: 100%
 
   MEDIUM:
     src: ${HOSTED_URL}?embed=1&size=medium
-    height: 900, max-width: 900px
+    height: 780, max-width: 100%
 
   LARGE:
     src: ${LARGE_TABLE_URL}
-    height: 1100, max-width: 1100px
+    height: 1000, max-width: 100%
 -->
 <p>
   <a href="${LARGE_TABLE_URL}" target="_blank" rel="noopener noreferrer">Open larger periodic table in a new tab</a>
   &nbsp;|&nbsp;
   <a href="${FULL_VERSION_URL}" target="_blank" rel="noopener noreferrer">Accessible version with element list</a>
+  &nbsp;|&nbsp;
+  <span style="font-size: 0.9rem; color: #444;">Click an element to enlarge it</span>
 </p>
 <iframe
   src="${COMPACT_EMBED_URL}"
   title="Periodic table of the elements with group numbers 1 through 18"
   width="100%"
-  height="720"
-  style="border: 1px solid #767676; border-radius: 4px; max-width: 720px; display: block; margin: 0 auto;"
+  height="580"
+  style="border: 1px solid #767676; border-radius: 4px; max-width: 980px; width: 100%; display: block; margin: 0 auto;"
   loading="lazy"
 ></iframe>`;
 
